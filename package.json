@@ -34,7 +34,6 @@
     "xterm": "^2.6.0"
   },
   "scripts": {
-    "postinstall": "npm install --global --production windows-build-tools",
     "start": "electron-rebuild && electron .",
     "compile:watch": "rimraf dist && webpack --watch --progress",
     "compile:build": "rimraf dist && cross-env NODE_ENV=production webpack --progress",
