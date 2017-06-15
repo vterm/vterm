@@ -38,6 +38,6 @@
     "start": "electron-rebuild && electron .",
     "compile:watch": "rimraf dist && webpack --watch --progress",
     "compile:build": "rimraf dist && cross-env NODE_ENV=production webpack --progress",
-    "test": "echo 'No tests yet'"
+    "test": "echo 'No tests yet!'"
   }
 }
