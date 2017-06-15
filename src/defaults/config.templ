@@ -1,0 +1,51 @@
+import { h }    from 'preact'
+import { grey } from 'yat/colors'
+
+export default {
+  // FontSize used in the terminal and its components
+  fontSize: 15,
+
+  // Family of the fonts for the terminal and the UI
+  // Leave it empty for the default fontFamily
+  fontFamily: '',
+
+  // Background of the whole app
+  background: grey[900],
+
+  // The color of the border arround the window
+  // Set to `transparent` to disable
+  borderColor: grey[800],
+
+  // The radius of the window border in pixels
+  // `2` by default following Google's material design guidelines
+  borderRadius: 2,
+
+  // The path to your shell of choise
+  //shell: ''
+
+  // Arguments to launch the shell with
+  //shellArguments: []
+
+  // Additional styling for our elements
+  // Look in the documentation for more examples and detailed selectors
+  //
+  // Example: ( changes tab height )
+  // {
+  //   Tabs: { height: 24 },
+  //   Terminals: { top: 24 }
+  // }
+  styles: {},
+
+  //
+  customElements: {},
+
+  // Custom windowControls styles for some linux distributions
+  // This property can be either an `Object` or a `String`
+  //
+  // For strings we accept: `darwin`(wich stands for MacOs) or `win32`
+  //
+  // For an object you'll want to add custom styles of your titlebar
+  // For your specific operating system
+  // Leave it empty if you are unsure
+  windowControls: ''
+}
