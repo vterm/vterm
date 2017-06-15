@@ -21,18 +21,14 @@ class Store {
 
 const store = window.store = new Store
 
-const updateWidth = () => store.tabsWidth = document.querySelector('.tabs-container').offsetWidth
+const updateWidth = () => {
+  store.tabsWidth   = document.querySelector('.tabs-container').offsetWidth
+  Store.isMaximized = remote.getCurrentWindow().isMaximized()
+}
 
 window.addEventListener('load', updateWidth)
 window.addEventListener('resize', updateWidth)
-remote.getCurrentWindow().on('maximize', () => {
-  console.log('max');
-  store.isMaximized = true
-})
-remote.getCurrentWindow().on('unmaximize', () => {
-  console.log('unmax');
-  store.isMaximized = false
-})
+
 remote.getCurrentWindow().on('focus', () => store.isFocused = true)
 remote.getCurrentWindow().on('blur', () => store.isFocused = false)
 

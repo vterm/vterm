@@ -2,12 +2,14 @@ import { transform } from 'babel-core'
 import { parse } from 'babylon'
 
 import Load from './utils/loader'
-import { config, babelrc } from './paths'
-import { remakeFile, readFileSync, unlinkSync, writeFileSync, doesFileExists, backupFile } from './utils/files'
+import { base, config, babelrc } from './paths'
+import { remakeFile, readFileSync, unlinkSync, writeFileSync, doesFileExists, backupFile, existsSync, mkdirSync } from './utils/files'
 import defaultConfig from './defaults/config'
 import defaultBabelrc from './defaults/.babelrc'
 
 let i = 0
+
+if(!existsSync(base)) mkdirSync(base)
 
 export const getRawConfig  = () => {
   if(!doesFileExists(config)) {
