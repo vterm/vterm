@@ -10,7 +10,7 @@ YAT is a `terminal emulator` written entirely in JavaScript using [`preact`](htt
 
 ***
 
-## Usage
+## Installation
 Sooner you'll be able to download our precompiled binaries from the [`GitHub's releases page`](https://github.com/LucaT1/yat/releases) for your platform of choise, but for now you can only compile the application by yourself, so head over to the [build steps](#build)
 
 ***
@@ -24,6 +24,6 @@ First on `Windows` you'll need to install some build tools from Microsoft in ord
 Then clone the repository to your computer and open a terminal inside that folder.
 Then install the packages with the command `yarn` and compile the app with `yarn run compile:build`. Lastly package it for your OS. Respectively:
 
-MacOS:   `yarn run dist:darwin`
-Windows: `yarn run dist:windows`
-Linux:   `yarn run dist:linux`
+MacOS:   `yarn run dist:darwin`<br>
+Windows: `yarn run dist:windows`<br>
+Linux:   `yarn run dist:linux`<br>
