@@ -2,11 +2,11 @@ import { h, Component }   from 'preact'
 import { observer }       from 'mobx-preact'
 import Store              from '../store'
 
-
 // Import any additional component
 // For our `app UI`
 import { TitleBar }       from './titlebar'
 import { Terminals }      from './terminals'
+import { Notifications }  from './notifications'
 
 // Styles and colors
 import fixedFill          from '../styles/fixedFill'
@@ -33,8 +33,9 @@ export class App extends Component {
     const { elements } = Store
     return(
       <div style={this.getStyles()} className='app'>
-        {elements.TitleBar  ? <Store.elements.TitleBar /> : <TitleBar />}
-        {elements.Terminals ? <elements.Terminals /> : <Terminals />}
+        {elements.TitleBar      ? <Store.elements.TitleBar /> : <TitleBar />}
+        {elements.Terminals     ? <elements.Terminals />      : <Terminals />}
+        {elements.Notifications ? <elements.Notifications />  : <Notifications />}
       </div>
     )
   }
