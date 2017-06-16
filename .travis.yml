@@ -1,15 +1,10 @@
 language: node_js
 node_js: '7.6'
-sudo: require
 dist: trusty
-before_install:
-  - curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
-  - echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
-  - sudo apt-get update
-install:
-  - sudo apt-get install yarn -y
+before_install: yarn global add greenkeeper-lockfile@1
+before_script: greenkeeper-lockfile-update
+after_script: greenkeeper-lockfile-upload
 script:
-  - yarn
   - yarn run test
 deploy:
   provider: releases
