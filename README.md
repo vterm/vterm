@@ -1,4 +1,4 @@
-![](https://github.com/LucaT1/yat/tree/master/screenshots/first.png)
+![](https://github.com/LucaT1/yat/blob/master/screenshots/first.png?raw=true)
 [![Greenkeeper badge](https://badges.greenkeeper.io/LucaT1/yat.svg)](https://greenkeeper.io/)
 [![Build Status](https://travis-ci.org/LucaT1/yat.svg?branch=master)](https://travis-ci.org/LucaT1/yat)
 [![Github All Releases](https://img.shields.io/github/downloads/LucaT1/yat/total.svg)]()
