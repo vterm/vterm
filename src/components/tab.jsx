@@ -56,7 +56,6 @@ export class Tab extends Component {
       tabClose: {
         // Display only if there are 2 or more tabs
         display: (tabs.length > 1) ? 'flex' : 'none',
-        display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
         WebkitAppRegion: 'no-drag',

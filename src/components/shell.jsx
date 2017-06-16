@@ -11,7 +11,7 @@ export class Shell extends Component {
 
   componentDidMount() {
     const shell = (typeof Store.shell == 'string') ? Store.shell : defaultShell
-    const _arguments = (typeof Store.shellArguments == 'Object') ? Store.shellArguments : []
+    const _arguments = Store.shellArguments ? Store.shellArguments : []
 
     this.shell = spawn(shell, _arguments, { env: process.env })
   }
