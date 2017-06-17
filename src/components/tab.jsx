@@ -4,7 +4,6 @@ import { bind } from 'decko'
 import Store from '../store'
 import { selectTab, removeTab } from '../actions/tabs'
 import absoluteFill from '../styles/absoluteFill'
-import { isEmpty } from '../utils/objects'
 import { grey }     from '../styles/colors'
 
 @observer
@@ -24,7 +23,7 @@ export class Tab extends Component {
   }
 
   getStyles() {
-    const tabs              = Store.tabs.filter(isEmpty)
+    const tabs              = Store.tabs.filter(Boolean)
     const width             = Store.tabsWidth / tabs.length
     const id                = this.props.id
     const isSelected        = this.props.selected

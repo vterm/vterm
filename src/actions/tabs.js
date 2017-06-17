@@ -1,5 +1,4 @@
 import Store from '../store'
-import { isEmpty } from '../utils/objects'
 
 export const createTab = ({ title, content } = {}) => {
   let Tab = {
@@ -22,7 +21,7 @@ export const selectTab = (item) => {
 
 }
 
-export const getLatestTab = () => Store.tabs.filter(isEmpty)[ Store.tabs.filter(isEmpty).length - 1 ]
+export const getLatestTab = () => Store.tabs.filter(Boolean)[ Store.tabs.filter(Boolean).length - 1 ]
 
 export const removeTab = (item) => {
 

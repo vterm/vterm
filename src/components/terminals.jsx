@@ -3,7 +3,6 @@ import { observer }       from 'mobx-preact'
 import { bind }         from 'decko'
 import Store            from '../store'
 import { getTabId }     from '../actions/tabs'
-import { isEmpty }      from '../utils/objects'
 
 import { Terminal }     from './terminal'
 
@@ -24,7 +23,7 @@ export class Terminals extends Component {
     return(
       <div style={this.getStyles()} className='terminals-container'>
         { // Ignore undefined objects with filter(undefined == removed)
-          Store.tabs.filter(isEmpty).map( item => {
+          Store.tabs.filter(Boolean).map( item => {
           const id = getTabId(item)
           const uid = item.uid
           const selected = id === Store.selectedTab
