@@ -23,7 +23,7 @@ export class App extends Component {
       ...fixedFill,
       background: Store.config.background || grey[900],
       border: Store.isFocused ? onFocusedBorder : onUnfocusedBorder,
-      borderRadius: Store.config.borderRadius || 2,
+      borderRadius: Store.isMaximized ? (Store.config.borderRadius || 2) : 0,
       fontFamily: Store.config.fontFamily || DEFAULT_FONT,
       fontSize: Store.config.fontSize || 15
     }
