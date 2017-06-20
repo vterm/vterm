@@ -36,7 +36,9 @@ export class Terminal extends Component {
     let { cursorBlink, cursorStyle } = Store.config
 
     this.Terminal = new XTerminal({ cursorBlink, cursorStyle })
-    console.log(this.Terminal);
+
+    // Setup events listeners
+    // TODO: Event listener on resize
     this.Terminal.on('open', this.onTerminalOpen)
     this.Terminal.on('title', this.onShellTitle)
 
