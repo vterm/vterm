@@ -1,5 +1,6 @@
 import { h, Component } from 'preact'
 import { bind }         from 'decko'
+import { observer }     from 'mobx-preact'
 
 // XTerm.js imports
 import XTerminal        from 'xterm'
@@ -13,6 +14,7 @@ import { removeTab }    from '../actions/tabs'
 import { isEmpty, isBlank } from '../utils/strings'
 import { grey } from '../styles/colors'
 
+@observer
 export class Terminal extends Component {
   //
   // Lifecycle
@@ -29,7 +31,12 @@ export class Terminal extends Component {
   createTerminal() {
     // Create the terminal and setup event hooks
     XTerminal.loadAddon('fit')
-    this.Terminal = new XTerminal()
+
+    // Take out values from config
+    let { cursorBlink, cursorStyle } = Store.config
+
+    this.Terminal = new XTerminal({ cursorBlink, cursorStyle })
+    console.log(this.Terminal);
     this.Terminal.on('open', this.onTerminalOpen)
     this.Terminal.on('title', this.onShellTitle)
 
