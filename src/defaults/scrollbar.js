@@ -1,12 +1,7 @@
 import Store from '../store'
-import { grey } from './colors'
+import { grey } from '../styles/colors'
 
 export default `
-  .terminal,
-  .terminal .xterm-viewport {
-    background: transparent;
-  }
-
   .terminal ::-webkit-scrollbar {
     width: 6px !important;
   }
@@ -19,6 +14,4 @@ export default `
     background-color: ${Store.config.primaryColor || grey[500] } !important;
     border-radius: 2px;
   }
-
-  * { transition: border .1s }
 `

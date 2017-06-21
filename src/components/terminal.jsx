@@ -2,9 +2,8 @@ import { h, Component } from 'preact'
 import { bind }         from 'decko'
 import { observer }     from 'mobx-preact'
 
-// XTerm.js imports
+// XTerm.js import
 import XTerminal        from 'xterm'
-import styles           from 'xterm/dist/xterm.css'
 
 // Styles and components
 import absoluteFill     from '../styles/absoluteFill'
@@ -14,7 +13,6 @@ import { removeTab }    from '../actions/tabs'
 import { isEmpty, isBlank } from '../utils/strings'
 import { grey } from '../styles/colors'
 
-@observer
 export class Terminal extends Component {
   //
   // Lifecycle
@@ -34,7 +32,7 @@ export class Terminal extends Component {
 
     // Take out values from config
     let { cursorBlink, cursorStyle } = Store.config
-
+    console.log({ cursorBlink, cursorStyle });
     this.Terminal = new XTerminal({ cursorBlink, cursorStyle })
 
     // Setup events listeners
@@ -68,6 +66,11 @@ export class Terminal extends Component {
     this.Terminal.on('resize', this.onTerminalResize)
     this.Terminal.element.querySelector('.xterm-viewport').style.overflow = 'auto'
     this.Terminal.element.querySelector('.xterm-viewport').style.overflowX = 'hidden'
+
+    // These are a conky fix for the moment
+    // Because <style /> overrides doesn't work
+    this.Terminal.element.querySelector('.xterm-viewport').style.background = 'transparent'
+    this.Terminal.element.style.background = 'transparent'
   }
 
   //
