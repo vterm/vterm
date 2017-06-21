@@ -25,7 +25,8 @@ export class App extends Component {
       border: Store.isFocused ? onFocusedBorder : onUnfocusedBorder,
       borderRadius: Store.isMaximized ? (Store.config.borderRadius || 2) : 0,
       fontFamily: Store.config.fontFamily || DEFAULT_FONT,
-      fontSize: Store.config.fontSize || 15
+      fontSize: Store.config.fontSize || 15,
+      ...(Store.config.styles.App || {})
     }
   }
 
