@@ -22,10 +22,6 @@ let config = {
 				loader: 'babel-loader'
 			},
 			{
-				test: /\.css$/,
-				loaders: [ 'style-loader', 'css-loader' ]
-			},
-			{
 				test: /\.templ/,
 				loader: 'raw-loader'
 			}

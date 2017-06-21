@@ -18,7 +18,6 @@
     "babel-preset-stage-0": "^6.24.1",
     "babel-standalone": "^6.24.2",
     "cross-env": "^5.0.1",
-    "css-loader": "^0.28.3",
     "decko": "^1.2.0",
     "default-shell": "^1.0.1",
     "electron-rebuild": "^1.5.11",
@@ -29,7 +28,6 @@
     "preact": "^8.1.0",
     "raw-loader": "^0.5.1",
     "rimraf": "^2.6.1",
-    "style-loader": "^0.18.1",
     "webpack": "^2.6.1",
     "xterm": "^2.6.0"
   },
