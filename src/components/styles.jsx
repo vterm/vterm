@@ -3,7 +3,7 @@ import { observer }     from 'mobx-preact'
 import Store            from '../store'
 
 // Styles
-import xterm            from 'xterm/dist/xterm.css'
+import xterm            from '../defaults/xterm'
 import scrollbars       from '../defaults/scrollbar'
 
 export const getPalette = (Arr) => {
@@ -56,19 +56,15 @@ export class Styles extends Component {
      * Here we're going to merge some default and some user-selected styles
      * This is the current list:
      * - webkit custom scrollbars
-     * - xterm overrides
-     * - 16bit terminal colors(either custom or default)
+     * - xterm default css(without 256-ansi colors)
+     * - 16bit[extensible to 256] terminal colors(either custom or default)
      * - custom user selected styles wich can me edited by plugins
      */
     return <style dangerouslySetInnerHTML={{__html: `
+    ${xterm}
+
     // Scrollbars
     ${scrollbars}
-
-    // Overrides [NOT WORKING]
-    .terminal,
-    .terminal .xterm-viewport {
-      background-color: transparent;
-    }
 
     // Custom color palette for the terminal
     ${getPalette(terminalColors)}

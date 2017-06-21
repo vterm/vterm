@@ -32,13 +32,10 @@ export class Terminal extends Component {
 
     // Take out values from config
     let { cursorBlink, cursorStyle } = Store.config
-    console.log({ cursorBlink, cursorStyle });
-    this.Terminal = new XTerminal({ cursorBlink, cursorStyle })
 
-    // Setup events listeners
-    // TODO: Event listener on resize
+
+    this.Terminal = new XTerminal({ cursorBlink, cursorStyle })
     this.Terminal.on('open', this.onTerminalOpen)
-    this.Terminal.on('title', this.onShellTitle)
 
     // Window Events listeners
     window.addEventListener('resize', this.onWindowResize)
@@ -63,14 +60,9 @@ export class Terminal extends Component {
 
   setUpTerminal() {
     this.Terminal.on('data', this.onTerminalData)
+    // TODO: On resize display the new size of the terminal
     this.Terminal.on('resize', this.onTerminalResize)
-    this.Terminal.element.querySelector('.xterm-viewport').style.overflow = 'auto'
-    this.Terminal.element.querySelector('.xterm-viewport').style.overflowX = 'hidden'
-
-    // These are a conky fix for the moment
-    // Because <style /> overrides doesn't work
-    this.Terminal.element.querySelector('.xterm-viewport').style.background = 'transparent'
-    this.Terminal.element.style.background = 'transparent'
+    this.Terminal.on('title', this.onShellTitle)
   }
 
   //
