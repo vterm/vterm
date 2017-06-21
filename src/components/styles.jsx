@@ -55,8 +55,9 @@ export class Styles extends Component {
     /*
      * Here we're going to merge some default and some user-selected styles
      * This is the current list:
-     * - webkit custom scrollbars
      * - xterm default css(without 256-ansi colors)
+     * - webkit custom scrollbars
+     * - global transition
      * - 16bit[extensible to 256] terminal colors(either custom or default)
      * - custom user selected styles wich can me edited by plugins
      */
@@ -65,6 +66,9 @@ export class Styles extends Component {
 
     // Scrollbars
     ${scrollbars}
+
+    // Globlal transitions
+    * { transition: border .1s }
 
     // Custom color palette for the terminal
     ${getPalette(terminalColors)}
