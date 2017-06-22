@@ -34,8 +34,8 @@ export class App extends Component {
     const { elements } = Store
     return(
       <div style={this.getStyles()} className='app'>
-        {elements.TitleBar      ? <Store.elements.TitleBar /> : <TitleBar />}
-        {elements.Terminals     ? <elements.Terminals />      : <Terminals />}
+        {elements.TitleBar      ? <elements.TitleBar />       : <TitleBar />     }
+        {elements.Terminals     ? <elements.Terminals />      : <Terminals />    }
         {elements.Notifications ? <elements.Notifications />  : <Notifications />}
       </div>
     )
