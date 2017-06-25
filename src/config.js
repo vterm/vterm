@@ -1,6 +1,6 @@
 import Load from './utils/loader'
 import { base, config } from './paths'
-import { doesFileExist, existsSync, mkdirSync, remakeFile, backupFile } from './utils/files'
+import { doesFileExist, existsSync, mkdirSync, remakeFile, backupFile, readFileSync } from './utils/files'
 import defaultConfig from './defaults/config'
 
 if(!existsSync(base))      mkdirSync(base)
@@ -16,7 +16,7 @@ export const loadConfig = () => {
 
     // Create a copy of the old file
     // And recreate it from the default config
-    backupFile(config)
+    backupFile(config, readFileSync(config))
     remakeFile(config, defaultConfig)
 
     // Lastly load the config again
