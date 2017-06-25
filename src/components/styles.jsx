@@ -61,7 +61,7 @@ export class Styles extends Component {
      * - 16bit[extensible to 256] terminal colors(either custom or default)
      * - custom user selected styles wich can me edited by plugins
      */
-    return <style dangerouslySetInnerHTML={{__html: `
+    const blob = new Blob([`
     ${xterm}
 
     // Scrollbars
@@ -78,6 +78,9 @@ export class Styles extends Component {
      * This could be edited by some of your plugins
      */
     ${customCss}
-    `}} />
+    `], { type: 'text/css'})
+    const url = URL.createObjectURL(blob)
+
+    return <link rel='stylesheet' href={url} />
   }
 }
