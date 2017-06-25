@@ -7,7 +7,7 @@ export const remakeFile = (filepath, data) => {
   })
 }
 
-export const doesFileExists = filepath =>
+export const doesFileExist = filepath =>
   existsSync(filepath) &&
   readFileSync(filepath) != ''
 
