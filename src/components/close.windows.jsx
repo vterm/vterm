@@ -1,8 +1,10 @@
 import { h, Component }   from 'preact'
+import { observer }       from 'mobx-preact'
 import { bind }           from 'decko'
 import { close }          from '../actions/window'
 import Store              from '../store'
 
+@observer
 export class WindowsClose extends Component {
   constructor(props, context) {
     super(props, context)
@@ -22,7 +24,7 @@ export class WindowsClose extends Component {
       userSelect: 'none',
       WebkitAppRegion: 'no-drag',
       cursor: 'default',
-      width: '46px',
+      width: 46,
       height: '100%',
       display: 'flex',
       justifyContent: 'center',
@@ -30,7 +32,7 @@ export class WindowsClose extends Component {
       transition: 'background .1s',
       background: this.state.background,
       float: 'right',
-      borderTopRightRadius: Store.config.borderRadius || 2
+      borderTopRightRadius: !Store.isMaximized ? (Store.config.borderRadius || 2) : 0
     }
   }
 

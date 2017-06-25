@@ -32,7 +32,7 @@ const updateWidth = () => {
 window.addEventListener('load', updateWidth)
 window.addEventListener('resize', updateWidth)
 
-remote.getCurrentWindow().on('focus', () => store.isFocused = true)
-remote.getCurrentWindow().on('blur', () => store.isFocused = false)
+remote.getCurrentWindow().on('focus',      () => store.isFocused = true)
+remote.getCurrentWindow().on('blur',       () => store.isFocused = false)
 
 export default store

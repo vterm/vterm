@@ -22,7 +22,7 @@ export class WindowsMinimize extends Component {
       userSelect: 'none',
       WebkitAppRegion: 'no-drag',
       cursor: 'default',
-      width: '46px',
+      width: 46,
       height: '100%',
       display: 'flex',
       justifyContent: 'center',
