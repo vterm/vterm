@@ -1,6 +1,6 @@
 {
   "name": "yat",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Yet Another Terminal, a `terminal emulator` written with the web languages of the future. Today.",
   "main": "main.js",
   "author": "LucaT <fromzeroluke1@gmail.com>",
@@ -32,38 +32,53 @@
     "raw-loader": "^0.5.1",
     "rimraf": "^2.6.1",
     "webpack": "^2.6.1",
-    "xterm": "^2.6.0"
+    "xterm": "^2.6.0",
+    "yarn": "^0.24.5"
   },
   "scripts": {
     "postinstall": "electron-builder install-app-deps",
     "start": "electron-rebuild && cross-env NODE_ENV=development electron .",
     "compile:watch": "rimraf dist && webpack --watch --progress",
     "compile:build": "rimraf dist && cross-env NODE_ENV=production webpack --progress",
+    "publish-ci": "node scripts/publish-ci",
     "build:win32": "yarn run compile:build && electron-builder -w",
     "build:darwin": "yarn run compile:build && electron-builder -m",
     "build:linux": "yarn run compile:build && electron-builder -l",
-    "build:all": "yarn run compile:build && electron-builder -wml",
+    "build:win32:p": "yarn run compile:build && electron-builder -w -p 'onTagOrDraft'",
+    "build:darwin:p": "yarn run compile:build && electron-builder -m -p 'onTagOrDraft'",
+    "build:linux:p": "yarn run compile:build && electron-builder -l -p 'onTagOrDraft'",
     "test": "echo 'No tests yet!'"
   },
   "build": {
     "appId": "org.lucat.yat",
     "productName": "yat",
     "asar": true,
-    "directories": { "output": "build" },
+    "directories": {
+      "output": "build"
+    },
     "linux": {
       "target": [
         {
           "target": "deb",
-          "arch": ["ia32", "x64"]
+          "arch": [
+            "ia32",
+            "x64"
+          ]
         },
         {
           "target": "AppImage",
-          "arch": ["ia32", "x64"]
+          "arch": [
+            "ia32",
+            "x64"
+          ]
         }
       ]
     },
     "win": {
-      "target": ["zip", "nsis"]
+      "target": [
+        "zip",
+        "nsis"
+      ]
     },
     "mac": {
       "category": "public.app-category.developer-tools"
