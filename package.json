@@ -6,7 +6,6 @@
   "author": "LucaT <fromzeroluke1@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "electron": "^1.6.10",
     "ptyw.js": "^0.4.1"
   },
   "devDependencies": {
@@ -22,6 +21,8 @@
     "cross-env": "^5.0.1",
     "decko": "^1.2.0",
     "default-shell": "^1.0.1",
+    "electron": "^1.6.10",
+    "electron-builder": "^19.8.0",
     "electron-rebuild": "^1.5.11",
     "html-webpack-plugin": "^2.28.0",
     "mobx": "^3.1.14",
@@ -34,9 +35,38 @@
     "xterm": "^2.6.0"
   },
   "scripts": {
+    "postinstall": "electron-builder install-app-deps",
     "start": "electron-rebuild && cross-env NODE_ENV=development electron .",
     "compile:watch": "rimraf dist && webpack --watch --progress",
     "compile:build": "rimraf dist && cross-env NODE_ENV=production webpack --progress",
+    "build:win32": "yarn run compile:build && electron-builder -w",
+    "build:darwin": "yarn run compile:build && electron-builder -m",
+    "build:linux": "yarn run compile:build && electron-builder -l",
+    "build:all": "yarn run compile:build && electron-builder -wml",
     "test": "echo 'No tests yet!'"
+  },
+  "build": {
+    "appId": "org.lucat.yat",
+    "productName": "yat",
+    "asar": true,
+    "directories": { "output": "build" },
+    "linux": {
+      "target": [
+        {
+          "target": "deb",
+          "arch": ["ia32", "x64"]
+        },
+        {
+          "target": "AppImage",
+          "arch": ["ia32", "x64"]
+        }
+      ]
+    },
+    "win": {
+      "target": ["zip", "nsis"]
+    },
+    "mac": {
+      "category": "public.app-category.developer-tools"
+    }
   }
 }
