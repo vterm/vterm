@@ -19,7 +19,10 @@ export class Tabs extends Component {
 
   render() {
     return(
-      <div ref={(e) => this.parent = e} style={this.getStyles()} className='tabs-container'>
+      <div
+        _selected={Store.selectedTab}
+        style={this.getStyles()}
+        className='tabs-container'>
         { // Ignore undefined objects with filter(undefined == removed)
           Store.tabs.filter(Boolean).map( item => {
           const id = getTabId(item)

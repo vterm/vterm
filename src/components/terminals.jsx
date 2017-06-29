@@ -23,11 +23,14 @@ export class Terminals extends Component {
 
   render() {
     return(
-      <div style={this.getStyles()} className='terminals-container'>
+      <div
+        _selected={Store.selectedTab}
+        style={this.getStyles()}
+        className='terminals-container'>
         <Styles />
         { // Ignore undefined objects with filter(undefined == removed)
           Store.tabs.filter(Boolean).map( item => {
-          const id = getTabId(item)
+          const id = item.id
           const uid = item.uid
           const selected = id === Store.selectedTab
 
