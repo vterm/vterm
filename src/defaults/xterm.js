@@ -1,3 +1,8 @@
+import Store from '../store'
+import { grey } from '../styles/colors'
+
+const { cursorColor, primaryColor } = Store.config
+
 export default `
 .terminal {
     background-color: transparent;
@@ -50,12 +55,12 @@ export default `
 }
 
 .terminal.focus:not(.xterm-cursor-style-underline):not(.xterm-cursor-style-bar) .terminal-cursor {
-    background-color: #fff;
+    background-color: ${cursorColor || primaryColor || grey[500]};
     color: #000;
 }
 
 .terminal:not(.focus) .terminal-cursor {
-    outline: 1px solid #fff;
+    outline: 1px solid ${cursorColor || primaryColor || grey[500]};
     outline-offset: -1px;
     background-color: transparent;
 }
@@ -74,13 +79,13 @@ export default `
     content: "";
     display: block;
     position: absolute;
-    background-color: #fff;
+    background-color: ${cursorColor || primaryColor || grey[500]};
 }
-.terminal.xterm-cursor-style-bar .terminal-cursor::before {
+.terminal.focus.xterm-cursor-style-bar .terminal-cursor::before {
     top: 0;
     bottom: 0;
     left: 0;
-    width: 1px;
+    width: 3px;
 }
 .terminal.xterm-cursor-style-underline .terminal-cursor::before {
     bottom: 0;
@@ -94,7 +99,7 @@ export default `
 }
 .terminal.xterm-cursor-style-bar.focus.xterm-cursor-blink .terminal-cursor::before,
 .terminal.xterm-cursor-style-underline.focus.xterm-cursor-blink .terminal-cursor::before {
-    background-color: #fff;
+    background-color: ${cursorColor || primaryColor || grey[500]};
 }
 
 .terminal .composition-view {

@@ -31,8 +31,7 @@ export class Terminal extends Component {
     XTerminal.loadAddon('fit')
 
     // Take out values from config
-    let { cursorBlink, cursorStyle } = Store.config
-
+    const { cursorBlink, cursorStyle } = Store.config
 
     this.Terminal = new XTerminal({ cursorBlink, cursorStyle })
     this.Terminal.on('open', this.onTerminalOpen)
@@ -59,10 +58,15 @@ export class Terminal extends Component {
   }
 
   setUpTerminal() {
+    const { cursorStyle } = Store.config
+
     this.Terminal.on('data', this.onTerminalData)
     // TODO: On resize display the new size of the terminal
     this.Terminal.on('resize', this.onTerminalResize)
     this.Terminal.on('title', this.onShellTitle)
+
+    // Temporary fix for custor-style not applied by xterm.js
+    this.Terminal.element.classList.add(`xterm-cursor-style-${cursorStyle}`)
   }
 
   //
