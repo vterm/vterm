@@ -3,7 +3,7 @@ node_js: '7.6'
 sudo: enabled
 dist: trusty
 before_install:
-  - sudo apt install libc6-dev-i386
+  - sudo apt install libc6-dev-i386 gcc-4.8-multilib g++-4.8-multilib
   - yarn global add greenkeeper-lockfile@1
 before_script: greenkeeper-lockfile-update
 after_script: greenkeeper-lockfile-upload
