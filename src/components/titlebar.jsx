@@ -7,6 +7,7 @@ import { Tabs }           from './tabs'
 import { WindowControls } from './windowControls'
 import { CreateTab }      from './createtab'
 import { grey }           from '../styles/colors'
+import Color              from 'color'
 
 // Utils
 import { platform }       from 'os'
@@ -14,25 +15,26 @@ import { platform }       from 'os'
 @observer
 export class TitleBar extends Component {
   getStyles() {
-    const _platform         = Store.config.windowControls ? Store.config.windowControls : platform()
-    const onFocusedBorder   = `1px solid ${Store.config.borderColor || grey[800]}`
-    const onUnfocusedBorder = '1px solid transparent'
+    const _platform = Store.config.windowControls ? Store.config.windowControls : platform()
 
-    let style               = {
+    let style       = {
       width: '100%',
       height: 32,
-      borderBottom: Store.isFocused ? onFocusedBorder : onUnfocusedBorder
+      background: Color(Store.config.background || grey[900]).darken(.25).hex()
     }
 
     // In case we are using custom styles
-    // For some linux distros for example
+    // In some linux distros for example
     if(_platform == Object) style = platform
 
     return style
   }
 
   render() {
-    const _platform = Store.config.windowControls ? Store.config.windowControls : platform()
+    let _platform = Store.config.windowControls ? Store.config.windowControls : platform()
+
+    if(_platform == Object) _platform = 'linux'
+
     return(
       <div className='titlebar' style={this.getStyles()}>
         {Store.elements.WindowControls

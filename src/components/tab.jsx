@@ -28,9 +28,6 @@ export class Tab extends Component {
     const id                = this.props.id
     const isSelected        = this.props.selected
     const isntFirstTab      = this.props.id !== tabs[0].id
-    const onFocusedBorder   = `1px solid ${Store.config.borderColor || grey[800]}`
-    const onUnfocusedBorder = '1px solid transparent'
-    const hasBorder         = (Store.isFocused && tabs.length >= 1 && isntFirstTab)
 
     return {
       height: 32,
@@ -41,7 +38,6 @@ export class Tab extends Component {
       userSelect: 'none',
       justifyContent: 'space-between',
       alignItems: 'center',
-      borderLeft: hasBorder ? onFocusedBorder : onUnfocusedBorder,
 
       tabName: {
         cursor: 'pointer',

@@ -1,17 +1,10 @@
 import { h, Component }   from 'preact'
-import { observer }       from 'mobx-preact'
-import Store              from '../store'
 
 import { createTab }      from '../actions/tabs'
 import { grey }           from '../styles/colors'
 
-
-@observer
 export class CreateTab extends Component {
   getStyles(platform) {
-    const onFocusedBorder = `1px solid ${Store.config.borderColor || grey[800]}`
-    const onUnfocusedBorder = '1px solid transparent'
-
     return {
       userSelect: 'none',
       WebkitAppRegion: 'no-drag',
@@ -21,8 +14,7 @@ export class CreateTab extends Component {
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',
-      float: platform =='darwin' ? 'right' : 'left',
-      borderRight: Store.isFocused ? onFocusedBorder : onUnfocusedBorder
+      float: platform =='darwin' ? 'right' : 'left'
     }
   }
 
