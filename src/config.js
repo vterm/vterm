@@ -24,6 +24,6 @@ export const loadConfig = () => {
     // Lastly load the config again
     _config = Load(config)
   } finally {
-    return { ...baseConfig, _config }
+    return { ...baseConfig, ..._config }
   }
 }

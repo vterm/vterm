@@ -2,7 +2,7 @@ import { h, Component } from 'preact'
 import { spawn }        from 'ptyw.js'
 import { bind }         from 'decko'
 import Store            from '../store'
-import defaultShell        from 'default-shell'
+import defaultShell     from 'default-shell'
 
 export class Shell extends Component {
   constructor(props, context) {
