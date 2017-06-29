@@ -2,11 +2,11 @@ import { h, Component }   from 'preact'
 import { observer }       from 'mobx-preact'
 import Store              from '../store'
 
-// Import any additional component
-// For our `app UI`
+// Components and styles
 import { Tabs }           from './tabs'
 import { WindowControls } from './windowControls'
 import { CreateTab }      from './createtab'
+import { grey }           from '../styles/colors'
 
 // Utils
 import { platform }       from 'os'

@@ -3,6 +3,8 @@ import { observer }       from 'mobx-preact'
 import Store              from '../store'
 
 import { createTab }      from '../actions/tabs'
+import { grey }           from '../styles/colors'
+
 
 @observer
 export class CreateTab extends Component {

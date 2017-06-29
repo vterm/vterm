@@ -6,6 +6,8 @@ import defaultConfig from './defaults/config'
 if(!existsSync(base))      mkdirSync(base)
 if(!doesFileExist(config)) remakeFile(config, defaultConfig)
 
+export const baseConfig = { styles: {} }
+
 export const loadConfig = () => {
   let _config
   try {
@@ -22,6 +24,6 @@ export const loadConfig = () => {
     // Lastly load the config again
     _config = Load(config)
   } finally {
-    return _config
+    return { ...baseConfig, _config }
   }
 }
