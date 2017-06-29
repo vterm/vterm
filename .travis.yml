@@ -1,7 +1,10 @@
 language: node_js
 node_js: '7.6'
+sudo: enabled
 dist: trusty
-before_install: yarn global add greenkeeper-lockfile@1
+before_install:
+  - sudo apt install libc6-dev-i386
+  - yarn global add greenkeeper-lockfile@1
 before_script: greenkeeper-lockfile-update
 after_script: greenkeeper-lockfile-upload
 script:
