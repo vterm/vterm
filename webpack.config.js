@@ -1,5 +1,6 @@
 const webpack           = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const BabiliPlugin      = require("babili-webpack-plugin")
 const { join }          = require('path')
 
 let config = {
@@ -48,7 +49,7 @@ let config = {
 }
 
 if(process.env.NODE_ENV == 'production') {
-	config.plugins.push(new webpack.optimize.UglifyJsPlugin())
+	config.plugins.push(new BabiliPlugin())
 } else {
 	config.externals['babel-core'] = 'commonjs babel-core'
 	config.externals['babylon']    = 'commonjs babylon'
