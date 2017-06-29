@@ -32,6 +32,6 @@ export const removeTab = (item) => {
   }
 
   // Select lastest tab ONLY IF this was the latest
-  setTimeout( () => selectTab(getLatestTab()), 10)
+  setTimeout(() => selectTab(getLatestTab()), 10)
 
 }

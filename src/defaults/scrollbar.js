@@ -2,16 +2,13 @@ import Store from '../store'
 import { grey } from '../styles/colors'
 
 export default `
-  .terminal ::-webkit-scrollbar {
-    width: 6px !important;
+  div::-webkit-scrollbar-track {
+    background: ${Store.config.primaryColor || grey[500] };
   }
 
-  .terminal ::-webkit-scrollbar-button {
-    display: none !important;
-  }
+  div::-webkit-scrollbar { width: 4px; }
 
-  .terminal ::-webkit-scrollbar-thumb {
-    background-color: ${Store.config.primaryColor || grey[500] } !important;
-    border-radius: 2px;
+  div::-webkit-scrollbar-thumb {
+  	background: ${Store.config.primaryColor || grey[500] };
   }
 `
