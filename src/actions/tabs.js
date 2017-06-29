@@ -32,12 +32,6 @@ export const removeTab = (item) => {
   }
 
   // Select lastest tab ONLY IF this was the latest
-  // NOT WORKING
-  Store.selectedTab = getLatestTab().id
-
+  setTimeout( () => selectTab(getLatestTab()), 10)
 
 }
-
-window.createTab = createTab
-window.selectTab = selectTab
-window.removeTab = removeTab
