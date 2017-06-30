@@ -2,8 +2,17 @@ language: node_js
 node_js: '7.6'
 sudo: enabled
 dist: trusty
+os:
+  - linux
+  - osx
+addons:
+  apt:
+    packages:
+      - libc6-dev-i386
+      - gcc-4.8-multilib
+      - g++-4.8-multilib
+
 before_install:
-  - sudo apt install libc6-dev-i386 gcc-4.8-multilib g++-4.8-multilib
   - yarn global add greenkeeper-lockfile@1
 before_script: greenkeeper-lockfile-update
 after_script: greenkeeper-lockfile-upload
