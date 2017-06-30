@@ -1,6 +1,7 @@
 ![](https://github.com/LucaT1/yat/blob/master/screenshots/first.png?raw=true)
 [![Greenkeeper badge](https://badges.greenkeeper.io/LucaT1/yat.svg)](https://greenkeeper.io/)
-[![Build Status](https://travis-ci.org/LucaT1/yat.svg?branch=master)](https://travis-ci.org/LucaT1/yat)
+[![Travis Status](https://travis-ci.org/LucaT1/yat.svg?branch=master)](https://travis-ci.org/LucaT1/yat)
+[![AppVeyor status](https://ci.appveyor.com/api/projects/status/github/LucaT1/yat?branch=master&svg=true)
 [![Github All Releases](https://img.shields.io/github/downloads/LucaT1/yat/total.svg)]()
 
 ***
