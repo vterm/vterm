@@ -9,5 +9,3 @@ before_script: greenkeeper-lockfile-update
 after_script: greenkeeper-lockfile-upload
 script:
   - yarn run publish-ci
-env:
-  - GH_TOKEN: d46076fda447410a02e34af880b794b5b655f53c
