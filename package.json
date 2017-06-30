@@ -51,7 +51,6 @@
     "appId": "org.lucat.yat",
     "productName": "yat",
     "asar": true,
-    "category": "public.app-category.developer-tools",
     "directories": {
       "output": "build"
     },
@@ -85,6 +84,9 @@
         "zip",
         "nsis"
       ]
+    },
+    "mac": {
+      "category": "public.app-category.developer-tools"
     }
   }
 }
