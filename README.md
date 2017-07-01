@@ -12,19 +12,20 @@ YAT is a `terminal emulator` written entirely in JavaScript using [`preact`](htt
 ***
 
 ## Installation
-Sooner you'll be able to download our precompiled binaries from the [`GitHub's releases page`](https://github.com/LucaT1/yat/releases) for your platform of choice, but for now, you can only compile the application by yourself, so head over to the [build steps](#build)
+You can dowload our prebuilt binaries in the [`GitHub's releases page`](https://github.com/LucaT1/yat/releases) for your platform of choice. Tough keep in mind that these are some of the first releases, and the application state is not yet stable, so you may find some bugs and breakdowns: we'd like you to report these in the [`GitHub's issues page`](https://github.com/LucaT1/yat/issues)!
 
 ***
 
 ## Build
 **DISCLAIMER**: All the process shown here uses [`yarn`](https://yarnpkg.com), and although all these commands can be run with npm, we highly recommend using yarn.
 
-First, on `Windows` you'll have to install some build tools from Microsoft in order to build [`ptyw.js`](https://github.com/iiegor/ptyw.js/tree/master), so let's install them:
+First, on `Windows` you'll have to install some build tools from Microsoft in order to compile successfully [`ptyw.js`](https://github.com/iiegor/ptyw.js/tree/master) with the command:
 `$ yarn global add windows-build-tools`
 
 Then clone the repository to your computer and open a terminal inside that folder.
 Then install the packages with the command `yarn` and compile the app with `yarn run compile:build`. Lastly, package it for your OS. Respectively:
 
-MacOS:   `yarn run dist:darwin`<br>
-Windows: `yarn run dist:windows`<br>
-Linux:   `yarn run dist:linux`<br>
+MacOS:   `$ yarn run build:darwin`<br>
+Windows: `$ yarn run build:win32`<br>
+Linux:   `$ yarn run build:linux`<br>
+
