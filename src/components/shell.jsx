@@ -1,5 +1,5 @@
 import { h, Component } from 'preact'
-import { spawn }        from 'ptyw.js'
+import { spawn }        from 'node-pty'
 import { bind }         from 'decko'
 import Store            from '../store'
 import defaultShell     from 'default-shell'
@@ -11,9 +11,10 @@ export class Shell extends Component {
 
   componentDidMount() {
     const shell = (typeof Store.shell == 'string') ? Store.shell : defaultShell
-    const _arguments = Store.shellArguments ? Store.shellArguments : []
+    const _arguments = Store.shellArguments ? Store.shellArguments.peek() : []
+    const options = { name: 'xterm-color', env: process.env }
 
-    this.shell = spawn(shell, _arguments, { env: process.env })
+    this.shell = spawn(shell, _arguments, options)
   }
 
   @bind

@@ -6,7 +6,7 @@
   "author": "LucaT <fromzeroluke1@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "ptyw.js": "^0.4.1"
+    "node-pty": "0.6.6"
   },
   "devDependencies": {
     "babel-core": "^6.24.1",

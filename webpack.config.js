@@ -30,7 +30,7 @@ let config = {
 	},
 
 	externals: {
-		'ptyw.js': 'commonjs ptyw.js'
+		'node-pty': 'commonjs node-pty'
 	},
 
 	plugins: [
