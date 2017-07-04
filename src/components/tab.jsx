@@ -8,23 +8,14 @@ import { grey }     from '../styles/colors'
 
 @observer
 export class Tab extends Component {
-  @bind
-  focus(e) {
-    e.preventDefault()
-
-    selectTab(this.props.id)
-  }
-
-  @bind
-  close(e) {
-    e.preventDefault()
-
-    removeTab(this.props.id)
+  state = {
+    hover: false
   }
 
   getStyles() {
-    const length            = Store.tabs.filter(Boolean).length
-    const isSelected        = this.props.selected
+    const length     = Store.tabs.filter(Boolean).length
+    const isSelected = this.props.selected
+    const { hover }  = this.state
 
     return {
       height: 32,
@@ -46,7 +37,8 @@ export class Tab extends Component {
 
       tabClose: {
         // Display only if there are 2 or more tabs
-        display: (length > 1) ? 'flex' : 'none',
+        // AND only if the mouse is hover that specific tab
+        display: (length > 1 && hover) ? 'flex' : 'none',
         justifyContent: 'center',
         alignItems: 'center',
         WebkitAppRegion: 'no-drag',
@@ -55,6 +47,26 @@ export class Tab extends Component {
         marginRight: 8
       }
     }
+  }
+
+  @bind
+  focus() {
+    selectTab(this.props.id)
+  }
+
+  @bind
+  close() {
+    removeTab(this.props.id)
+  }
+
+  @bind
+  onMouseEnter() {
+    this.setState({ hover: true })
+  }
+
+  @bind
+  onMouseLeave() {
+    this.setState({ hover: false })
   }
 
   render({ id, title, uid, selected }) {
@@ -66,6 +78,8 @@ export class Tab extends Component {
       uid={uid}
       id={id}
       style={this.getStyles()}
+      onMouseEnter={this.onMouseEnter}
+      onMouseLeave={this.onMouseLeave}
       className={Class.join(' ')}>
 
         <span style={this.getStyles().tabName} className='tab-title'>
