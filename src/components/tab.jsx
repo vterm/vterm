@@ -23,17 +23,13 @@ export class Tab extends Component {
   }
 
   getStyles() {
-    const tabs              = Store.tabs.filter(Boolean)
-    const width             = Store.tabsWidth / tabs.length
-    const id                = this.props.id
+    const length            = Store.tabs.filter(Boolean).length
     const isSelected        = this.props.selected
-    const isntFirstTab      = this.props.id !== tabs[0].id
 
     return {
       height: 32,
-      width: width -1,
-      float: 'left',
-      left: (length > 1) ? width * filtered.indexOf(this.props.item) : 0,
+      flexBasis: '100%',
+      flexAlign: 'center',
       display: 'flex',
       userSelect: 'none',
       justifyContent: 'space-between',
@@ -50,7 +46,7 @@ export class Tab extends Component {
 
       tabClose: {
         // Display only if there are 2 or more tabs
-        display: (tabs.length > 1) ? 'flex' : 'none',
+        display: (length > 1) ? 'flex' : 'none',
         justifyContent: 'center',
         alignItems: 'center',
         WebkitAppRegion: 'no-drag',

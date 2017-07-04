@@ -10,8 +10,8 @@ import { Tab }          from './tab'
 export class Tabs extends Component {
   getStyles() {
     return {
-      overflow: 'hidden',
       height: '100%',
+      display: 'flex',
       WebkitAppRegion: 'drag',
       ...(Store.config.styles.Tabs || {})
     }
