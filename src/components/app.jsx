@@ -16,13 +16,9 @@ import DEFAULT_FONT       from '../defaults/font'
 @observer
 export class App extends Component {
   getStyles() {
-    const onFocusedBorder = `1px solid ${Store.config.borderColor || grey[800]}`
-    const onUnfocusedBorder = '1px solid transparent'
-
     return {
       ...fixedFill,
       background: Store.config.background || grey[900],
-      border: Store.isFocused ? onFocusedBorder : onUnfocusedBorder,
       borderRadius: !Store.isMaximized ? (Store.config.borderRadius || 2) : 0,
       fontFamily: Store.config.fontFamily || DEFAULT_FONT,
       fontSize: Store.config.fontSize || 15,
