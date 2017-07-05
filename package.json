@@ -6,6 +6,7 @@
   "author": "LucaT <fromzeroluke1@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "chalk": "^2.0.1",
     "node-pty": "0.6.6",
     "tinycolor2": "^1.4.1"
   },

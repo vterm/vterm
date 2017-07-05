@@ -30,16 +30,13 @@ export class Terminals extends Component {
         <Styles />
         { // Ignore undefined objects with filter(undefined == removed)
           Store.tabs.filter(Boolean).map( item => {
-          const id = item.id
-          const uid = item.uid
-          const selected = id === Store.selectedTab
+            const { id, uid, content, props } = item
+            const selected = id === Store.selectedTab
+            const Content = content
 
-          if(item.content) return item.content
-          return <Terminal
-            selected={selected}
-            uid={uid}
-            id={id}
-          />
+          return !content
+            ? <Terminal selected={selected} uid={uid} id={id} {...props} />
+            : <Content selected={selected} uid={uid} id={id} {...props} />
         })}
       </div>
     )

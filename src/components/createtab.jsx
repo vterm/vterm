@@ -11,7 +11,7 @@ export class CreateTab extends Component {
       cursor: 'default',
       width: '46px',
       height: '100%',
-      display: 'flex',
+      display: window.isError ? 'none' : 'flex',
       justifyContent: 'center',
       alignItems: 'center',
       float: platform =='darwin' ? 'right' : 'left'

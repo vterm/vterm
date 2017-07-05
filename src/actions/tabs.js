@@ -1,8 +1,9 @@
 import Store from '../store'
 
-export const createTab = ({ title, content } = {}) => {
+export const createTab = ({ title, content, customProps } = {}) => {
   let Tab = {
     id: Store.tabs.length,
+    props: customProps,
     uid: Date.now() + Math.random(100),
     title: title || '',
     content: content || null

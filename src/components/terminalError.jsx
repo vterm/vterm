@@ -7,13 +7,13 @@ import XTerminal            from 'xterm'
 
 // Styles and components
 import absoluteFill         from '../styles/absoluteFill'
-import { Shell }            from './shell'
 import Store                from '../store'
 import { removeTab }        from '../actions/tabs'
 import { isEmpty, isBlank } from '../utils/strings'
 import { grey }             from '../styles/colors'
+import { red, green, cyan } from 'chalk'
 
-export class Terminal extends Component {
+export class TerminalError extends Component {
   //
   // Lifecycle
   //
@@ -42,24 +42,33 @@ export class Terminal extends Component {
   //
   // Terminal and Shell setups
   //
+  @bind
   setUpShell() {
-    const { getShell } = this.Shell
-    let self = this
-
-    getShell().on('data', this.onShellData)
-    getShell().on('exit', this.onShellExit)
-
-    // Set the title on startup since we emit no event.
-    this.onShellTitle(getShell().process)
+    const { error } = this.props
+    this.Terminal.write([
+      green('d[ o_0 ]b'),
+      cyan(''),
+      cyan('Hi, this is YAT speaking to you miserable human.'),
+      cyan(''),
+      cyan('While I was loading your `config.js` file located at `~/.yat/`'),
+      cyan('I encountered this error, take a look at it:'),
+      cyan(''),
+      red(error.stack.replace(/[\r\n]/g, '\n\r')),
+      cyan(''),
+      cyan('Now your broken configuration file has been backed-up inside the same folder,'),
+      cyan('but it\'s not called `config.js.old`, and will be ignored. Your old config has'),
+      cyan('been replaced with a brand new default config. Feel free to remake your adjustments'),
+      cyan('and when you\'re ready proceed by pressing any key. I\'ll reboot myself!'),
+      cyan(''),
+      cyan('I am ready, at the firing of your keyboard Master!')
+    ].join('\n\r')
+    )
   }
 
   setUpTerminal() {
     const { cursorStyle } = Store.config
 
     this.Terminal.on('data', this.onTerminalData)
-    // TODO: On resize display the new size of the terminal
-    this.Terminal.on('resize', this.onTerminalResize)
-    this.Terminal.on('title', this.onShellTitle)
 
     // Temporary fix for custor-style not applied by xterm.js
     this.Terminal.element.classList.add(`xterm-cursor-style-${cursorStyle}`)
@@ -84,49 +93,16 @@ export class Terminal extends Component {
   //
   @bind
   onTerminalOpen() {
-    this.setUpShell()
     this.setUpTerminal()
+    this.setUpShell()
   }
 
   @bind
-  onTerminalResize({ cols, rows }) {
-    const { getShell } = this.Shell
+  onTerminalData(e) {
 
-    getShell().resize(cols, rows)
-  }
-
-  @bind
-  onTerminalData(data) {
-    const { getShell } = this.Shell
-
-    getShell().write(data)
-  }
-
-  //
-  // Shell Events
-  //
-  @bind
-  onShellData(data) {
-    this.Terminal.write(data)
-  }
-
-  @bind
-  onShellExit() {
-    removeTab(this.props.id)
-  }
-
-  @bind
-  onShellTitle(_title) {
-    const { getShell } = this.Shell
-
-    let title = _title
-
-    // Use and xterm escape title sequence when it's avaible
-    // Otherwise use the shell process' name
-    if(isEmpty(_title) || isBlank(_title)) title = getShell().process
-    this.title = title
-
-    Store.tabs[this.props.id].title = title
+    // Refresh the page to reload the confug
+    // On each keypress
+    document.location.reload()
   }
 
   //
@@ -142,7 +118,7 @@ export class Terminal extends Component {
     }
   }
 
-  render({ id, uid, selected }) {
+  render({ id, uid, selected, error }) {
     let Class = ['Terminal']
 
     // Add the class and focus the terminal if this tab is selected
@@ -151,7 +127,6 @@ export class Terminal extends Component {
 
     return(
       <div className={Class.join(' ')} id={id} style={this.getStyles()}>
-        <Shell className='Shell' id={id} style={{display: 'none'}} ref={(e) => this.Shell = e}/>
         <div className='xterm' style={this.getStyles()} ref={(e) => this.Term = e}/>
       </div>
     )

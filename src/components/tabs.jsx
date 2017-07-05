@@ -25,12 +25,10 @@ export class Tabs extends Component {
         className='tabs-container'>
         { // Ignore undefined objects with filter(undefined == removed)
           Store.tabs.filter(Boolean).map( item => {
-            const { id, uid, title, content } = item
+            const { id, uid, title, props } = item
             const selected = id === Store.selectedTab
 
-            return !content
-              ? <Tab selected={selected} id={id} uid={uid} title={title} />
-              : content
+            return <Tab selected={selected} id={id} uid={uid} title={title} {...props} />
         })}
       </div>
     )
