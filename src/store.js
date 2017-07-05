@@ -1,9 +1,12 @@
-import { observable }      from 'mobx'
-import { loadConfig }      from './config'
-import { config, babelrc } from './paths'
-import { remote }          from 'electron'
-import defaultShell        from 'default-shell'
-import defaultColors       from './defaults/colors'
+import { observable }                   from 'mobx'
+import { loadConfig }                   from './config'
+import { config, babelrc }              from './paths'
+import { remote }                       from 'electron'
+import defaultShell                     from 'default-shell'
+import defaultColors, { customPalette } from './defaults/colors'
+import { mergeArrays }                  from './utils/arrays'
+
+const mergedColors = mergeArrays(defaultColors, customPalette)
 
 class Store {
 
@@ -16,7 +19,7 @@ class Store {
   @observable isFocused      = false
   @observable shell          = this.config.shell          || defaultShell
   @observable shellArguments = this.config.shellArguments || []
-  @observable terminalColors = this.config.colors         || defaultColors
+  @observable terminalColors = mergeArrays(mergedColors, this.config.colors || [])
   @observable customCss      = this.config.css            || ''
 
 }

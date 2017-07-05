@@ -6,7 +6,8 @@
   "author": "LucaT <fromzeroluke1@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "node-pty": "0.6.6"
+    "node-pty": "0.6.6",
+    "tinycolor2": "^1.4.1"
   },
   "devDependencies": {
     "babel-core": "^6.24.1",
@@ -17,7 +18,6 @@
     "babel-preset-stage-0": "^6.24.1",
     "babel-standalone": "^6.24.2",
     "babili-webpack-plugin": "^0.1.2",
-    "color": "^2.0.0",
     "cross-env": "^5.0.1",
     "decko": "^1.2.0",
     "default-shell": "^1.0.1",
