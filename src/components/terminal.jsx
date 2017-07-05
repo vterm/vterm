@@ -148,12 +148,10 @@ export class Terminal extends Component {
 
   render({ id, uid, selected }) {
     let Class = ['Terminal']
-    if(selected) Class.push('selected')
 
-    if(selected && this.Terminal) {
-      this.Terminal.fit()
-      this.Terminal.focus()
-    }
+    // Add the class and focus the terminal if this tab is selected
+    if(selected) Class.push('selected')
+    if(selected && this.Terminal)  this.Terminal.focus()
 
     return(
       <div className={Class.join(' ')} id={id} style={this.getStyles()}>
