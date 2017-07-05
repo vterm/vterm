@@ -17,4 +17,7 @@ app.on('ready', () => {
   if(process.env.NODE_ENV == 'development') win.webContents.openDevTools()
 })
 
-ipcMain.on('ready', () => win.show())
+ipcMain.on('ready', () => {
+  win.show()
+  win.focus()
+})
