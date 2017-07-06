@@ -1,45 +1,165 @@
-import Module      from 'module'
-import * as Preact from 'preact'
-import * as mobx   from 'mobx'
-import mobxPreact  from 'mobx-preact'
+import Module          from 'module'
+import Decko, { bind } from 'decko'
 
-import * as Notify from '../actions/notify'
-import * as Tabs   from '../actions/tabs'
-import * as Window from '../actions/window'
+// Cached libraries
+import * as Preact     from 'preact'
+import * as mobx       from 'mobx'
+import mobxPreact      from 'mobx-preact'
 
-import Store       from '../store'
-import * as Colors from '../styles/colors'
+// YAT mdules
+import * as Notify     from '../actions/notify'
+import * as Tabs       from '../actions/tabs'
+import * as Window     from '../actions/window'
+import Store           from '../store'
+import * as Colors     from '../styles/colors'
 
-const __load = Module._load
 
+class Loader {
+  // Cache storage, by default filled up with modules
+  // that YAT requires for himself and that are avaible
+  // to the user.
+  cached = {
+    'preact': Preact,
+    'mobx': mobx,
+    'mobx-preact': mobxPreact,
+    'decko': Decko
+    // NEEDS TO BE COMPLETED
+  }
 
-Module._load = function (path) {
-  switch (path) {
-    case 'preact':
-      return Preact
+  // Use cache ?
+  cache = true
 
-    case 'mobx':
-      return mobx
+  // Modules defined by the user to return custom imports
+  // For example this could be helpful when a custom plugin
+  // has as a dependency another custom plugin and the developer
+  // wants to use a fancy custom name, or simply avoid conflicts
+  // with other npm's modules with the same name(without the prefix)
+  customModules = {
+    'yat/loader': this,
+    'yat/actions': {
+      Tabs,
+      Window,
+      Notify
+    },
+    'yat/store': Store,
+    'yat/colors': Colors
+  }
 
-    case 'mobx-preact':
-      return mobxPreact
+  constructor() {
+    // Backing up original `_load` function since we're going
+    // to use this when the user requires a non-custom module
+    const _load       = Module._load
 
-    case 'yat/store':
-      return Store
+    // Extract cache and cached from this
+    const {
+      cache,
+      cached,
+      customModules } = this
 
-    case 'yat/actions':
-      return {
-        notify: Notify,
-        tabs: Tabs,
-        window: Window
+    // Rewrite `_load` function to support custom defined
+    // modules and cached modules. This helps the app spin
+    // A LOT faster and enables the user to create some cool
+    // Implementations
+    Module._load = function(path) {
+      // Figure out if the requested module is cached
+      // or is a custom-defined module
+      // Obviously we're going to ignore this if
+      // the user has set the cache to false
+
+      // Aliases for consistency
+      const _cached = cache ? cached : {}
+      const _custom = customModules
+
+      // Checking if the module is
+      // cached or is custom
+      if(_cached[path] || _custom[path])
+        // Then return it's cached
+        // or custom version!
+        return _cached[path] || _custom[path]
+
+      else
+        // Return the default
+        return _load.apply(this, arguments)
+    }
+  }
+
+  // Add a custom module to the list
+  // Parameters are:
+  // - name: name of the custo module used
+  //         as the first parameter in the
+  //         `require` function.
+  // - value: object, string or whatver
+  //          that the `require` function
+  //          will return.
+  @bind
+  setCustomModule(name, value) {
+    this.customModules[name] = value
+  }
+
+  // Set to true to use cache
+  // False to disable
+  @bind
+  setUseCache(value) {
+    this.cache = value
+  }
+
+  // Check if a module is custom
+  @bind
+  isCustom(module) {
+    return this.customModules[module] ? true : false
+  }
+
+  // This is a promisified version of the commonjs
+  // `require` function, used in YAT and by external plugins
+  load(module, { cache } = {}) {
+    const {
+      cached,
+      isCustom,
+      setUseCache } = this
+
+    // `__cache` is the value of cache before changing
+    // it for this particular request
+    const __cache   = this.cache
+
+    // Set the cache JUST FOR THIS REQUEST
+    // Resetting in before resolving/rejecting
+    if(typeof cache == 'boolean') setUseCache(cache)
+
+    return new Promise((resolve, reject) => {
+      try {
+        // Load the module with
+        // the native require function
+        const _module = window.require(module)
+
+        // If the user enable the cache,
+        // Store the `_module` value inside of
+        // our cache, and it will be avaible
+        // for future use
+        //
+        // IMPORTANT:
+        // We only cache the module if
+        // it's not a custom one!!
+        if(cache && !isCustom(module))
+          // Then let's cache it
+          cached[module] = _module
+
+        // Reverting the cache value
+        // back to the original one
+        setUseCache(__cache)
+
+        // If veverything went OK
+        // let's resolve the promise
+        resolve(_module)
+      } catch (err) {
+        // Reverting the cache value
+        // back to the original one
+        setUseCache(__cache)
+
+        // Reject with the error
+        reject(err)
       }
-
-    case 'yat/colors':
-      return Colors
-
-    default:
-      return __load.apply(this, arguments)
+    })
   }
 }
 
-export default (module) => window.require(module)
+export default new Loader

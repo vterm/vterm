@@ -28,6 +28,7 @@
     "mobx": "^3.1.14",
     "mobx-preact": "^0.3.1",
     "node-watch": "^0.5.4",
+    "pify": "^3.0.0",
     "preact": "^8.1.0",
     "raw-loader": "^0.5.1",
     "rimraf": "^2.6.1",

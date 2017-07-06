@@ -1,3 +1,4 @@
+/*
 import { observable, intercept }        from 'mobx'
 import { remote }                       from 'electron'
 import defaultShell                     from 'default-shell'
@@ -5,7 +6,7 @@ import defaultShell                     from 'default-shell'
 // Config and plugins loading utilities
 import { loadConfig }                   from './config'
 import { config, babelrc }              from './paths'
-import { loadPlugins }                  from './plugins'
+import { loadPlugins, errorPlugins }    from './plugins'
 
 // Default utilities and values
 import defaultColors, { customPalette } from './defaults/colors'
@@ -28,6 +29,10 @@ class Store {
   @observable shellArguments = this.config.shellArguments || []
   @observable customCss      = this.config.css            || ''
 
+  // plugins
+  @observable plugins        = loadPlugins()
+  @observable errorPlugins   = errorPlugins
+
   // The rest
   @observable windowTitle    = this.tabs[this.selectedTab] ? this.tabs[this.selectedTab].title : ''
   @observable terminalColors = mergeArrays(mergedColors, this.config.colors || [])
@@ -43,3 +48,6 @@ remote.getCurrentWindow().on('blur',  () => store.isFocused = false)
 intercept(store, 'windowTitle', ({ newValue }) => window.title = newValue)
 
 export default store
+*/
+
+export default new class Store {}

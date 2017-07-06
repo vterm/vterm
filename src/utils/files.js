@@ -1,5 +1,7 @@
-import { writeFile, existsSync, readFileSync } from 'fs'
-export * from 'fs'
+import * as fs from 'fs'
+import pify    from 'pify'
+
+export default pify(fs)
 
 export const remakeFile = (filepath, data) => {
   writeFile(filepath, data, err => {
@@ -15,3 +17,5 @@ export const backupFile = (filepath, data) => {
   const name = filepath + '.old'
   writeFile(name, data)
 }
+
+export const isDir = (path) =>  lstatSync(path).isDirectory()
