@@ -1,5 +1,12 @@
-import Config from './config'
-import Store  from './store'
+import { render, h }   from 'preact'
+import { ipcRenderer } from 'electron'
+
+import Config          from './config'
+import Store           from './store'
+import Plugins         from './plugins'
+
+import { App }         from './components/app'
+import { createTab }   from './actions/tabs'
 
 /*
  * SEE: https://github.com/LucaT1/yat/pull/6
@@ -29,8 +36,27 @@ export default async () => {
   await Config.load()
 
   // 2. Setup store
-  //  - Setting up window's title
+  //  - Setting up window's title and event listeners
   //  - Checking for config errors
   //  - Moving config values to the store
   await Store.init()
+
+  // 3. Load plugins and schedule events
+  //  - Fetch all plugins
+  //  - Load all pluigns
+  //  - Setup event listeners
+  await Plugins.load()
+
+  // 4. Render the UI
+  //  - <App>
+  //    - <Tabs />
+  //    - <Terminals />
+  //  - </App>
+  render(<App />, document.body)
+
+  // 5. Open a new tab
+  createTab()
+
+  // 6. Tell the renderer to show the main window
+  ipcRenderer.send('ready')
 }

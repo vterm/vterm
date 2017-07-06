@@ -10,9 +10,11 @@ import mobxPreact      from 'mobx-preact'
 import * as Notify     from '../actions/notify'
 import * as Tabs       from '../actions/tabs'
 import * as Window     from '../actions/window'
-import Store           from '../store'
 import * as Colors     from '../styles/colors'
 
+import Store           from '../store'
+import Config          from '../config'
+import Plugins         from '../plugins'
 
 export default new class Loader {
   // Cache storage, by default filled up with modules
@@ -42,7 +44,9 @@ export default new class Loader {
       Notify
     },
     'yat/store': Store,
-    'yat/colors': Colors
+    'yat/colors': Colors,
+    'yat/config': Config,
+    'yat/plugins': Plugins
   }
 
   constructor() {

@@ -28,8 +28,8 @@ export default new class Store {
       window.title = this.tabs[this.selectedTab].title || ''
 
     // Setup event listeners
-    remote.getCurrentWindow().on('focus', () => store.isFocused = true )
-    remote.getCurrentWindow().on('blur',  () => store.isFocused = false)
+    remote.getCurrentWindow().on('focus', () => this.isFocused = true )
+    remote.getCurrentWindow().on('blur',  () => this.isFocused = false)
 
 
     // Retrive from the Config class
