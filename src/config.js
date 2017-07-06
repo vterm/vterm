@@ -3,7 +3,7 @@ import { config, base } from './paths'
 import defaultConfig    from './defaults/config'
 import Loader           from './utils/loader'
 
-class Configuration {
+export default new class Configuration {
   config = {}
   error  = null
 
@@ -46,5 +46,3 @@ class Configuration {
     }
   }
 }
-
-export default new Configuration

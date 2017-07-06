@@ -14,7 +14,7 @@ import Store           from '../store'
 import * as Colors     from '../styles/colors'
 
 
-class Loader {
+export default new class Loader {
   // Cache storage, by default filled up with modules
   // that YAT requires for himself and that are avaible
   // to the user.
@@ -161,5 +161,3 @@ class Loader {
     })
   }
 }
-
-export default new Loader
