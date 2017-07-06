@@ -3,8 +3,9 @@ import Decko, { bind } from 'decko'
 
 // Cached libraries
 import * as Preact     from 'preact'
-import * as mobx       from 'mobx'
-import mobxPreact      from 'mobx-preact'
+import * as Mobx       from 'mobx'
+import MobxPreact      from 'mobx-preact'
+import TinyColor       from 'tinycolor2'
 
 // YAT mdules
 import * as Notify     from '../actions/notify'
@@ -22,9 +23,10 @@ export default new class Loader {
   // to the user.
   cached = {
     'preact': Preact,
-    'mobx': mobx,
-    'mobx-preact': mobxPreact,
-    'decko': Decko
+    'mobx': Mobx,
+    'mobx-preact': MbxPreact,
+    'decko': Decko,
+    'tinycolor2': TinyColor
     // NEEDS TO BE COMPLETED
   }
 
