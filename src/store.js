@@ -1,45 +1,64 @@
-import { observable, intercept }        from 'mobx'
-import { remote }                       from 'electron'
-import defaultShell                     from 'default-shell'
+import Shell           from 'default-shell'
+import { observable }  from 'mobx'
+import { remote }      from 'electron'
 
-// Config and plugins loading utilities
-import { loadConfig }                   from './config'
-import { config, babelrc }              from './paths'
-import { loadPlugins }                  from './plugins'
+import Config          from './config'
+import { Colors }      from './defaults/colors'
+import { mergeArrays } from './utils/arrays'
 
-// Default utilities and values
-import defaultColors, { customPalette } from './defaults/colors'
-import { mergeArrays }                  from './utils/arrays'
-const mergedColors = mergeArrays(defaultColors, customPalette)
+export default new class Store {
+  // Empty or falsy values
+  @observable tabs        = []
+  @observable selectedTab = 0
+  @observable isMaximized = false
+  @observable isFocused   = false
 
-class Store {
+  // Config based values
+  // DEFAULTS
+  @observable config         = {}
+  @observable elements       = {}
+  @observable shell          = Shell
+  @observable shellArguments = []
+  @observable customCss      = ''
+  @observable terminalColors = Colors
 
-  // Empty [or] falsy by default values
-  @observable tabs           = []
-  @observable selectedTab    = 0
-  @observable isMaximized    = false
-  @observable isFocused      = false
+  async init() {
+    // Setup window title based on selected tab
+    document.onload = () =>
+      window.title = this.tabs[this.selectedTab].title || ''
 
-  // The config itself
-  // And config based values
-  @observable config         = loadConfig()
-  @observable elements       = this.config.customElements || {}
-  @observable shell          = this.config.shell          || defaultShell
-  @observable shellArguments = this.config.shellArguments || []
-  @observable customCss      = this.config.css            || ''
+    // Setup event listeners
+    remote.getCurrentWindow().on('focus', () => this.isFocused = true )
+    remote.getCurrentWindow().on('blur',  () => this.isFocused = false)
 
-  // The rest
-  @observable windowTitle    = this.tabs[this.selectedTab] ? this.tabs[this.selectedTab].title : ''
-  @observable terminalColors = mergeArrays(mergedColors, this.config.colors || [])
+
+    // Retrive from the Config class
+    // if there was an error in the loading process
+    const isError = await Config.isError()
+
+    // If there is this error
+    if(isError)
+      // Set the Store `isError` value to the error
+      this.isError = Config.error
+    else
+      // If everything is Hunky Dory we can proceed
+      // and fill in all config-based values
+      this.config = await Config.get()
+
+      // Then setup all the other values
+      if(this.config.elements)
+        this.elements       = this.config.elements
+
+      if(this.config.shell)
+        this.shell          = this.config.shell
+
+      if(this.config.shellArguments)
+        this.shellArguments = this.config.shellArguments
+
+      if(this.config.customCss)
+        this.shellArguments = this.config.css
+
+      if(this.config.colors)
+        this.terminalColors = mergeArrays(Colors, this.config.colors)
+  }
 }
-
-const store = new Store
-
-remote.getCurrentWindow().on('focus', () => store.isFocused = true )
-remote.getCurrentWindow().on('blur',  () => store.isFocused = false)
-
-// Intercept `windowTitle` changes and
-// update window.title value
-intercept(store, 'windowTitle', ({ newValue }) => window.title = newValue)
-
-export default store

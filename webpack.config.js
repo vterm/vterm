@@ -4,7 +4,7 @@ const BabiliPlugin      = require("babili-webpack-plugin")
 const { join }          = require('path')
 
 let config = {
-	entry: join(__dirname, 'src', 'renderer.jsx'),
+	entry: join(__dirname, 'src', 'renderer'),
 
 	output: {
 		path: join(__dirname, 'dist'),
