@@ -4,6 +4,11 @@ import { h, Component }    from 'preact'
 import { WindowsClose }    from './close.windows'
 import { WindowsMaximize } from './maximize.windows'
 import { WindowsMinimize } from './minimize.windows'
+
+import { MacClose }        from './close.darwin'
+import { MacMaximize }     from './maximize.darwin'
+import { MacMinimize }     from './minimize.darwin'
+
 import { grey }            from '../styles/colors'
 
 export class WindowControls extends Component {
@@ -20,15 +25,15 @@ export class WindowControls extends Component {
 
       {(platform == 'win32' || platform == 'linux')
         ? <WindowsClose />
-        : <MacClose />
-      }
-      {(platform == 'win32' || platform == 'linux')
-        ? <WindowsMaximize />
         : <MacMaximize />
       }
       {(platform == 'win32' || platform == 'linux')
-        ? <WindowsMinimize />
+        ? <WindowsMaximize />
         : <MacMinimize />
+      }
+      {(platform == 'win32' || platform == 'linux')
+        ? <WindowsMinimize />
+        : <MacClose />
       }
 
       </div>
