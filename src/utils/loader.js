@@ -24,7 +24,7 @@ export default new class Loader {
   cached = {
     'preact': Preact,
     'mobx': Mobx,
-    'mobx-preact': MbxPreact,
+    'mobx-preact': MobxPreact,
     'decko': Decko,
     'tinycolor2': TinyColor
     // NEEDS TO BE COMPLETED
