@@ -1,4 +1,6 @@
-export const customPalette = [
+import { mergeArrays } from '../utils/arrays'
+
+export const smallPalette = [
   'rgba(000, 000, 000, 1.0)', // black
   'rgba(229, 075, 075, 1.0)', // red
   'rgba(158, 206, 088, 1.0)', // green
@@ -17,7 +19,7 @@ export const customPalette = [
   'rgba(255, 255, 255, 1.0)'  // bright white
 ]
 
-export default [
+export const bigPalette = [
   '#000000',
   '#800000',
   '#008000',
@@ -275,3 +277,5 @@ export default [
   '#e4e4e4',
   '#eeeeee'
 ]
+
+export const Colors = mergeArrays(bigPalette, smallPalette)
