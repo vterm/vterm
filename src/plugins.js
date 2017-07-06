@@ -72,6 +72,9 @@ export default new class Plugins {
 
         // Push and execute the plugin
         this.plugins.push(new plugin)
+
+        // TODO:
+        // Schedule events
       } catch (err) {
         // Otherwise push the plugin
         // to the error array

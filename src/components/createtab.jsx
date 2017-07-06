@@ -1,7 +1,8 @@
-import { h, Component }   from 'preact'
+import { h, Component } from 'preact'
+import Store            from '../store'
 
-import { createTab }      from '../actions/tabs'
-import { grey }           from '../styles/colors'
+import { createTab }    from '../actions/tabs'
+import { grey }         from '../styles/colors'
 
 export class CreateTab extends Component {
   getStyles(platform) {
@@ -11,7 +12,7 @@ export class CreateTab extends Component {
       cursor: 'default',
       width: '46px',
       height: '100%',
-      display: window.isError ? 'none' : 'flex',
+      display: Store.isError ? 'none' : 'flex',
       justifyContent: 'center',
       alignItems: 'center',
       float: platform =='darwin' ? 'right' : 'left'
