@@ -1,12 +1,13 @@
-import { render, h }   from 'preact'
-import { ipcRenderer } from 'electron'
+import { render, h }     from 'preact'
+import { ipcRenderer }   from 'electron'
 
-import Config          from './config'
-import Store           from './store'
-import Plugins         from './plugins'
+import Config            from './config'
+import Store             from './store'
+import Plugins           from './plugins'
 
-import { App }         from './components/app'
-import { createTab }   from './actions/tabs'
+import { App }           from './components/app'
+import { TerminalError } from './components/terminalError'
+import { createTab }     from './actions/tabs'
 
 /*
  * SEE: https://github.com/LucaT1/yat/pull/6
@@ -55,7 +56,16 @@ export default async () => {
   render(<App />, document.body)
 
   // 5. Open a new tab
-  createTab()
+  // - If there is an error
+  //   show an <ErrorTerminal />
+  // - Otherwise create a blank tab
+  const args = Store.isError ? {
+    title: 'Error while loading configuration',
+    customProps: { error: Store.isError },
+    content: TerminalError
+  } : {}
+  
+  createTab(args)
 
   // 6. Tell the renderer to show the main window
   ipcRenderer.send('ready')
