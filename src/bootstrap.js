@@ -1,5 +1,5 @@
 import Config from './config'
-
+import Store  from './store'
 
 /*
  * SEE: https://github.com/LucaT1/yat/pull/6
@@ -23,7 +23,14 @@ import Config from './config'
  * to make them classes. Also involves creating a new plugins system
  */
 export default async () => {
+  // 1. Load configuration
+  //  - Checks if the base folder exists
+  //  - Load configuration otherwise saves the error
   await Config.load()
 
-  console.log(Config.get());
+  // 2. Setup store
+  //  - Setting up window's title
+  //  - Checking for config errors
+  //  - Moving config values to the store
+  await Store.init()
 }
