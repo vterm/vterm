@@ -4,12 +4,12 @@ environment:
     secure: lw/djYd8Dl9O9rbqhCQYzQwoh9QGhWvGO8aKihRcXIe6u9pOm2Sft6qbzZL3kS67
   matrix:
     - nodejs_version: 7.6
+cache:
+ - "%LOCALAPPDATA%\\Yarn"
 install:
   - ps: Install-Product node $env:nodejs_version
   - set CI=true
-  - npm install -g npm@latest
-  - set PATH=%APPDATA%\npm;%PATH%
-  - npm install
+  - yarn
 matrix:
   fast_finish: true
 build: off
