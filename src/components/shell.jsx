@@ -1,8 +1,9 @@
 import { h, Component } from 'preact'
 import { spawn }        from 'node-pty'
 import { bind }         from 'decko'
-import Store            from '../store'
+import { homedir }      from 'os'
 import defaultShell     from 'default-shell'
+import Store            from '../store'
 
 export class Shell extends Component {
   constructor(props, context) {
@@ -12,7 +13,11 @@ export class Shell extends Component {
   componentDidMount() {
     const shell = (typeof Store.shell == 'string') ? Store.shell : defaultShell
     const _arguments = Store.shellArguments ? Store.shellArguments.peek() : []
-    const options = { name: 'xterm-256color', env: process.env }
+    const options = {
+      name: 'xterm-256color',
+      env: process.env,
+      cwd: homedir()
+    }
 
     this.shell = spawn(shell, _arguments, options)
   }
