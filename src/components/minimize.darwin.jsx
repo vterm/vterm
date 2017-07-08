@@ -7,38 +7,47 @@ export class MacMinimize extends Component {
   constructor(props, context) {
     super(props, context)
     this.state = {
-      background: 'transparent'
+      background: 'rgb(255, 189, 46)'
     }
   }
 
   componentDidMount() {
-    this.element.addEventListener('mouseover', () => this.setState({ background: 'rgba(255, 255, 255, .13)' }))
-    this.element.addEventListener('mouseout', () => this.setState({ background: 'transparent' }))
+    this.element.addEventListener('mouseover', () => this.setState({ background: 'rgb(191, 145, 35)' }))
+    this.element.addEventListener('mouseout', () => this.setState({ background: 'rgb(255, 189, 46)' }))
   }
 
   @bind
   getStyles() {
     return {
-      userSelect: 'none',
-      WebkitAppRegion: 'no-drag',
-      cursor: 'default',
-      width: 46,
-      height: '100%',
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-      transition: 'background .1s',
-      background: this.state.background,
-      float: 'right'
+      container: {
+        userSelect: 'none',
+        WebkitAppRegion: 'no-drag',
+        cursor: 'default',
+        width: 32,
+        height: '100%',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        transition: 'background .1s',
+        float: 'right',
+        borderTopRightRadius: !Store.isMaximized ? (Store.config.borderRadius || 2) : 0
+      },
+      button: {
+        background: this.state.background,
+        width: 12,
+        height: 12,
+        borderRadius: '50%'
+      }
     }
   }
 
   render() {
     return(
-      <div onClick={minimize} ref={(e) => this.element = e} style={this.getStyles()}>
-        <svg x='0px' y='0px' viewBox='0 0 10.2 1' style={{ height: 10, width: 10 }}>
-          <rect fill='#FFF' width='10.2' height='1'/>
-        </svg>
+      <div style={this.getStyles().container}>
+        <div
+          style={this.getStyles().button}
+          ref={(e) => this.element = e}
+          onClick={minimize} />
       </div>
     )
   }
