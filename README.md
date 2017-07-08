@@ -1,4 +1,4 @@
-![](https://github.com/LucaT1/yat/blob/master/screenshots/first.png?raw=true)
+![](https://github.com/LucaT1/yat/blob/master/screenshots/second.png?raw=true)
 [![Greenkeeper badge](https://badges.greenkeeper.io/LucaT1/yat.svg)](https://greenkeeper.io/)
 [![Travis Status](https://travis-ci.org/LucaT1/yat.svg?branch=master)](https://travis-ci.org/LucaT1/yat)
 [![AppVeyor status](https://ci.appveyor.com/api/projects/status/github/LucaT1/yat?branch=master&svg=true)
@@ -28,4 +28,3 @@ Then install the packages with the command `yarn` and compile the app with `yarn
 MacOS:   `$ yarn run build:darwin`<br>
 Windows: `$ yarn run build:win32`<br>
 Linux:   `$ yarn run build:linux`<br>
-
