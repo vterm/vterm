@@ -12,7 +12,7 @@ export class Shell extends Component {
   componentDidMount() {
     const shell = (typeof Store.shell == 'string') ? Store.shell : defaultShell
     const _arguments = Store.shellArguments ? Store.shellArguments.peek() : []
-    const options = { name: 'xterm-color', env: process.env }
+    const options = { name: 'xterm-256color', env: process.env }
 
     this.shell = spawn(shell, _arguments, options)
   }
