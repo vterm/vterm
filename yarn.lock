@@ -2628,9 +2628,9 @@ node-pre-gyp@^0.6.36:
     tar "^2.2.1"
     tar-pack "^3.4.0"
 
-node-pty@0.6.6:
-  version "0.6.6"
-  resolved "https://registry.yarnpkg.com/node-pty/-/node-pty-0.6.6.tgz#7f507148f917aa809a714c2864d98f0e6d3afcd6"
+node-pty@0.6.9:
+  version "0.6.9"
+  resolved "https://registry.yarnpkg.com/node-pty/-/node-pty-0.6.9.tgz#94dfbc005e7edfddc5a94a4e8c316a0fa10f5a81"
   dependencies:
     nan "2.5.0"
 
@@ -3720,7 +3720,7 @@ webpack-sources@^1.0.1:
     source-list-map "^2.0.0"
     source-map "~0.5.3"
 
-webpack@3.1.0:
+webpack@^3.1.0:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/webpack/-/webpack-3.1.0.tgz#ac0675e500db835f9ab2369d29ba096f51ad0731"
   dependencies:
