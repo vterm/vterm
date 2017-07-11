@@ -31,42 +31,47 @@ import { createTab }     from './actions/tabs'
  * to make them classes. Also involves creating a new plugins system
  */
 export default async () => {
-  // 1. Load configuration
-  //  - Checks if the base folder exists
-  //  - Load configuration otherwise saves the error
-  await Config.load()
+  try {
+    // 1. Load configuration
+    //  - Checks if the base folder exists
+    //  - Load configuration otherwise saves the error
+    await Config.load()
 
-  // 2. Setup store
-  //  - Setting up window's title and event listeners
-  //  - Checking for config errors
-  //  - Moving config values to the store
-  await Store.init()
+    // 2. Setup store
+    //  - Setting up window's title and event listeners
+    //  - Checking for config errors
+    //  - Moving config values to the store
+    await Store.init()
 
-  // 3. Load plugins and schedule events
-  //  - Fetch all plugins
-  //  - Load all pluigns
-  //  - Setup event listeners
-  await Plugins.load()
+    // 3. Load plugins and schedule events
+    //  - Fetch all plugins
+    //  - Load all pluigns
+    //  - Setup event listeners
+    await Plugins.load()
 
-  // 4. Render the UI
-  //  - <App>
-  //    - <Tabs />
-  //    - <Terminals />
-  //  - </App>
-  render(<App />, document.body)
+    // 4. Render the UI
+    //  - <App>
+    //    - <Tabs />
+    //    - <Terminals />
+    //  - </App>
+    render(<App />, document.body)
 
-  // 5. Open a new tab
-  // - If there is an error
-  //   show an <ErrorTerminal />
-  // - Otherwise create a blank tab
-  const args = Store.isError ? {
-    title: 'Error while loading configuration',
-    customProps: { error: Store.isError },
-    content: TerminalError
-  } : {}
-  
-  createTab(args)
+    // 5. Open a new tab
+    // - If there is an error
+    //   show an <ErrorTerminal />
+    // - Otherwise create a blank tab
+    const args = Store.isError ? {
+      title: 'Error while loading configuration',
+      customProps: { error: Store.isError },
+      content: TerminalError
+    } : {}
 
-  // 6. Tell the renderer to show the main window
-  ipcRenderer.send('ready')
+    createTab(args)
+
+    // 6. Tell the renderer to show the main window
+    ipcRenderer.send('ready')
+  } catch(err) {
+    console.error(err)
+    ipcRenderer.send('bootstrap_error')
+  }
 }

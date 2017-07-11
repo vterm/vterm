@@ -14,10 +14,15 @@ app.on('ready', () => {
   win.loadURL(`file://${__dirname}/dist/index.html`)
 
   // Show devtools only if you're in development mode
-  if(process.env.NODE_ENV == 'development') win.webContents.openDevTools()
+  //if(process.env.NODE_ENV == 'development') win.webContents.openDevTools()
 })
 
 ipcMain.on('ready', () => {
   win.show()
   win.focus()
+})
+
+ipcMain.on('bootstrap_error', () => {
+  win.show()
+  win.webContents.openDevTools()
 })
