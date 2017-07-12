@@ -1,6 +1,6 @@
 {
   "name": "yat",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Yet Another Terminal, a `terminal emulator` written with the web languages of the future. Today.",
   "main": "main.js",
   "author": "LucaT <fromzeroluke1@gmail.com>",
