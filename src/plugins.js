@@ -1,8 +1,8 @@
-import { join }    from 'path'
+import { join }         from 'path'
 
-import Files       from './utils/files'
-import Loader      from './utils/loader'
-import { plugins } from './paths'
+import Files, { _stat } from './utils/files'
+import Loader           from './utils/loader'
+import { plugins }      from './paths'
 
 export default new class Plugins {
   // Plugins list, will contain:
@@ -39,7 +39,12 @@ export default new class Plugins {
       isDir,
       isYatPlugin
     }  = this
-    const { readdir } = Files
+    const { readdir, mkdir } = Files
+
+    // Check if the plugin folder exists
+    // Related to #11
+    const exists  = await _stat(plugins)
+    if(!exists)     await mkdir(plugins)
 
     // Add dirs inside of the `plugins` folder
     const __plugins   = await readdir(plugins)

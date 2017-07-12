@@ -1,4 +1,4 @@
-import files            from './utils/files'
+import files, { _stat } from './utils/files'
 import defaultConfig    from './defaults/config'
 import Loader           from './utils/loader'
 import { config, base } from './paths'
@@ -21,14 +21,16 @@ export default new class Configuration {
 
   async load() {
     const {
-      stat,
       mkdir,
       writeFile,
-      readFile }  = files
+      readFile
+    }  = files
 
     // Get stats for both the config file and the base directory
-    const exists  = await stat(base)
-    const _exists = await stat(config)
+    // Using `_stat` function to avoid promise rejection
+    // And relative errors: see #11
+    const exists  = await _stat(base)
+    const _exists = await _stat(config)
 
     // If stats are undefined then these files/folders doesn't exists
     // So we have to create them
