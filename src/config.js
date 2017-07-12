@@ -1,11 +1,14 @@
+import { watchFile } from 'fs'
+
 import files, { _stat } from './utils/files'
 import defaultConfig    from './defaults/config'
 import Loader           from './utils/loader'
 import { config, base } from './paths'
 
 export default new class Configuration {
-  config = {}
-  error  = null
+  config  = {}
+  error   = null
+  watcher = null
 
   // Returns true when there's an error
   async isError() {
@@ -61,6 +64,13 @@ export default new class Configuration {
       // The config file will be resetted
       // to its default value
       writeFile(config, defaultConfig)
+
+      // TODO: Notify the user that the
+      //       config was corrupted
     }
+
+    // Setup event listener for config changes
+    if(!this.watcher)
+      this.watcher = watchFile(config, async () => await this.load())
   }
 }

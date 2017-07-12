@@ -60,7 +60,8 @@ export default new class Loader {
     const {
       cache,
       cached,
-      customModules } = this
+      customModules
+    } = this
 
     // Rewrite `_load` function to support custom defined
     // modules and cached modules. This helps the app spin
@@ -121,7 +122,8 @@ export default new class Loader {
     const {
       cached,
       isCustom,
-      setUseCache } = this
+      setUseCache
+    } = this
 
     // `__cache` is the value of cache before changing
     // it for this particular request

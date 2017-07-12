@@ -43,11 +43,11 @@ export default new class Plugins {
 
     // Check if the plugin folder exists
     // Related to #11
-    const exists  = await _stat(plugins)
-    if(!exists)     await mkdir(plugins)
+    const exists    = await _stat(plugins)
+    if(!exists)       await mkdir(plugins)
 
     // Add dirs inside of the `plugins` folder
-    const __plugins   = await readdir(plugins)
+    const __plugins = await readdir(plugins)
 
     // Filter dirs inside of the previous list
     //
