@@ -69,8 +69,6 @@ export class Terminal extends Component {
   componentWillReceiveProps({ selected, cols, rows }) {
     const { Terminal } = this
 
-    console.log(cols, rows);
-
     if(selected)
       Terminal.resize(cols, rows)
       Terminal.focus()
@@ -152,8 +150,6 @@ export class Terminal extends Component {
 
     // Add the class and focus the terminal if this tab is selected
     if(selected) Class.push('selected')
-
-    console.log(cols, rows);
 
     return(
       <div className={Class.join(' ')} id={id} style={this.getStyles()}>

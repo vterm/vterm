@@ -41,8 +41,6 @@ export class Terminals extends Component {
   }
 
   render() {
-
-    console.log(this.state);
     const { rows, cols } = this.state
 
     return(
