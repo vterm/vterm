@@ -27,6 +27,8 @@ export class Tab extends Component {
       alignItems: 'center',
 
       tabName: {
+        maxWidth: '100%',
+        overflow: 'hidden',
         cursor: 'pointer',
         WebkitAppRegion: 'no-drag',
         color: isSelected ? grey[200] : grey[500],

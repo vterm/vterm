@@ -1,11 +1,16 @@
-const {app, BrowserWindow, ipcMain} = require('electron')
+const {
+  app,
+  BrowserWindow,
+  ipcMain
+} = require('electron')
+const { platform } = require('os')
 
 let win
 app.on('ready', () => {
   win = new BrowserWindow({
     width:800,
     height: 600,
-    transparent: true,
+    transparent: platform() == 'darwin' ? true : false,
     frame: false
   })
 
