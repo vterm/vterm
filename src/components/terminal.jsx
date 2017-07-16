@@ -23,20 +23,14 @@ export class Terminal extends Component {
 
   @bind
   createTerminal() {
-    // Create the terminal and setup event hooks
-    XTerminal.loadAddon('fit')
-
     // Take out values from config
     const { cursorBlink, cursorStyle } = Store.config
 
+    // Create the terminal and setup event hooks
     this.Terminal = new XTerminal({ cursorBlink, cursorStyle })
     this.Terminal.on('open', this.onTerminalOpen)
 
-    // Window Events listeners
-    window.addEventListener('resize', this.onWindowResize)
-
     this.Terminal.open(this.Term, true)
-    this.Terminal.fit()
   }
 
   //
@@ -55,12 +49,13 @@ export class Terminal extends Component {
 
   setUpTerminal() {
     const { cursorStyle } = Store.config
+    const { cols, rows }  = this.state
 
     this.Terminal.on('data', this.onTerminalData)
     // TODO: On resize display the new size of the terminal
     this.Terminal.on('resize', this.onTerminalResize)
     this.Terminal.on('title', this.onShellTitle)
-
+    this.Terminal.resize(cols, rows)
     // Temporary fix for custor-style not applied by xterm.js
     this.Terminal.element.classList.add(`xterm-cursor-style-${cursorStyle}`)
   }
@@ -69,14 +64,21 @@ export class Terminal extends Component {
   // Window Events
   //
   @bind
-  onComponentLoad() {
+  componentWillReceiveProps({ selected, cols, rows }) {
     const { Terminal } = this
-    Terminal.fit()
+
+    if(selected)
+      Terminal.resize(cols, rows)
+      this.props.cols = cols
+      this.props.rows = rows
   }
 
-  @bind
-  onWindowResize() {
-    this.Terminal.fit()
+  // Re render only if the selected tab changed
+  shouldComponentUpdate({ selected }) {
+    const { selcted: _selected } = this.props
+    if(_selected !== selected) return true
+
+    else return false
   }
 
   //
@@ -136,18 +138,20 @@ export class Terminal extends Component {
   getStyles() {
     return {
       ...absoluteFill,
-      background: 'transparent',
       padding: 8,
-      visibility: (this.props.selected) ? 'visible' : 'hidden'
+      display: (this.props.selected) ? 'block' : 'none'
     }
   }
 
-  render({ id, uid, selected }) {
+  render({ id, uid, selected, cols, rows }) {
     let Class = ['Terminal']
 
     // Add the class and focus the terminal if this tab is selected
     if(selected) Class.push('selected')
-    if(selected && this.Terminal)  this.Terminal.focus()
+    if(selected && this.Terminal) {
+      this.Terminal.focus()
+      this.Terminal.resize(cols, rows)
+    }
 
     return(
       <div className={Class.join(' ')} id={id} style={this.getStyles()}>
