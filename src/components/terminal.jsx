@@ -49,13 +49,15 @@ export class Terminal extends Component {
 
   setUpTerminal() {
     const { cursorStyle } = Store.config
-    const { cols, rows }  = this.state
+    const { cols, rows }  = this.props
 
     this.Terminal.on('data', this.onTerminalData)
+
     // TODO: On resize display the new size of the terminal
     this.Terminal.on('resize', this.onTerminalResize)
     this.Terminal.on('title', this.onShellTitle)
     this.Terminal.resize(cols, rows)
+
     // Temporary fix for custor-style not applied by xterm.js
     this.Terminal.element.classList.add(`xterm-cursor-style-${cursorStyle}`)
   }
@@ -67,10 +69,12 @@ export class Terminal extends Component {
   componentWillReceiveProps({ selected, cols, rows }) {
     const { Terminal } = this
 
+    console.log(cols, rows);
+
     if(selected)
       Terminal.resize(cols, rows)
-      this.props.cols = cols
-      this.props.rows = rows
+      Terminal.focus()
+
   }
 
   // Re render only if the selected tab changed
@@ -148,10 +152,8 @@ export class Terminal extends Component {
 
     // Add the class and focus the terminal if this tab is selected
     if(selected) Class.push('selected')
-    if(selected && this.Terminal) {
-      this.Terminal.focus()
-      this.Terminal.resize(cols, rows)
-    }
+
+    console.log(cols, rows);
 
     return(
       <div className={Class.join(' ')} id={id} style={this.getStyles()}>

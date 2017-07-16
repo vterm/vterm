@@ -1,16 +1,9 @@
 import { h, render } from 'preact'
 
-export default ele => {
+export default (ele, tester) => {
   const style  = window.getComputedStyle(ele)
   const _height = parseInt(style.getPropertyValue('height')) - 16
   const _width  = Math.max(0, parseInt(style.getPropertyValue('width')) - 16)
-
-  // Get width and height of a character
-  const _style         = { display: 'inline', visibility: 'hidden' }
-  const FontChild      = () => <span style={_style}>w</span>
-
-
-  const tester         = render(<FontChild />, ele)
 
   const { width }      = tester.getBoundingClientRect()
   tester.style.display = ''

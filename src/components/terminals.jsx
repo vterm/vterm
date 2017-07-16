@@ -8,14 +8,16 @@ import Fit              from '../utils/fit'
 import { Terminal }     from './terminal'
 import { Styles }       from './styles'
 
-window.fit = Fit
+// Get width and height of a character
+const _style         = { display: 'inline', visibility: 'hidden' }
+const FontChild      = () => <span style={_style}>w</span>
 
 @observer
 export class Terminals extends Component {
   state = { cols: 0, rows: 0 }
 
   componentDidMount() {
-    this.setState(Fit(this.container))
+    this.setState(Fit(this.container, this.tester))
 
     // Window Events listeners
     window.addEventListener('resize', this.onWindowResize)
@@ -23,7 +25,7 @@ export class Terminals extends Component {
 
   @bind
   onWindowResize() {
-    this.setState(Fit(this.container))
+    this.setState(Fit(this.container, this.tester))
   }
 
   getStyles() {
@@ -39,6 +41,8 @@ export class Terminals extends Component {
   }
 
   render() {
+
+    console.log(this.state);
     const { rows, cols } = this.state
 
     return(
@@ -49,6 +53,7 @@ export class Terminals extends Component {
         ref={e => this.container = e}
       >
         <Styles />
+        <FontChild ref={({base}) => this.tester = base} />
 
         { // Ignore undefined objects with filter(undefined == removed)
           Store.tabs.filter(Boolean).map( item => {
