@@ -6,9 +6,7 @@
   "author": "LucaT <fromzeroluke1@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "chalk": "^2.0.1",
-    "node-pty": "0.6.10",
-    "tinycolor2": "^1.4.1"
+    "node-pty": "0.6.10"
   },
   "devDependencies": {
     "babel-core": "^6.24.1",
@@ -19,6 +17,7 @@
     "babel-preset-stage-0": "^6.24.1",
     "babel-standalone": "^6.24.2",
     "babili-webpack-plugin": "^0.1.2",
+    "chalk": "^2.0.1",
     "cross-env": "^5.0.1",
     "decko": "^1.2.0",
     "default-shell": "^1.0.1",
@@ -32,6 +31,7 @@
     "preact": "^8.1.0",
     "raw-loader": "^0.5.1",
     "rimraf": "^2.6.1",
+    "tinycolor2": "^1.4.1",
     "webpack": "^3.1.0",
     "xterm": "^2.6.0"
   },
