@@ -9,6 +9,7 @@ import { mergeArrays } from './utils/arrays'
 export default new class Store {
   // Empty or falsy values
   @observable tabs        = []
+  @observable props       = []
   @observable selectedTab = 0
   @observable isMaximized = false
   @observable isFocused   = false
