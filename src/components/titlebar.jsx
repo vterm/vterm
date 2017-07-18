@@ -1,60 +1,126 @@
-import { h, Component }   from 'preact'
-import { observer }       from 'mobx-preact'
-import Store              from '../store'
+import { h, Component }    from 'preact'
+import { platform }        from 'os'
+import { observer }        from 'mobx-preact'
+import Store               from '../store'
+import color               from 'tinycolor2'
 
-// Components and styles
+// Import the components for the UI/UX
 import { Tabs }           from './tabs'
 import { WindowControls } from './windowControls'
 import { CreateTab }      from './createtab'
-import { grey }           from '../styles/colors'
-import color              from 'tinycolor2'
 
-// Utils
-import { platform }       from 'os'
+// Import defaults
+import { DARK_BACKGROUND } from '../defaults/variables'
 
 @observer
 export class TitleBar extends Component {
-  getStyles() {
-    const _platform = Store.config.windowControls ? Store.config.windowControls : platform()
+  // Save the platform in a local constant
+  // instead of calling it every time
+  platform  = platform()
 
-    let style       = {
+  // Styles for the TitleBar
+  // Using:
+  // - Relative positioning with 100%
+  //   width to fill up the whole space
+  //   and fixed height(32).
+  // - Darken background of the config or
+  //   use default one darked.
+  // - Box shadow to divide the
+  //   titleBar from terminals.
+  //   TODO: Probably remove this
+  // - Extra styles setted by the user and/ore the plugins.
+  getStyles() {
+    // Take used values from
+    // the user's config
+    const { background } = Store.config
+
+    // Users's custom styles
+    const { TitleBar: userStyles }   = Store.config.styles
+
+    // TODO: Support plugin styles
+    const { TitleBar: pluginStyles } = {}
+
+
+    const styles = {
+      // Relative positioning with relative
+      // width and fixed height
       width: '100%',
       height: 32,
-      background: color(Store.config.background || grey[900]).darken(.25),
-      boxShadow: '0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)'
+
+      // Default background or darked one
+      background: color(background).darken(.25) || DARK_BACKGROUND,
+
+      // Drop shadow. Probably going to be removed sooner
+      boxShadow: '0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)',
+
+      // User/plugin custom styles
+      ...(userStyles   || {}),
+      ...(pluginStyles || {})
     }
 
-    // In case we are using custom styles
-    // In some linux distros for example
-    if(_platform == Object) style = platform
-
-    return style
+    return styles
   }
 
-  render() {
-    let _platform = Store.config.windowControls ? Store.config.windowControls : platform()
+  // Here we are rendering the titlebar
+  // wich differs from OS to OS.
+  // NOTE: on Windows there are some bugs with the
+  //       tab's close button.
+  // TODO: Fix windows titlebar bugs by separating
+  //       tabs from titlebar or using electron-titlebar somehow
+  //
+  // ANYWAY:
+  //
+  // Here we are rendering:
+  // - Default <WindowControls /> or custom
+  //   based on platform
+  // - Default <CreateTab /> button
+  //   TODO: Give user or plugins the
+  //         ability to customize it!
+  // - Default <Tabs /> list or custom
 
-    if(_platform == Object) _platform = 'linux'
+  render() {
+    // Extract things from local class
+    // and from the store
+    const { platform } = this
+
+    const {
+      preTitleBar, afterTitleBar,
+      windowControls: _WindowControls,
+      Tabs: _Tabs
+      // TODO: CreateTab
+    } = Store.elements
+
+    // Retriving custom props and our styles
+    const { TitleBar: titleBarProps } = Store.props
+    const styles = this.getStyles()
+
+    // Determinate the components
+    // we need to render
+    const __WindowControls = _WindowControls
+      ? <_WindowControls platform={this.platform} />
+      : <WindowControls  platform={this.platform} />
+
+    const __Tabs = _Tabs
+      ? <_Tabs />
+      : <Tabs  />
+
+    // TODO: Add support for custom
+    //      <CreateTab /> element
 
     return(
-      <div className='titlebar' style={this.getStyles()}>
-        {Store.elements.WindowControls
-          ? <Store.elements.WindowControls platform={_platform} />
+      <div
+        className='titlebar'
+        style={styles}
+        {...titleBarProps}
+      >
+        {preTitleBar}
 
-          : <WindowControls platform={_platform} />
-        }
+        {__WindowControls}
+        <CreateTab platform={this.platform} />
+        {__Tabs}
 
-        {Store.elements.CreateTab
-          ? <Store.elements.CreateTab platform={_platform} />
-          : <CreateTab platform={_platform} />
-        }
-
-        {Store.elements.Tabs
-          ? <Store.elements.Tabs />
-
-          : <Tabs />
-        }
-    </div>
+        {afterTitleBar}
+      </div>
     )
   }
 }
