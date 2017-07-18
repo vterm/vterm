@@ -15,16 +15,16 @@ import {
 export class App extends Component {
   // Styles for our application
   // Using:
-  // - Using fixed positioning to make the application
+  // - Using fixed positioning to make the application.
   //   fit entirely the transparent(macos) or
   //   white(windows and linux) space
   // - Using fontFamily and fontSize used in the WHOLE App
-  //   Check for user's config otherwhise using default ones
+  //   Check for user's config otherwhise using default ones.
   // - Using borderRadius and background values from the config
   //   otherwhise using default.
   //   NOTE: On macos the borderRadius is overwritten by the
   //   system if it's less or equal than 6
-  // - Extra styles setted by the user and/ore the plugins
+  // - Extra styles setted by the user and/ore the plugins.
 
   getStyles() {
     const {
@@ -65,8 +65,8 @@ export class App extends Component {
   // - Custom <preApp /> elements
   // - Default <Titlebar /> or custom one
   // - Default <Terminals /> list or custom one
-  // - TODO:
-  //   Default <Notifications /> or custom one
+  // - TODO: Default <Notifications />
+  //         or custom one
   // - Custom <afterApp /> elements
 
   render() {
@@ -79,8 +79,8 @@ export class App extends Component {
       // TODO: Notifications
     } = Store.elements
 
+    // Retriving custom props and our styles
     const { App: appProps } = Store.props
-    // Retrive our styles
     const styles = this.getStyles()
 
     // Determinate the components
@@ -90,9 +90,11 @@ export class App extends Component {
 
     return(
       <div className='app' style={styles} {...appProps}>
+        {preApp}
         {__TitleBar}
         {__Terminals}
         {/* TODO: Notifications */}
+        {afterApp}
       </div>
     )
   }
