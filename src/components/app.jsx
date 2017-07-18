@@ -3,8 +3,8 @@ import { observer }           from 'mobx-preact'
 import Store                  from '../store'
 
 // Import the components for the UI/UX
-import { TitleBar }       from './titlebar'
-import { Terminals }      from './terminals'
+import { TitleBar }           from './titlebar'
+import { Terminals }          from './terminals'
 
 // Import defaults
 import {
