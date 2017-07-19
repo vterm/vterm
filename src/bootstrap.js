@@ -30,7 +30,7 @@ import { createTab }     from './actions/tabs'
  * FS calls as promises and rewriting part of the loader and configuration
  * to make them classes. Also involves creating a new plugins system
  */
-export default async () => {
+export const boot = async () => {
   try {
     // 1. Load configuration
     //  - Checks if the base folder exists
@@ -75,3 +75,6 @@ export default async () => {
     ipcRenderer.send('bootstrap_error')
   }
 }
+
+// Boot it up!
+boot()
