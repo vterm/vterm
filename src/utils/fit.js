@@ -1,9 +1,11 @@
-import { h, render } from 'preact'
+import Store       from '../store'
+import { PADDING } from '../defaults/variables'
 
 export default (ele, tester) => {
-  const style  = window.getComputedStyle(ele)
-  const _height = parseInt(style.getPropertyValue('height')) - 16
-  const _width  = Math.max(0, parseInt(style.getPropertyValue('width')) - 16)
+  const padding = Store.config.padding || PADDING
+  const style   = window.getComputedStyle(ele)
+  const _height = parseInt(style.getPropertyValue('height')) - padding
+  const _width  = Math.max(0, parseInt(style.getPropertyValue('width')) - padding)
 
   const { width }      = tester.getBoundingClientRect()
   tester.style.display = ''
