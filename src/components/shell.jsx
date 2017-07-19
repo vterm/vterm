@@ -32,6 +32,12 @@ export class Shell extends Component {
       spawn(shell, args.peek(), options)
   }
 
+  // Kill the pty when the component gets unmounted
+  // = the tab gets closed
+  componentWillUnmount() {
+    this.shell.kill()
+  }
+
   // Rreturns the shell located in the
   // local class.
   @bind
@@ -39,11 +45,6 @@ export class Shell extends Component {
     return this.shell
   }
 
-  // Kill the pty when the component gets unmounted
-  // = the tab gets closed
-  componentWillUnmount() {
-    this.shell.kill()
-  }
   // Render the shell of YAT; This contains:
   // - An empty div just to link to this class
   //   and let the user be able to retrive
