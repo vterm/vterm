@@ -96,7 +96,13 @@ export class Terminal extends Component {
     terminal.on('resize', this.onTerminalResize)
 
     // Lastly open the terminal
-    terminal.open(this.__term)
+    // Set autofocus to true for future-proofness
+    // plannings fro version 3.0
+    terminal.open(this.__term, true)
+
+    // Immediatly force the terminal to find
+    // A title to fill the tab gap!
+    this.onTerminalTitle(this.shell.title)
   }
 
   // We destroy the terminal since the
@@ -139,7 +145,7 @@ export class Terminal extends Component {
   onTerminalTitle(__title) {
     // Shell title
     let title = ''
-    const _title = this.shell.title
+    const _title = this.shell.process
 
     // If the xterm value if it exists
     if(isEmptyBlank(__title)) title = _title
