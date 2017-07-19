@@ -3,3 +3,6 @@ export const isBlank = (str) =>
 
 export const isEmpty = (str) =>
   (!str || 0 === str.length)
+
+export const isEmptyBlank = (str) =>
+  isBlank(str) || isEmpty(str)
