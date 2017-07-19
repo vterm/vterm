@@ -83,6 +83,8 @@ export class TitleBar extends Component {
     // and from the store
     const { platform } = this
 
+    // Retrive custom elements and
+    // custom pre/after elements
     const {
       preTitleBar, afterTitleBar,
       windowControls: _WindowControls,

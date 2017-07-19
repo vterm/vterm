@@ -68,6 +68,7 @@ export class Terminals extends Component {
   // - zIndex of 10
   // - Extra styles setted by the user
   //   and/ore the plugins.
+
   getStyles() {
     const { Terminals: userStyles }   = Store.config.styles
 
@@ -98,9 +99,23 @@ export class Terminals extends Component {
     // Take values from the Store
     const { cols, rows } = Store
 
+    // Retrive custom elements and
+    // custom pre/after elements
+    const {
+      preTerminals, afterTerminals,
+      Terminal: _Terminal,
+      Styles: _Styles,
+      // TODO: Notifications
+    } = Store.elements
+
     // Retriving custom props and our styles
     const { Terminals: terminalsProps } = Store.props
     const styles = this.getStyles()
+
+    // Determinate the components
+    // we need to render
+    const __Terminal  = _Terminal  ? <_Terminal />  : <Terminal />
+    const __Styles = _Styles ? <_Styles /> : <Styles />
 
     return(
       <div
@@ -110,10 +125,12 @@ export class Terminals extends Component {
         style={styles}
         {...terminalsProps}
       >
+        {preTerminals}
+
         {/* Custom styles for the terminals,
           user customizations and
           plugins customizations */}
-        <Styles />
+        <_Styles />
 
         {/* Tester element used to get charter width and height */}
         <_tester ref={({base}) => this.tester = base} />
@@ -135,9 +152,10 @@ export class Terminals extends Component {
             const Content = content
 
           return !Content
-            ? <Terminal cols={cols} rows={rows} selected={selected} uid={uid} id={id} {...props} />
+            ? <_Terminal cols={cols} rows={rows} selected={selected} uid={uid} id={id} {...props} />
             : <Content cols={cols} rows={rows} selected={selected} uid={uid} id={id} {...props} />
         })}
+        {afterTerminals}
       </div>
     )
   }

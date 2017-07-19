@@ -71,7 +71,7 @@ export class App extends Component {
 
   render() {
     // Retrive custom elements and
-    // custom props from the store
+    // custom pre/after elements
     const {
       preApp, afterApp,
       TitleBar: _TitleBar,
