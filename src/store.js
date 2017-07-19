@@ -20,10 +20,10 @@ export default new class Store {
   // DEFAULTS
   @observable config         = {}
   @observable elements       = {}
-  @observable shell          = DEFAULT_SHELL
   @observable shellArguments = []
   @observable customCss      = ''
   @observable terminalColors = Colors
+  @observable shell          = DEFAULT_SHELL
 
   async init() {
     // Setup window title based on selected tab

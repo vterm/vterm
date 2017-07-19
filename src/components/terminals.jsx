@@ -92,6 +92,13 @@ export class Terminals extends Component {
     return styles
   }
 
+  // Render the Termial container; This contains:s
+  // - Custom <preTerminals /> elements
+  // - Default <Style /> or custom one
+  // - Default <Tester /> tag used to get
+  //   cols and rows number
+  // - Custom <afterTerminals /> elements
+
   render() {
     // Extract value for the local object
     const { _tester } = this
@@ -114,7 +121,7 @@ export class Terminals extends Component {
 
     // Determinate the components
     // we need to render
-    const __Terminal  = _Terminal  ? <_Terminal />  : <Terminal />
+    const __Terminal  = _Terminal  ? _Terminal  : Terminal
     const __Styles = _Styles ? <_Styles /> : <Styles />
 
     return(
@@ -130,29 +137,29 @@ export class Terminals extends Component {
         {/* Custom styles for the terminals,
           user customizations and
           plugins customizations */}
-        <_Styles />
+        {__Styles}
 
         {/* Tester element used to get charter width and height */}
         <_tester ref={({base}) => this.tester = base} />
 
         {this.getTabs().map( item => {
-            // Take values from the item
-            const {
-              id,
-              uid,
-              content,
-              props
-            } = item
+          // Take values from the item
+          const {
+            id,
+            uid,
+            content,
+            props
+          } = item
 
-            // Declare if it is selected
-            const selected = id === Store.selectedTab
+          // Declare if it is selected
+          const selected = id === Store.selectedTab
 
-            // We need to use the capital letter so that
-            // it recognizes that it's a custom element
-            const Content = content
+          // We need to use the capital letter so that
+          // it recognizes that it's a custom element
+          const Content = content
 
           return !Content
-            ? <_Terminal cols={cols} rows={rows} selected={selected} uid={uid} id={id} {...props} />
+            ? <__Terminal cols={cols} rows={rows} selected={selected} uid={uid} id={id} {...props} />
             : <Content cols={cols} rows={rows} selected={selected} uid={uid} id={id} {...props} />
         })}
         {afterTerminals}
