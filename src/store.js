@@ -1,4 +1,4 @@
-import Shell           from 'default-shell'
+import DEFAULT_SHELL   from 'default-shell'
 import { observable }  from 'mobx'
 import { remote }      from 'electron'
 
@@ -20,7 +20,7 @@ export default new class Store {
   // DEFAULTS
   @observable config         = {}
   @observable elements       = {}
-  @observable shell          = Shell
+  @observable shell          = DEFAULT_SHELL
   @observable shellArguments = []
   @observable customCss      = ''
   @observable terminalColors = Colors
