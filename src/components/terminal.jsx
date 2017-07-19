@@ -205,6 +205,12 @@ export class Terminal extends Component {
     return styles
   }
 
+  // Render the Terminal; This contains:
+  // - Custom <preTermina/> elements
+  // - Default <Shell />
+  // - Default <div /> used as xterm wrapper
+  // - Custom <afterTerminal /> elements
+
   render({ id, uid, selected, cols, rows }) {
     // Retrive custom elements and
     // custom pre/after elements

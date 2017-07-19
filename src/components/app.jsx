@@ -15,7 +15,7 @@ import {
 export class App extends Component {
   // Styles for our application
   // Using:
-  // - Using fixed positioning to make the application.
+  // - Using fixed positioning to make the application
   //   fit entirely the transparent(macos) or
   //   white(windows and linux) space
   // - Using fontFamily and fontSize used in the WHOLE App
