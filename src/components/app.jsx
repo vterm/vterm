@@ -50,8 +50,8 @@ export class App extends Component {
       fontSize:   fontSize   || FONT_SIZE,
 
       // Border radius and backgorund
-      borderRadius: borderRadius || 2,
-      background:   background   || grey[500],
+      borderRadius: borderRadius || BORDER_RADIUS,
+      background:   background   || BACKGROUND,
 
       // User/plugin custom styles
       ...(userStyles   || {}),
