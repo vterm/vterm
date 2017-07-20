@@ -182,8 +182,8 @@ export class Terminal extends Component {
   // - Absolute positioning fillig all the space
   //   the space left up
   // - Configurable padding for the terminal
-  // - Display none/block either if it's ù
-  //   not or is selected
+  // - Display none/block either if
+  // it's selected or not
   // - Extra styles setted by the user and/ore the plugins.
   getStyles() {
     // Extract values from local class
