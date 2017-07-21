@@ -177,7 +177,7 @@ export class Terminal extends Component {
     removeTab(this.props.id)
   }
 
-  // Styles for our application
+  // Styles for our terminal
   // Using:
   // - Absolute positioning fillig all the space
   //   the space left up
