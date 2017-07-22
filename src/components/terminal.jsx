@@ -227,8 +227,11 @@ export class Terminal extends Component {
     const styles = this.getStyles()
 
     // Determinate the className
+    // Determinate the padding of the terminal container
     const _classes = `Terminal ${selected ? 'selected' : ''}`
+    const padding = Store.config.padding || PADDING
 
+    console.log(padding);
     return(
       <div
         className={_classes}
@@ -240,7 +243,7 @@ export class Terminal extends Component {
         <Shell id={id} ref={(e) => this.__shell = e}/>
         <div
           className='xterm'
-          style={styles}
+          style={{...styles, padding}}
           ref={(e) => this.__term = e}
           {...terminalProps}
         />

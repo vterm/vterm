@@ -1,14 +1,8 @@
-import Store    from '../store'
-import { grey } from '../styles/colors'
-import {
-  PRIMARY_COLOR,
-  PADDING }     from './variables'
+import Store             from '../store'
+import { grey }          from '../styles/colors'
+import { PRIMARY_COLOR } from './variables'
 
-const {
-  cursorColor,
-  primaryColor,
-  padding
-} = Store.config
+const { cursorColor, primaryColor } = Store.config
 
 export default `
 .terminal {
@@ -139,7 +133,6 @@ export default `
   position: absolute;
   left: 0;
   top: 0;
-  padding: ${padding || PADDING}px;
 }
 
 .terminal .xterm-rows > div {
