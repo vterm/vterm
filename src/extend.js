@@ -82,8 +82,7 @@ export const styleComponent = (name, styles) => {
  * @return {null}
  */
 export const propulate = (name, props) => {
-  console.log(name, props);
-  if(typeof styles !== 'object' || Array.isArray(styles))
+  if(typeof props !== 'object' || Array.isArray(props))
     return console.warn('The props for a component MUST objects')
 
   // We take the previous props(if any)
