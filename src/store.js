@@ -10,6 +10,7 @@ export default new class Store {
   // Empty or falsy values
   @observable tabs        = []
   @observable props       = []
+  @observable plugins     = []
   @observable selectedTab = 0
   @observable rows        = 0
   @observable cols        = 0
@@ -63,5 +64,8 @@ export default new class Store {
 
       if(this.config.colors)
         this.terminalColors = mergeArrays(Colors, this.config.colors)
+
+      if(this.config.plugins)
+        this.plugins = this.config.plugins
   }
 }

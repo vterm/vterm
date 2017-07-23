@@ -1,7 +1,12 @@
 import { join }         from 'path'
 
+// Imoprt utilities
 import Files, { _stat } from './utils/files'
 import Loader           from './utils/loader'
+import { isEmptyBlank } from './utils/strings'
+
+// Import the store and a path
+import Store            from './store'
 import { plugins }      from './paths'
 
 export default new class Plugins {
@@ -31,14 +36,17 @@ export default new class Plugins {
     return name.substr(0, 4) == 'yat-'
   }
 
+  getPlugins() {
+    return Store.plugins
+      .filter((str) => !isEmptyBlank(str))
+    || []
+  }
+
   // Loops all folders inside of
   // the `plugins` path and loads them
   async load() {
-    // Extract values from interested objects
-    const {
-      isDir,
-      isYatPlugin
-    }  = this
+    // Extract values from the interested objects
+    const { getPlugins }  = this
     const { readdir, mkdir } = Files
 
     // Check if the plugin folder exists
@@ -47,17 +55,9 @@ export default new class Plugins {
     if(!exists)       await mkdir(plugins)
 
     // Add dirs inside of the `plugins` folder
-    const __plugins = await readdir(plugins)
+    const _plugins = getPlugins()
 
-    // Filter dirs inside of the previous list
-    //
-    // NOTE:
-    // The dir MUST start with yat-* in order
-    // to be loaded. This prevents loading
-    // dependencies of other plugins
-    const _plugins = __plugins
-      .filter(await isDir)
-      .filter(isYatPlugin)
+    console.log(_plugins);
 
     // For each dir inside of our plugins folder
     for (let i = 0; i < _plugins.length; i++) {
@@ -65,10 +65,10 @@ export default new class Plugins {
       const name   = _plugins[i]
       const path   = join(plugins, name)
       const plugin = null
+
       // Require the module with the loader
       //
-      // TODO
-      // In the future creators will be able to
+      // TODO: In the future creators will be able to
       // specify arguments to give to the loader in
       // their package.json file, but for now
       // let's keep the cache enabled
@@ -81,6 +81,12 @@ export default new class Plugins {
         // TODO:
         // Schedule events
       } catch (err) {
+        
+        // Warn the error in the devTools
+        console.warn(
+          `Error while loading plugin ${name}, here is the trace: \n`,
+          err
+        )
         // Otherwise push the plugin
         // to the error array
         this.errorPlugins.push({ name, path, err })
