@@ -1,78 +1,32 @@
-import { h, Component }     from 'preact'
-import { bind }             from 'decko'
-import { observer }         from 'mobx-preact'
+import { h, Component }  from 'preact'
+import { bind }          from 'decko'
+import Store             from '../store'
 
-// XTerm.js import
-import XTerminal            from 'xterm'
+// Terminal and shell constructors
+import TERMINAL          from 'xterm'
+import { Shell }         from './shell'
 
-// Styles and components
-import absoluteFill         from '../styles/absoluteFill'
-import { Shell }            from './shell'
-import Store                from '../store'
-import { removeTab }        from '../actions/tabs'
-import { isEmpty, isBlank } from '../utils/strings'
-import { grey }             from '../styles/colors'
+// Costants, utils and actions
+import {
+  PRIMARY_COLOR,
+  PADDING
+}                       from '../defaults/variables'
+import { isEmptyBlank } from '../utils/strings'
+import { removeTab }    from '../actions/tabs'
 
 export class Terminal extends Component {
-  //
-  // Lifecycle
-  //
-  componentDidMount() {
-    this.createTerminal()
-  }
+  shell = null
 
-  @bind
-  createTerminal() {
-    // Take out values from config
-    const { cursorBlink, cursorStyle } = Store.config
-
-    // Create the terminal and setup event hooks
-    this.Terminal = new XTerminal({ cursorBlink, cursorStyle })
-    this.Terminal.on('open', this.onTerminalOpen)
-
-    this.Terminal.open(this.Term, true)
-  }
-
-  //
-  // Terminal and Shell setups
-  //
-  setUpShell() {
-    const { getShell } = this.Shell
-    let self = this
-
-    getShell().on('data', this.onShellData)
-    getShell().on('exit', this.onShellExit)
-
-    // Set the title on startup since we emit no event.
-    this.onShellTitle(getShell().process)
-  }
-
-  setUpTerminal() {
-    const { cursorStyle } = Store.config
-    const { cols, rows }  = this.props
-
-    this.Terminal.on('data', this.onTerminalData)
-
-    // TODO: On resize display the new size of the terminal
-    this.Terminal.on('resize', this.onTerminalResize)
-    this.Terminal.on('title', this.onShellTitle)
-    this.Terminal.resize(cols, rows)
-
-    // Temporary fix for custor-style not applied by xterm.js
-    this.Terminal.element.classList.add(`xterm-cursor-style-${cursorStyle}`)
-  }
-
-  //
-  // Window Events
-  //
+  // When the component recives new props
+  // and is selected we resize and focus it!
   @bind
   componentWillReceiveProps({ selected, cols, rows }) {
-    const { Terminal } = this
+    const { terminal } = this
 
     if(selected)
-      Terminal.resize(cols, rows)
-      Terminal.focus()
-
+      // Resize the terminal and focus it
+      terminal.resize(cols, rows)
+      terminal.focus()
   }
 
   // Re render only if the selected tab changed
@@ -83,78 +37,216 @@ export class Terminal extends Component {
     else return false
   }
 
+  // Lifecycle; This is it:
+  // - Setup Shell and its EVENTS:
+  //   - onShellData
+  //   - onShellExit
   //
-  // Terminal Events
+  // - Create a new Terminal from its constructor,
+  //   Setup event listeners and then open it
   //
-  @bind
-  onTerminalOpen() {
-    this.setUpShell()
-    this.setUpTerminal()
+  //   EVENTS:
+  //   - onTerminalOpen
+  //   - onTerminalData
+  //   - onTerminalTitle(we sometimes use the shell one)
+  //   - onTerminalResize
+  componentDidMount() {
+    // SETTING UP THE SHELL:
+    // - Setting the local shell value
+    //   to what `getShell` returns
+    //
+    //   To simplify access we then
+    //   extrapolate it from `this`
+    this.shell = this.__shell.getShell()
+    const { shell } = this
+
+    // - SETTING UP EVENTS:
+    //   - onShellData
+    //   - onShellExit
+    shell.on('data', this.onShellData)
+    shell.on('exit', this.onShellExit)
+
+
+    // SETTING UP THE TERMINAL:
+    // - Taking values from the Store
+    // - Taking ID, cols and rows from props
+    // - Creating the Terminal object
+    const { cursorBlink, cursorStyle } = Store.config
+    const { id, cols, rows } = this.props
+
+    // Creating the terminal with the default
+    // options plus TODO: custom ones
+    this.terminal = Store.tabs[id].terminal =
+      new TERMINAL({
+        cursorBlink,
+        cursorStyle,
+        cols,
+        rows
+      })
+
+    const { terminal } = this
+    // - SETTING UP EVENTS:
+    //   - onTerminalOpen
+    //   - onTerminalData
+    //   - onTerminalTitle (linked to the shell)
+    //   - onTerminalResize
+    terminal.on('open',   this.onTerminalOpen  )
+    terminal.on('data',   this.onTerminalData  )
+    terminal.on('title',  this.onTerminalTitle )
+    terminal.on('resize', this.onTerminalResize)
+
+    // Lastly open the terminal
+    // Set autofocus to true for future-proofness
+    // plannings fro version 3.0
+    terminal.open(this.__term, true)
+
+    // Immediatly force the terminal to find
+    // A title to fill the tab gap!
+    this.onTerminalTitle(this.shell.title)
   }
 
-  @bind
-  onTerminalResize({ cols, rows }) {
-    const { getShell } = this.Shell
-
-    getShell().resize(cols, rows)
+  // We destroy the terminal since the
+  // killing of the pty is handled by itself
+  // on the componentWillUnmount of the
+  // <Shell /> component
+  componentWillUnmount() {
+    this.terminal.destroy()
   }
 
+  // When we recive ANY kind of data
+  // print it to the terminal in order
+  // to display it to the user
+  //
+  // TIP: Use customKeyHandlers to
+  // intercept binds or keystrokes
   @bind
   onTerminalData(data) {
-    const { getShell } = this.Shell
-
-    getShell().write(data)
+    this.shell.write(data)
   }
 
+  // When the terminal gets resized
+  // = props change and the event is fired
+  // we have to tell the pty to resize too.
+  @bind
+  onTerminalResize({ cols, rows }) {
+    this.shell.resize(cols, rows)
+  }
+
+  // TODO: Something, for now it's just
+  //       here for reference!
+  @bind
+  onTerminalOpen() {}
+
+  // This is clled when we recive a shell title;
+  // Here we use the xterm escape sequence
+  // if it's avaible, but if the name is emptyOrBlank
+  // we return the shell title
+  @bind
+  onTerminalTitle(__title) {
+    // Shell title
+    let title = ''
+    const _title = this.shell.process
+
+    // If the xterm value if it exists
+    if(isEmptyBlank(__title)) title = _title
+
+    // Otherwise use pty's title
+    else                      title = __title
+
+    // Update the title in the store
+    Store.tabs[this.props.id].title = title
+  }
+
+  // When we recive ANY kind of data
+  // print it to the terminal in order
+  // to display it to the user
   //
-  // Shell Events
-  //
+  // TIP: Use customKeyHandlers to
+  // intercept binds or keystrokes
   @bind
   onShellData(data) {
-    this.Terminal.write(data)
+    this.terminal.write(data)
   }
 
+  // When the shell closes we remove the current
+  // tab and the terminal will destroy by itself
+  //
+  // TIP: Look at componentWillUnmount
   @bind
   onShellExit() {
     removeTab(this.props.id)
   }
 
-  @bind
-  onShellTitle(_title) {
-    const { getShell } = this.Shell
-
-    let title = _title
-
-    // Use and xterm escape title sequence when it's avaible
-    // Otherwise use the shell process' name
-    if(isEmpty(_title) || isBlank(_title)) title = getShell().process
-    this.title = title
-
-    Store.tabs[this.props.id].title = title
-  }
-
-  //
-  // Styling and rendering
-  //
-  @bind
+  // Styles for our terminal
+  // Using:
+  // - Absolute positioning fillig all the space
+  //   the space left up
+  // - Configurable padding for the terminal
+  // - Display none/block either if
+  // it's selected or not
+  // - Extra styles setted by the user and/ore the plugins.
   getStyles() {
-    return {
-      ...absoluteFill,
-      padding: 8,
-      display: (this.props.selected) ? 'block' : 'none'
+    // Extract values from local class
+    const { selected } = this.props
+
+    const { Terminal: userStyles }   = Store.config.styles
+
+    // TODO: Support plugin styles
+    const { Terminal: pluginStyles } = {}
+
+    // Styles array
+    const styles = {
+      // Absolute positioning
+      position: 'absolute',
+      top: 0, bottom: 0,
+      right: 0, left: 0,
+
+      display: selected ? 'block' : 'none',
+
+      // User/plugin custom styles
+      ...(userStyles   || {}),
+      ...(pluginStyles || {})
     }
+
+    return styles
   }
+
+  // Render the Terminal; This contains:
+  // - Custom <preTermina/> elements
+  // - Default <Shell />
+  // - Default <div /> used as xterm wrapper
+  // - Custom <afterTerminal /> elements
 
   render({ id, uid, selected, cols, rows }) {
-    let Class = ['Terminal']
+    // Retrive custom elements and
+    // custom pre/after elements
+    const { preTerminal, afterTerminal } = Store.elements
 
-    // Add the class and focus the terminal if this tab is selected
-    if(selected) Class.push('selected')
+    // Retriving custom props and our styles
+    const { Terminal: terminalProps } = Store.props
+    const styles = this.getStyles()
+
+    // Determinate the className
+    // Determinate the padding of the terminal container
+    const _classes = `Terminal ${selected ? 'selected' : ''}`
+    const padding = Store.config.padding || PADDING
 
     return(
-      <div className={Class.join(' ')} id={id} style={this.getStyles()}>
-        <Shell className='Shell' id={id} style={{display: 'none'}} ref={(e) => this.Shell = e}/>
-        <div className='xterm' style={this.getStyles()} ref={(e) => this.Term = e}/>
+      <div
+        className={_classes}
+        id={id}
+        style={styles}
+        {...terminalProps}
+      >
+        {preTerminal}
+        <Shell id={id} ref={(e) => this.__shell = e}/>
+        <div
+          className='xterm'
+          style={{...styles, padding}}
+          ref={(e) => this.__term = e}
+          {...terminalProps}
+        />
+        {afterTerminal}
       </div>
     )
   }

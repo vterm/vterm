@@ -1,33 +1,65 @@
 import { h, Component } from 'preact'
 import { spawn }        from 'node-pty'
 import { bind }         from 'decko'
-import { homedir }      from 'os'
-import defaultShell     from 'default-shell'
+import DEFAULT_SHELL    from 'default-shell'
+import { HOMEDIR }      from '../defaults/variables'
 import Store            from '../store'
 
 export class Shell extends Component {
-  constructor(props, context) {
-    super(props, context)
-  }
+  // This is where the shell object
+  // will live and will be destroied
+  // when the component will unmount
+  shell = null
 
   componentDidMount() {
-    const shell = (typeof Store.shell == 'string') ? Store.shell : defaultShell
-    const _arguments = Store.shellArguments ? Store.shellArguments.peek() : []
+    // Take values from the store
+    const {
+      shellArguments: args,
+      cols, rows, shell,
+    } = Store
+
+    // Get the shell ID
+    const { id } = this.props
+
     const options = {
       name: 'xterm-256color',
       env: process.env,
-      cwd: homedir()
+      cwd: HOMEDIR,
+      cols, rows
     }
 
-    this.shell = spawn(shell, _arguments, options)
+    this.shell = Store.tabs[id].shell =
+      spawn(shell, args.peek(), options)
   }
 
+  // Kill the pty when the component gets unmounted
+  // = the tab gets closed
+  componentWillUnmount() {
+    this.shell.kill()
+  }
+
+  // Rreturns the shell located in the
+  // local class.
   @bind
   getShell() {
     return this.shell
   }
 
+  // Render the shell of YAT; This contains:
+  // - An empty div just to link to this class
+  //   and let the user be able to retrive
+  //   the shell object.
+  //
+  //   This element has also the ID for reference
+
   render({ id }) {
-    return <div style={{ display: 'none' }} id={'Shell-'+id}></div>
+    // Retriving custom props
+    const { Shell: shellProps } = Store.props
+
+    return <div
+      style={{ display: 'none' }}
+      id={'Shell-'+id}
+      {...shellProps}
+    />
   }
 }

@@ -1,38 +1,100 @@
-import { h, Component }   from 'preact'
-import { observer }       from 'mobx-preact'
-import Store              from '../store'
+import { h, Component }       from 'preact'
+import { observer }           from 'mobx-preact'
+import Store                  from '../store'
 
-// Import any additional component
-// For our `app UI`
-import { TitleBar }       from './titlebar'
-import { Terminals }      from './terminals'
-import { Notifications }  from './notifications'
+// Import the components for the UI/UX
+import { TitleBar }           from './titlebar'
+import { Terminals }          from './terminals'
 
-// Styles and colors
-import fixedFill          from '../styles/fixedFill'
-import { grey }           from '../styles/colors'
-import DEFAULT_FONT       from '../defaults/font'
+// Import defaults
+import {
+  FONT_FAMILY, FONT_SIZE,
+  BACKGROUND, BORDER_RADIUS } from '../defaults/variables'
 
 @observer
 export class App extends Component {
+  // Styles for our application
+  // Using:
+  // - Using fixed positioning to make the application
+  //   fit entirely the transparent(macos) or
+  //   white(windows and linux) space
+  // - Using fontFamily and fontSize used in the WHOLE App
+  //   Check for user's config otherwhise using default ones.
+  // - Using borderRadius and background values from the config
+  //   otherwhise using default.
+  //   NOTE: On macos the borderRadius is overwritten by the
+  //   system if it's less or equal than 6
+  // - Extra styles setted by the user and/ore the plugins.
+
   getStyles() {
-    return {
-      ...fixedFill,
-      background: Store.config.background || grey[900],
-      borderRadius: !Store.isMaximized ? (Store.config.borderRadius || 2) : 0,
-      fontFamily: Store.config.fontFamily || DEFAULT_FONT,
-      fontSize: Store.config.fontSize || 15,
-      ...(Store.config.styles.App || {})
+    const {
+      fontFamily, fontSize,
+      borderRadius, background
+    } = Store.config
+
+    const { App: userStyles }   = Store.config.styles
+
+    // TODO: Support plugin styles
+    const { App: pluginStyles } = {}
+
+    // Styles array
+    const styles = {
+      // Fixed positioning
+      position: 'fixed',
+      top: 0, bottom: 0,
+      right: 0, left: 0,
+
+      // Using fontFamily and fontSize from user's config
+      // otherwhise use default value
+      fontFamily: fontFamily || FONT_FAMILY,
+      fontSize:   fontSize   || FONT_SIZE,
+
+      // Border radius and backgorund
+      borderRadius: borderRadius || BORDER_RADIUS,
+      background:   background   || BACKGROUND,
+
+      // User/plugin custom styles
+      ...(userStyles   || {}),
+      ...(pluginStyles || {})
     }
+
+    return styles
   }
 
+  // Render the core of YAT; This contains:
+  // - Custom <preApp /> elements
+  // - Default <Titlebar /> or custom one
+  // - Default <Terminals /> list or custom one
+  // - TODO: Default <Notifications />
+  //         or custom one
+  // - Custom <afterApp /> elements
+
   render() {
-    const { elements } = Store
+    // Retrive custom elements and
+    // custom pre/after elements
+    const {
+      preApp, afterApp,
+      TitleBar: _TitleBar,
+      Terminals: _Terminals,
+      // TODO: Notifications
+    } = Store.elements
+
+    // Retriving custom props and our styles
+    const { App: appProps } = Store.props
+    const styles = this.getStyles()
+
+    // Determinate the components
+    // we need to render
+    const __TitleBar  = _TitleBar  ? <_TitleBar />  : <TitleBar />
+    const __Terminals = _Terminals ? <_Terminals /> : <Terminals />
+
     return(
-      <div style={this.getStyles()} className='app'>
-        {elements.TitleBar      ? <elements.TitleBar />       : <TitleBar />     }
-        {elements.Terminals     ? <elements.Terminals />      : <Terminals />    }
-        {elements.Notifications ? <elements.Notifications />  : <Notifications />}
+      <div className='app' style={styles} {...appProps}>
+        {preApp}
+        {__TitleBar}
+        {__Terminals}
+        {/* TODO: Notifications */}
+        {afterApp}
       </div>
     )
   }

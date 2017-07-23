@@ -1,29 +1,86 @@
-import { h, Component } from 'preact'
-import Store            from '../store'
+import { h, Component }  from 'preact'
+import Store             from '../store'
 
-import { createTab }    from '../actions/tabs'
-import { grey }         from '../styles/colors'
+// Import actions
+import { createTab }     from '../actions/tabs'
+
+// Import defaults
+import { LIGHT_COLOR } from '../defaults/variables'
 
 export class CreateTab extends Component {
-  getStyles(platform) {
-    return {
-      userSelect: 'none',
-      WebkitAppRegion: 'no-drag',
-      cursor: 'default',
-      width: '46px',
+  
+  // Styles for our application
+  // Using:
+  // - TODO: Display only if there wasn't any
+  //   error loading the app. Need to rewrite
+  //   TerminalError for that.
+  // - Float to right if the platform is
+  //   `darwin` otherwhise to the left
+  // - Fixed with and full height
+  // - All items to the center
+  // - Disable user selection and user dragging
+  // - Use pointer cursor
+
+  getStyles() {
+    const { platform } = this.props
+
+    const {
+      CreateTab: userStyles
+    }   = Store.config.styles
+
+    // TODO: Support plugin styles
+    const {
+      CreateTab: pluginStyles
+    } = {}
+
+    const styles = {
+      // Display flex and left/right positioning
+      display: 'flex',
+      float: platform =='darwin' ? 'right' : 'left',
+
+      // Fixed width and using full height
+      width: 46,
       height: '100%',
-      display: Store.isError ? 'none' : 'flex',
+
+      // Making the <svg /> fit the center
       justifyContent: 'center',
       alignItems: 'center',
-      float: platform =='darwin' ? 'right' : 'left'
+
+      // Disalbe use selection and dragging.
+      // Set the cursor to pointer
+      userSelect: 'none',
+      WebkitAppRegion: 'no-drag',
+      cursor: 'pointer'
     }
+
+    return styles
   }
 
-  render({ platform }) {
+  // Render the button to add more tabs:
+  // - Default <div /> used as container
+  //   - plugin sign <svg />
+  render() {
+    // Retriving custom props and our styles
+    const {
+      createTab: createTabProps
+    } = Store.props
+    const styles = this.getStyles()
+
     return(
-      <div onClick={createTab} style={this.getStyles(platform)}>
-        <svg fill="#FFF" viewBox="0 0 24 24" style={{ height: 16, width: 16 }}>
-            <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+      <div
+        onClick={createTab}
+        style={styles}
+        {...createTabProps}
+      >
+        <svg
+          fill={LIGHT_COLOR}
+          viewBox="0 0 24 24"
+          style={{
+            height: 16,
+            width: 16
+          }}
+        >
+          <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
         </svg>
       </div>
     )

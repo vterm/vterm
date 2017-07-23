@@ -1,4 +1,4 @@
-import Shell           from 'default-shell'
+import DEFAULT_SHELL   from 'default-shell'
 import { observable }  from 'mobx'
 import { remote }      from 'electron'
 
@@ -9,7 +9,10 @@ import { mergeArrays } from './utils/arrays'
 export default new class Store {
   // Empty or falsy values
   @observable tabs        = []
+  @observable props       = []
   @observable selectedTab = 0
+  @observable rows        = 0
+  @observable cols        = 0
   @observable isMaximized = false
   @observable isFocused   = false
 
@@ -17,10 +20,10 @@ export default new class Store {
   // DEFAULTS
   @observable config         = {}
   @observable elements       = {}
-  @observable shell          = Shell
   @observable shellArguments = []
   @observable customCss      = ''
   @observable terminalColors = Colors
+  @observable shell          = DEFAULT_SHELL
 
   async init() {
     // Setup window title based on selected tab
