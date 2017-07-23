@@ -12,6 +12,7 @@ import * as Notify     from '../actions/notify'
 import * as Tabs       from '../actions/tabs'
 import * as Window     from '../actions/window'
 import * as Colors     from '../styles/colors'
+import * as Extend     from '../extend'
 
 import Store           from '../store'
 import Config          from '../config'
@@ -48,7 +49,8 @@ export default new class Loader {
     'yat/store': Store,
     'yat/colors': Colors,
     'yat/config': Config,
-    'yat/plugins': Plugins
+    'yat/plugins': Plugins,
+    'yat/extend': Extend
   }
 
   constructor() {
