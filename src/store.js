@@ -20,7 +20,7 @@ export default new class Store {
   @observable config         = {}
   @observable elements       = {}
   @observable styles         = {}
-  @observable props          = []
+  @observable props          = {}
   @observable plugins        = []
   @observable shellArguments = []
   @observable customCss      = ''

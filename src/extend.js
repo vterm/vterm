@@ -1,6 +1,9 @@
-import Store from './store'
-import { observable } from 'mobx'
+// Import the store object
+import Store          from './store'
 
+// Import utilities
+import { observable } from 'mobx'
+import { isArray }    from 'isarray'
 /**
  * Decorate Yat elements or even replace them
  * by adding elements before/after or overwriting
@@ -48,4 +51,47 @@ export const decorate = (name, _class) => {
     // Then we set it!
     Store.elements[name] = _class
   }
+}
+
+/**
+ * Styles up a given component by the name
+ * and applies all the styles listed as an object,
+ * just like Preact/React
+ * @param  {string} name   name of the component to style up
+ * @param  {object} styles object containing component styles
+ * @return {null}
+ */
+export const styleComponent = (name, styles) => {
+  if(typeof styles !== 'object' || Array.isArray(styles))
+    return console.warn('The styles for a component MUST be an object')
+
+  // We take the previous styles(if any)
+  // and then we merge them with the new ones
+  // to lose the less possible with multiple plugins
+  const __style = Store.styles[name] || {}
+  const _style  = {...__style, ...styles}
+
+  // Set them
+  Store.styles[name] = observable(_style)
+}
+
+/**
+ * Populate components with custom props
+ * @param  {string} name   name of the component to give props
+ * @param  {object} props  object containing props
+ * @return {null}
+ */
+export const propulate = (name, props) => {
+  console.log(name, props);
+  if(typeof styles !== 'object' || Array.isArray(styles))
+    return console.warn('The props for a component MUST objects')
+
+  // We take the previous props(if any)
+  // and then we merge them with the new ones
+  // to lose the less possible with multiple plugins
+  const __props = Store.props[name] || {}
+  const _props  = {...__props, ...props}
+
+  // Set them
+  Store.props[name] = observable(_props)
 }
