@@ -3,7 +3,7 @@ import { observer }     from 'mobx-preact'
 import { bind }         from 'decko'
 import Store            from '../store'
 
-// Actions
+// Import actions
 import { selectTab, removeTab } from '../actions/tabs'
 
 // Import defaults
