@@ -89,7 +89,11 @@ export class App extends Component {
     const __Terminals = _Terminals ? <_Terminals /> : <Terminals />
 
     return(
-      <div className='app' style={styles} {...appProps}>
+      <div
+        className='app'
+        style={styles}
+        {...appProps}
+      >
         {preApp}
         {__TitleBar}
         {__Terminals}
