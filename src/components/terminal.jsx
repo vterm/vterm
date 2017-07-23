@@ -231,7 +231,6 @@ export class Terminal extends Component {
     const _classes = `Terminal ${selected ? 'selected' : ''}`
     const padding = Store.config.padding || PADDING
 
-    console.log(padding);
     return(
       <div
         className={_classes}
