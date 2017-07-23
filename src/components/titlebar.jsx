@@ -37,8 +37,8 @@ export class TitleBar extends Component {
     // Users's custom styles
     const { TitleBar: userStyles }   = Store.config.styles
 
-    // TODO: Support plugin styles
-    const { TitleBar: pluginStyles } = {}
+    // Plugin styles
+    const { TitleBar: pluginStyles } = Store.styles
 
 
     const styles = {

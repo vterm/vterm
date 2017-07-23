@@ -34,8 +34,8 @@ export class App extends Component {
 
     const { App: userStyles }   = Store.config.styles
 
-    // TODO: Support plugin styles
-    const { App: pluginStyles } = {}
+    // Plugin styles
+    const { App: pluginStyles } = Store.styles
 
     // Styles array
     const styles = {

@@ -8,7 +8,7 @@ import { createTab }     from '../actions/tabs'
 import { LIGHT_COLOR } from '../defaults/variables'
 
 export class CreateTab extends Component {
-  
+
   // Styles for our application
   // Using:
   // - TODO: Display only if there wasn't any
@@ -28,10 +28,10 @@ export class CreateTab extends Component {
       CreateTab: userStyles
     }   = Store.config.styles
 
-    // TODO: Support plugin styles
+    // Plugin styles
     const {
       CreateTab: pluginStyles
-    } = {}
+    } = Store.styles
 
     const styles = {
       // Display flex and left/right positioning

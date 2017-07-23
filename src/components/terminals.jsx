@@ -72,8 +72,8 @@ export class Terminals extends Component {
   getStyles() {
     const { Terminals: userStyles }   = Store.config.styles
 
-    // TODO: Support plugin styles
-    const { Terminals: pluginStyles } = {}
+    // Plugin styles
+    const { Terminals: pluginStyles } = Store.styles
 
     const styles = {
       // Absolute positioning

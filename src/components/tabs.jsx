@@ -21,8 +21,8 @@ export class Tabs extends Component {
   getStyles() {
     const { Tabs: userStyles }   = Store.config.styles
 
-    // TODO: Support plugin styles
-    const { Tabs: pluginStyles } = {}
+    // Plugin styles
+    const { Tabs: pluginStyles } = Store.styles
 
     const styles = {
       // Flex positioning with auto width

@@ -69,8 +69,8 @@ export class Tab extends Component {
 
     const { Tab: userStyles }   = Store.config.styles
 
-    // TODO: Support plugin styles
-    const { Tab: pluginStyles } = {}
+    // Plugin styles
+    const { Tab: pluginStyles } = Store.styles
 
     const styles = {
       // fill the whole height

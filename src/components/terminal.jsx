@@ -191,8 +191,8 @@ export class Terminal extends Component {
 
     const { Terminal: userStyles }   = Store.config.styles
 
-    // TODO: Support plugin styles
-    const { Terminal: pluginStyles } = {}
+    // Plugin styles
+    const { Terminal: pluginStyles } = Store.styles
 
     // Styles array
     const styles = {
