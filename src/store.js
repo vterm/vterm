@@ -8,19 +8,20 @@ import { mergeArrays } from './utils/arrays'
 
 export default new class Store {
   // Empty or falsy values
-  @observable tabs        = []
-  @observable props       = []
-  @observable plugins     = []
-  @observable selectedTab = 0
-  @observable rows        = 0
-  @observable cols        = 0
-  @observable isMaximized = false
-  @observable isFocused   = false
+  @observable tabs           = []
+  @observable selectedTab    = 0
+  @observable rows           = 0
+  @observable cols           = 0
+  @observable isMaximized    = false
+  @observable isFocused      = false
 
   // Config based values
   // DEFAULTS
   @observable config         = {}
   @observable elements       = {}
+  @observable styles         = {}
+  @observable props          = []
+  @observable plugins        = []
   @observable shellArguments = []
   @observable customCss      = ''
   @observable terminalColors = Colors
