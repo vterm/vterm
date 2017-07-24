@@ -57,8 +57,6 @@ export default new class Plugins {
     // Add dirs inside of the `plugins` folder
     const _plugins = getPlugins()
 
-    console.log(_plugins);
-
     // For each dir inside of our plugins folder
     for (let i = 0; i < _plugins.length; i++) {
       // Generate require path
@@ -81,7 +79,7 @@ export default new class Plugins {
         // TODO:
         // Schedule events
       } catch (err) {
-        
+
         // Warn the error in the devTools
         console.warn(
           `Error while loading plugin ${name}, here is the trace: \n`,
