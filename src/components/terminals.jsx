@@ -145,22 +145,16 @@ export class Terminals extends Component {
         {this.getTabs().map( item => {
           // Take values from the item
           const {
-            id,
-            uid,
-            content,
-            props
+            id, uid, props,
+            content: _content
           } = item
 
           // Declare if it is selected
           const selected = id === Store.selectedTab
 
-          // We need to use the capital letter so that
-          // it recognizes that it's a custom element
-          const Content = content
-
           return !Content
             ? <__Terminal cols={cols} rows={rows} selected={selected} uid={uid} id={id} {...props} />
-            : <Content cols={cols} rows={rows} selected={selected} uid={uid} id={id} {...props} />
+            : <_content cols={cols} rows={rows} selected={selected} uid={uid} id={id} {...props} />
         })}
         {afterTerminals}
       </div>
