@@ -152,7 +152,7 @@ export class Terminals extends Component {
           // Declare if it is selected
           const selected = id === Store.selectedTab
 
-          return !Content
+          return !_content
             ? <__Terminal cols={cols} rows={rows} selected={selected} uid={uid} id={id} {...props} />
             : <_content cols={cols} rows={rows} selected={selected} uid={uid} id={id} {...props} />
         })}
