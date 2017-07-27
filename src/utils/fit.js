@@ -15,6 +15,8 @@ export default (ele, tester) => {
   const cols = Math.floor(_width / width)
 
   return {
-    rows, cols
+    rows, cols,
+    charHeight: height,
+    charWidth: width
   }
 }

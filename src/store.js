@@ -12,6 +12,8 @@ export default new class Store {
   @observable selectedTab    = 0
   @observable rows           = 0
   @observable cols           = 0
+  @observable charWidth      = 0
+  @observable charHeight     = 0
   @observable isMaximized    = false
   @observable isFocused      = false
 

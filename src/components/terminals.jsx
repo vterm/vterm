@@ -54,11 +54,14 @@ export class Terminals extends Component {
   @bind
   onResize() {
     // Calculate dimentions
-    const { cols, rows } =
+    const { cols, rows, charWidth, charHeight } =
       getDimentions(this.container, this.tester)
 
     Store.cols = cols
     Store.rows = rows
+
+    Store.charWidth  = charWidth
+    Store.charHeight = charHeight
   }
 
   // Styles for the terminl's container
@@ -105,7 +108,11 @@ export class Terminals extends Component {
     const { _tester } = this
 
     // Take values from the Store
-    const { cols, rows } = Store
+    const {
+      cols, rows,
+      charWidth,
+      charHeight
+    } = Store
 
     // Retrive custom elements and
     // custom pre/after elements
@@ -154,8 +161,27 @@ export class Terminals extends Component {
           const selected = id === Store.selectedTab
 
           return !_content
-            ? <__Terminal cols={cols} rows={rows} selected={selected} uid={uid} id={id} {...props} />
-            : <_content cols={cols} rows={rows} selected={selected} uid={uid} id={id} {...props} />
+            ? <__Terminal
+              charHeight={charHeight}
+              charWidth={charWidth}
+              cols={cols}
+              rows={rows}
+              selected={selected}
+              uid={uid}
+              id={id}
+              {...props}
+            />
+
+            : <_content
+              charHeight={charHeight}
+              charWidth={charWidth}
+              cols={cols}
+              rows={rows}
+              selected={selected}
+              uid={uid}
+              id={id}
+              {...props}
+            />
         })}
         {afterTerminals}
       </div>
