@@ -187,7 +187,7 @@ export class Terminal extends Component {
   // - Extra styles setted by the user and/ore the plugins.
   getStyles() {
     // Extract values from local class
-    const { selected } = this.props
+    const { selected, cols, rows, charHeight, charWidth } = this.props
 
     const { Terminal: userStyles }   = Store.config.styles
 
@@ -201,7 +201,14 @@ export class Terminal extends Component {
       top: 0, bottom: 0,
       right: 0, left: 0,
 
-      display: selected ? 'block' : 'none',
+      display: selected ? 'flex' : 'none',
+      alignItems: 'center',
+      justifyContent: 'center',
+
+      terminalContainer: {
+        width: cols * charWidth,
+        height: rows * charHeight
+      },
 
       // User/plugin custom styles
       ...(userStyles   || {}),
@@ -242,7 +249,7 @@ export class Terminal extends Component {
         <Shell id={id} ref={(e) => this.__shell = e}/>
         <div
           className='xterm'
-          style={{...styles, padding}}
+          style={styles.terminalContainer}
           ref={(e) => this.__term = e}
           {...terminalProps}
         />
