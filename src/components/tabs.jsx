@@ -1,5 +1,6 @@
 import { h, Component } from 'preact'
 import { observer }     from 'mobx-preact'
+import { platform }     from 'os'
 import Store            from '../store'
 
 // Import the component for the UI/UX
@@ -37,6 +38,9 @@ export class Tabs extends Component {
       ...(userStyles   || {}),
       ...(pluginStyles || {})
     }
+
+    if(platform() == 'darwin')
+      styles.marginLeft = 68
 
     return styles
   }

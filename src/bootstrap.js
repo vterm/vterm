@@ -70,9 +70,12 @@ export const boot = async () => {
 
     // 6. Tell the renderer to show the main window
     ipcRenderer.send('ready')
+
   } catch(err) {
+
     throw err
     ipcRenderer.send('bootstrap_error')
+
   }
 }
 

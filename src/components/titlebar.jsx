@@ -31,8 +31,9 @@ export class TitleBar extends Component {
   // - Extra styles setted by the user and/ore the plugins.
   getStyles() {
     // Take used values from
-    // the user's config
+    // the user's config and local class
     const { background } = Store.config
+    const { platform }   = this
 
     // Users's custom styles
     const { TitleBar: userStyles }   = Store.config.styles
@@ -45,7 +46,7 @@ export class TitleBar extends Component {
       // Relative positioning with relative
       // width and fixed height
       width: '100%',
-      height: 32,
+      height: platform == 'darwin' ? 24 : 32,
 
       // Default background or darked one
       background: color(background).darken(.25) || DARK_BACKGROUND,
@@ -117,7 +118,7 @@ export class TitleBar extends Component {
       >
         {preTitleBar}
 
-        {__WindowControls}
+        {platform !== 'darwin' ? __WindowControls : ''}
         <CreateTab platform={this.platform} />
         {__Tabs}
 

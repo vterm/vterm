@@ -11,7 +11,7 @@ app.on('ready', () => {
     width:800,
     height: 600,
     transparent: platform() == 'darwin' ? true : false,
-    frame: false
+    titleBarStyle : 'hidden'
   })
 
   win.hide()
