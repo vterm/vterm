@@ -57,9 +57,10 @@ export class Styles extends Component {
      * This is the current list:
      * - xterm default css(without 256-ansi colors)
      * - webkit custom scrollbars
+     * - global styles
      * - global transition
      * - 16bit[extensible to 256] terminal colors(either custom or default)
-     * - custom user selected styles wich can me edited by plugins
+     * - custom user selected styles wich can be edited by plugins
      */
     return <style type='text/css' dangerouslySetInnerHTML={{ __html: `
     /*
@@ -69,6 +70,17 @@ export class Styles extends Component {
 
     // Scrollbars
     ${scrollbars}
+
+    // Global custom styles
+    * {
+      text-rendering: optimizeLegibility;
+    }
+
+    @media (min-resolution: 2dppx) {
+      * {
+        text-rendering: geometricPrecision;
+      }
+    }
 
     // Globlal transitions
     * { transition: border .1s }
