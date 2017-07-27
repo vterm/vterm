@@ -1,4 +1,5 @@
 import { h, Component } from 'preact'
+import { platform }     from 'os'
 import { observer }     from 'mobx-preact'
 import { bind }         from 'decko'
 import Store            from '../store'
@@ -78,8 +79,8 @@ export class Terminals extends Component {
     const styles = {
       // Absolute positioning
       position: 'absolute',
-      top: 32, bottom: 0,
-      right: 0, left: 0,
+      top: platform() == 'darwin' ? 24 : 32,
+      bottom: 0, right: 0, left: 0,
 
       // zIndex
       zIndex: 10,
