@@ -82,7 +82,7 @@ export class Terminals extends Component {
     const styles = {
       // Absolute positioning
       position: 'absolute',
-      top: platform() == 'darwin' ? 24 : 32,
+      top: platform() == 'darwin' ? 34 : 32,
       bottom: 0, right: 0, left: 0,
 
       // zIndex

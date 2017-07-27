@@ -45,10 +45,7 @@ export class TitleBar extends Component {
       // Relative positioning with relative
       // width and fixed height
       width: '100%',
-      height: platform == 'darwin' ? 24 : 32,
-
-      // Default background or darked one
-      background: background || BACKGROUND,
+      height: platform == 'darwin' ? 34 : 32,
 
       // User/plugin custom styles
       ...(userStyles   || {}),

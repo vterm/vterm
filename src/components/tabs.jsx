@@ -40,7 +40,7 @@ export class Tabs extends Component {
     }
 
     if(platform() == 'darwin' && !Store.isMaximized)
-      styles.marginLeft = 68
+      styles.marginLeft = 76
 
     return styles
   }
