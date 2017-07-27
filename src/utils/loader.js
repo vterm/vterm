@@ -5,7 +5,6 @@ import Decko, { bind } from 'decko'
 import * as Preact     from 'preact'
 import * as Mobx       from 'mobx'
 import MobxPreact      from 'mobx-preact'
-import TinyColor       from 'tinycolor2'
 
 // YAT mdules
 import * as Notify     from '../actions/notify'
@@ -26,8 +25,7 @@ export default new class Loader {
     'preact': Preact,
     'mobx': Mobx,
     'mobx-preact': MobxPreact,
-    'decko': Decko,
-    'tinycolor2': TinyColor
+    'decko': Decko
     // NEEDS TO BE COMPLETED
   }
 
