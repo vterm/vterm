@@ -2,7 +2,6 @@ import { h, Component }    from 'preact'
 import { platform }        from 'os'
 import { observer }        from 'mobx-preact'
 import Store               from '../store'
-import color               from 'tinycolor2'
 
 // Import the components for the UI/UX
 import { Tabs }           from './tabs'
@@ -10,7 +9,7 @@ import { WindowControls } from './windowControls'
 import { CreateTab }      from './createtab'
 
 // Import defaults
-import { DARK_BACKGROUND } from '../defaults/variables'
+import { BACKGROUND } from '../defaults/variables'
 
 @observer
 export class TitleBar extends Component {
@@ -49,10 +48,7 @@ export class TitleBar extends Component {
       height: platform == 'darwin' ? 24 : 32,
 
       // Default background or darked one
-      background: color(background).darken(.25) || DARK_BACKGROUND,
-
-      // Drop shadow. Probably going to be removed sooner
-      boxShadow: '0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)',
+      background: background || BACKGROUND,
 
       // User/plugin custom styles
       ...(userStyles   || {}),
