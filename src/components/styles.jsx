@@ -72,14 +72,10 @@ export class Styles extends Component {
     ${scrollbars}
 
     // Global custom styles
-    * {
-      text-rendering: optimizeLegibility;
-    }
+    * { text-rendering: optimizeLegibility; }
 
     @media (min-resolution: 2dppx) {
-      * {
-        text-rendering: geometricPrecision;
-      }
+      * { text-rendering: geometricPrecision; }
     }
 
     // Globlal transitions

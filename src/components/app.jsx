@@ -9,7 +9,8 @@ import { Terminals }          from './terminals'
 // Import defaults
 import {
   FONT_FAMILY, FONT_SIZE,
-  BACKGROUND, BORDER_RADIUS } from '../defaults/variables'
+  BACKGROUND, BORDER_RADIUS,
+  PRIMARY_COLOR             } from '../defaults/variables'
 
 @observer
 export class App extends Component {
@@ -29,7 +30,8 @@ export class App extends Component {
   getStyles() {
     const {
       fontFamily, fontSize,
-      borderRadius, background
+      borderRadius, background,
+      borderColor
     } = Store.config
 
     const { App: userStyles }   = Store.config.styles
@@ -49,8 +51,9 @@ export class App extends Component {
       fontFamily: fontFamily || FONT_FAMILY,
       fontSize:   fontSize   || FONT_SIZE,
 
-      // Border radius and backgorund
+      // Border radius, color and backgorund
       borderRadius: borderRadius || BORDER_RADIUS,
+      border: `1px solid ${borderColor || PRIMARY_COLOR}`,
       background:   background   || BACKGROUND,
 
       // User/plugin custom styles
