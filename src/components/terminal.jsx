@@ -18,15 +18,14 @@ export class Terminal extends Component {
   shell = null
 
   // When the component recives new props
-  // and is selected we resize and focus it!
+  // and is selected we resize it!
   @bind
   componentWillReceiveProps({ selected, cols, rows }) {
     const { terminal } = this
 
     if(selected)
-      // Resize the terminal and focus it
+      // Resize the terminal
       terminal.resize(cols, rows)
-      terminal.focus()
   }
 
   // Re render only if the selected tab changed
@@ -97,7 +96,7 @@ export class Terminal extends Component {
 
     // Lastly open the terminal
     // Set autofocus to true for future-proofness
-    // plannings fro version 3.0
+    // plannings for version 3.0
     terminal.open(this.__term, true)
 
     // Immediatly force the terminal to find

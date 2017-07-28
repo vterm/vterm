@@ -15,11 +15,11 @@ export const createTab = ({ title, content, customProps } = {}) => {
 
 export const getTabId = (Tab) => Store.tabs.indexOf(Tab)
 
-export const selectTab = (item) => {
-
-  if(typeof item == 'object') Store.selectedTab = item.id
-  else                        Store.selectedTab = item
-
+export const selectTab = (id) => {
+  Store.selectedTab = id
+  
+  if(Store.tabs[id].terminal)
+    Store.tabs[id].terminal.focus()
 }
 
 export const getLatestTab = () => Store.tabs.filter(Boolean)[ Store.tabs.filter(Boolean).length - 1 ]
