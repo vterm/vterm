@@ -6,11 +6,10 @@ import { observer }         from 'mobx-preact'
 import XTerminal            from 'xterm'
 
 // Styles and components
-import absoluteFill         from '../styles/absoluteFill'
 import Store                from '../store'
 import { removeTab }        from '../actions/tabs'
 import { isEmpty, isBlank } from '../utils/strings'
-import { grey }             from '../styles/colors'
+import { grey }             from '../defaults/colors'
 import { red, green, cyan } from 'chalk'
 
 export class TerminalError extends Component {

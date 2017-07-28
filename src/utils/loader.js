@@ -10,7 +10,7 @@ import MobxPreact      from 'mobx-preact'
 import * as Notify     from '../actions/notify'
 import * as Tabs       from '../actions/tabs'
 import * as Window     from '../actions/window'
-import * as Colors     from '../styles/colors'
+import * as Colors     from '../defaults/colors'
 import * as Extend     from '../extend'
 
 import Store           from '../store'

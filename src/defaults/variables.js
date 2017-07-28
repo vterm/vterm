@@ -1,6 +1,6 @@
 import { homedir }     from 'os'
 import { join }        from 'path'
-import { grey, white } from '../styles/colors'
+import { grey, white } from '../defaults/colors'
 
 // Global default font
 export const FONT_FAMILY   = `

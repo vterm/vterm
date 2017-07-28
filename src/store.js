@@ -3,7 +3,7 @@ import { observable }  from 'mobx'
 import { remote }      from 'electron'
 
 import Config          from './config'
-import { Colors }      from './defaults/colors'
+import { Colors }      from './defaults/colorPalette'
 import { mergeArrays } from './utils/arrays'
 
 export default new class Store {
