@@ -35,7 +35,7 @@ export class Tab extends Component {
   //   - flexBasis      = Use all the remaning space
   //   - justifyContent = separate the items from the
   //                      central titlebar
-  //   - alignItems TODO MAYBE
+  //   - alignItems     = align items to the center
   //
   // The <span /> where the shell title lives in
   // Title:
@@ -61,11 +61,12 @@ export class Tab extends Component {
   // - Extra styles setted by the user and/ore the plugins.
 
   getStyles() {
-    // Extract values from props, state
+    // Extract values from props, state, Store
     // and other methods
-    const { selected } = this.props
-    const { hover }    = this.state
-    const length       = this.getTabs().length
+    const { selected }   = this.props
+    const { hover }      = this.state
+    const { foreground } = Store.config
+    const length         = this.getTabs().length
 
     const { Tab: userStyles }   = Store.config.styles
 
@@ -91,6 +92,7 @@ export class Tab extends Component {
         position: 'relative',
         maxWidth: '100%',
         left: '50%',
+        transform: 'translateX(-50%)',
 
         // Cursor as a pointer, no overflow
         // and no webkit drag region
