@@ -28,7 +28,6 @@ export const createTab = object => {
 
 
 export const selectTab = id => {
-  console.log('selecting', id, 'cause of', new Error().stack);
   // Change the selectedTab reference in the store
   Store.selectedTab = id
 
@@ -47,7 +46,7 @@ export const focusTab = id =>
   // temrinal object are set
   Store.tabs[id] && Store.tabs[id].terminal
     ? Store.tabs[id].terminal.focus()
-    : console.log('not yet terminal setup')
+    : null
 
 
 // Return the last tab in the array
