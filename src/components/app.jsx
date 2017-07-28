@@ -10,7 +10,7 @@ import { Terminals }          from './terminals'
 import {
   FONT_FAMILY, FONT_SIZE,
   BACKGROUND, BORDER_RADIUS,
-  PRIMARY_COLOR             } from '../defaults/variables'
+  BORDER_COLOR              } from '../defaults/variables'
 
 @observer
 export class App extends Component {
@@ -53,7 +53,7 @@ export class App extends Component {
 
       // Border radius, color and backgorund
       borderRadius: borderRadius || BORDER_RADIUS,
-      border: `1px solid ${borderColor || PRIMARY_COLOR}`,
+      border: `1px solid ${borderColor || BORDER_COLOR}`,
       background:   background   || BACKGROUND,
 
       // User/plugin custom styles
