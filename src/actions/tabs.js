@@ -79,10 +79,8 @@ export const removeTab = id => {
   // the one just removed was the
   // selected one
   if(id == _latest) {
-    console.log('here1');
     setTimeout( selectTab(getLatestTab()), 10)
   } else {
-    console.log('here2', id, _latest);
     setTimeout( focusTab(Store.selectTab), 10)
   }
 }
