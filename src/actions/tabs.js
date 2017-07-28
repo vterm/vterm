@@ -1,38 +1,89 @@
 import Store from '../store'
 
-export const createTab = ({ title, content, customProps } = {}) => {
-  let Tab = {
-    id: Store.tabs.length,
-    props: customProps,
-    uid: Date.now() + Math.random(100),
-    title: title || '',
+// This function adds a tab to the store
+// And returns the relative tab just created
+export const createTab = object => {
+  // Extract values from the first argument
+  const { title, props, content } = object
+
+  // Take values from the store
+  const id = Store.tabs.length
+
+  // Construct the tab object
+  const tab = {
+    id, props,
+    title:   title   || '',
     content: content || null
   }
 
-  Store.tabs.push(Tab)
-  selectTab(Store.tabs.length - 1)
+  // Push the tab in the store
+  Store.tabs.push(tab)
+
+  // Select it
+  selectTab(id)
+
+  // Return the created tab
+  return tab
 }
 
-export const getTabId = (Tab) => Store.tabs.indexOf(Tab)
 
-export const selectTab = (id) => {
+export const selectTab = id => {
+  console.log('selecting', id, 'cause of', new Error().stack);
+  // Change the selectedTab reference in the store
   Store.selectedTab = id
-  
-  if(Store.tabs[id].terminal)
-    Store.tabs[id].terminal.focus()
+
+  // Focus the terminal
+  // TODO: Split this in a separate file
+  //       with all the temrinal functions
+  focusTab(id)
 }
 
-export const getLatestTab = () => Store.tabs.filter(Boolean)[ Store.tabs.filter(Boolean).length - 1 ]
 
-export const removeTab = (item) => {
+// Focuses the terminal object inside of
+// the tab defined by the id parameter
+export const focusTab = id =>
 
-  if(typeof item == 'object') {
-    Store.tabs[getTabId(item)] = undefined
+  // Only focuses if the tab and the
+  // temrinal object are set
+  Store.tabs[id] && Store.tabs[id].terminal
+    ? Store.tabs[id].terminal.focus()
+    : console.log('not yet terminal setup')
+
+
+// Return the last tab in the array
+export const getLatestTab = () => {
+  const _tabs   = Store.tabs.filter(Boolean)
+  const _length = _tabs.length - 1
+
+  console.log(_length);
+
+  // If length == 0 means that
+  // there is not latest tab
+  return _length + 1
+    ? _tabs[_length]['id']
+    : null
+}
+
+// Returns the selected tab id
+export const getSelectedTab = () => Store.selectedTab
+
+
+export const removeTab = id => {
+  // BEFORE_REMOVING current selected tab
+  const _latest = getSelectedTab()
+
+  // Clear the tab object to undefined
+  // so it isn't rendered anymore
+  Store.tabs[id] = undefined
+
+  // Select the latest tab only if
+  // the one just removed was the
+  // selected one
+  if(id == _latest) {
+    console.log('here1');
+    setTimeout( selectTab(getLatestTab()), 10)
   } else {
-    Store.tabs[item] = undefined
+    console.log('here2', id, _latest);
+    setTimeout( focusTab(Store.selectTab), 10)
   }
-
-  // Select lastest tab ONLY IF this was the latest
-  setTimeout(() => selectTab(getLatestTab()), 10)
-
 }

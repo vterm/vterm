@@ -137,7 +137,12 @@ export class Tab extends Component {
 
   // Closes the clicked tab
   @bind
-  onClose() {
+  onClose(e) {
+    // Prevent the event to be passed
+    // to onFocus
+    e.stopPropagation()
+
+    // Remove the tab
     removeTab(this.props.id)
   }
 
