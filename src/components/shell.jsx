@@ -32,12 +32,6 @@ export class Shell extends Component {
       spawn(shell, args.peek(), options)
   }
 
-  // Kill the pty when the component gets unmounted
-  // = the tab gets closed
-  componentWillUnmount() {
-    this.shell.kill()
-  }
-
   // Rreturns the shell located in the
   // local class.
   @bind
