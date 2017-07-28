@@ -7,12 +7,9 @@ import TERMINAL          from 'xterm'
 import { Shell }         from './shell'
 
 // Costants, utils and actions
-import {
-  PRIMARY_COLOR,
-  PADDING
-}                       from '../defaults/variables'
-import { isEmptyBlank } from '../utils/strings'
-import { removeTab }    from '../actions/tabs'
+import { PADDING }       from '../defaults/variables'
+import { isEmptyBlank }  from '../utils/strings'
+import { removeTab }     from '../actions/tabs'
 
 export class Terminal extends Component {
   shell = null

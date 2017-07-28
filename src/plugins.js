@@ -7,7 +7,7 @@ import { isEmptyBlank } from './utils/strings'
 
 // Import the store and a path
 import Store            from './store'
-import { plugins }      from './paths'
+import { PLUGINS }      from './defaults/variables'
 
 export default new class Plugins {
   // Plugins list, will contain:
@@ -23,7 +23,7 @@ export default new class Plugins {
   // `plugins` folder is a directory
   async isDir(_path) {
     const { lstat } = Files
-    const path      = join(plugins, _path)
+    const path      = join(PLUGINS, _path)
 
     const stats     = await lstat(path)
     return stats.isDirectory()
@@ -51,8 +51,8 @@ export default new class Plugins {
 
     // Check if the plugin folder exists
     // Related to #11
-    const exists    = await _stat(plugins)
-    if(!exists)       await mkdir(plugins)
+    const exists    = await _stat(PLUGINS)
+    if(!exists)       await mkdir(PLUGINS)
 
     // Add dirs inside of the `plugins` folder
     const _plugins = getPlugins()
@@ -61,8 +61,7 @@ export default new class Plugins {
     for (let i = 0; i < _plugins.length; i++) {
       // Generate require path
       const name   = _plugins[i]
-      const path   = join(plugins, name)
-      const plugin = null
+      const path   = join(PLUGINS, name)
 
       // Require the module with the loader
       //

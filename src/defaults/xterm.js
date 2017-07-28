@@ -1,13 +1,12 @@
 import Store             from '../store'
-import { grey }          from '../styles/colors'
-import { PRIMARY_COLOR } from './variables'
+import { grey }          from '../defaults/colors'
+import { BORDER_COLOR }  from './variables'
 
 const { cursorColor, primaryColor } = Store.config
 
 export default `
 .terminal {
   background-color: transparent;
-  color: #fff;
   font-feature-settings: "liga" 0;
   position: relative;
   user-select: none;
@@ -59,12 +58,12 @@ export default `
 }
 
 .terminal.focus:not(.xterm-cursor-style-underline):not(.xterm-cursor-style-bar) .terminal-cursor {
-  background-color: ${cursorColor || primaryColor || PRIMARY_COLOR};
+  background-color: ${cursorColor || primaryColor || BORDER_COLOR};
   color: #000;
 }
 
 .terminal:not(.focus) .terminal-cursor {
-  outline: 1px solid ${cursorColor || primaryColor || PRIMARY_COLOR};
+  outline: 1px solid ${cursorColor || primaryColor || BORDER_COLOR};
   outline-offset: -1px;
   background-color: transparent;
 }
@@ -83,7 +82,7 @@ export default `
   content: "";
   display: block;
   position: absolute;
-  background-color: ${cursorColor || primaryColor || PRIMARY_COLOR};
+  background-color: ${cursorColor || primaryColor || BORDER_COLOR};
 }
 .terminal.focus.xterm-cursor-style-bar .terminal-cursor::before {
   top: 0;
@@ -103,7 +102,7 @@ export default `
 }
 .terminal.xterm-cursor-style-bar.focus.xterm-cursor-blink .terminal-cursor::before,
 .terminal.xterm-cursor-style-underline.focus.xterm-cursor-blink .terminal-cursor::before {
-  background-color: ${cursorColor || primaryColor || PRIMARY_COLOR};
+  background-color: ${cursorColor || primaryColor || BORDER_COLOR};
 }
 
 .terminal .composition-view {
@@ -167,7 +166,7 @@ export default `
 
 .terminal .xterm-selection div {
   position: absolute;
-  background-color: ${cursorColor || primaryColor || PRIMARY_COLOR};;
+  background-color: ${cursorColor || primaryColor || BORDER_COLOR};;
 }
 
 

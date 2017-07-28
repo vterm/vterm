@@ -3,12 +3,15 @@ import { observer }     from 'mobx-preact'
 import { bind }         from 'decko'
 import Store            from '../store'
 
-// Import actions
-import { selectTab, removeTab } from '../actions/tabs'
+// Import actions and utils
+import {
+  selectTab,
+  removeTab }           from '../actions/tabs'
+import lighten          from '../utils/lighten'
 
 // Import defaults
 import {
-  PRIMARY_COLOR,
+  FOREGROUND,
   LIGHT_COLOR } from '../defaults/variables'
 
 @observer
@@ -101,7 +104,9 @@ export class Tab extends Component {
         WebkitAppRegion: 'no-drag',
 
         // Color of the text
-        color: selected ? LIGHT_COLOR : PRIMARY_COLOR
+        color: selected
+          ? lighten(foreground, .5) || LIGHT_COLOR
+          : foreground              || FOREGROUND
       },
 
       Close: {
@@ -137,7 +142,12 @@ export class Tab extends Component {
 
   // Closes the clicked tab
   @bind
-  onClose() {
+  onClose(e) {
+    // Prevent the event to be passed
+    // to onFocus
+    e.stopPropagation()
+
+    // Remove the tab
     removeTab(this.props.id)
   }
 
@@ -168,7 +178,10 @@ export class Tab extends Component {
 
   render({ id, uid, selected, title }) {
     // Retrivecustom pre/after elements
+    // and custom foreground color
     const { preTab, afterTab } = Store.elements
+    const { foreground } = Store.config
+
 
     // Extract methods from the local class
     const {
@@ -214,7 +227,10 @@ export class Tab extends Component {
             style={{ width: 8, height: 8 }}
           >
             <polygon
-              fill={selected ? LIGHT_COLOR : PRIMARY_COLOR}
+              fill={selected
+                ? lighten(foreground, .5) || LIGHT_COLOR
+                : foreground              || FOREGROUND
+              }
               points='10.2,0.7 9.5,0 5.1,4.4 0.7,0 0,0.7 4.4,5.1 0,9.5 0.7,10.2 5.1,5.8 9.5,10.2 10.2,9.5 5.8,5.1 '
             />
           </svg>

@@ -1,5 +1,5 @@
 import Store from '../store'
-import { grey } from '../styles/colors'
+import { grey } from '../defaults/colors'
 
 export default `
   div::-webkit-scrollbar-track {
