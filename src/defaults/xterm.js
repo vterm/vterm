@@ -7,7 +7,6 @@ const { cursorColor, primaryColor } = Store.config
 export default `
 .terminal {
   background-color: transparent;
-  color: #fff;
   font-feature-settings: "liga" 0;
   position: relative;
   user-select: none;

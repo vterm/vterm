@@ -10,7 +10,7 @@ import { Terminals }          from './terminals'
 import {
   FONT_FAMILY, FONT_SIZE,
   BACKGROUND, BORDER_RADIUS,
-  BORDER_COLOR              } from '../defaults/variables'
+  BORDER_COLOR, FOREGROUND  } from '../defaults/variables'
 
 @observer
 export class App extends Component {
@@ -21,8 +21,9 @@ export class App extends Component {
   //   white(windows and linux) space
   // - Using fontFamily and fontSize used in the WHOLE App
   //   Check for user's config otherwhise using default ones.
-  // - Using borderRadius and background values from the config
-  //   otherwhise using default.
+  // - Using borderRadius, border and background values from the config
+  //   otherwhise using default. Also setting foreground for the app
+  //   and the terminal
   //   NOTE: On macos the borderRadius is overwritten by the
   //   system if it's less or equal than 6
   // - Extra styles setted by the user and/ore the plugins.
@@ -31,7 +32,7 @@ export class App extends Component {
     const {
       fontFamily, fontSize,
       borderRadius, background,
-      borderColor
+      borderColor, foreground
     } = Store.config
 
     const { App: userStyles }   = Store.config.styles
@@ -55,6 +56,7 @@ export class App extends Component {
       borderRadius: borderRadius || BORDER_RADIUS,
       border: `1px solid ${borderColor || BORDER_COLOR}`,
       background:   background   || BACKGROUND,
+      color: foreground || FOREGROUND,
 
       // User/plugin custom styles
       ...(userStyles   || {}),

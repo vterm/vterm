@@ -1,8 +1,9 @@
 import { h, Component }  from 'preact'
 import Store             from '../store'
 
-// Import actions
+// Import actions and utils
 import { createTab }     from '../actions/tabs'
+import lighten          from '../utils/lighten'
 
 // Import defaults
 import { LIGHT_COLOR } from '../defaults/variables'
@@ -26,7 +27,7 @@ export class CreateTab extends Component {
 
     const {
       CreateTab: userStyles
-    }   = Store.config.styles
+    } = Store.config.styles
 
     // Plugin styles
     const {
@@ -60,10 +61,14 @@ export class CreateTab extends Component {
   // - Default <div /> used as container
   //   - plugin sign <svg />
   render() {
-    // Retriving custom props and our styles
+    // Retriving custom props, styles
+    // and foreground value from the store
     const {
       createTab: createTabProps
     } = Store.props
+
+    const { foreground } = Store.config
+
     const styles = this.getStyles()
 
     return(
@@ -73,7 +78,7 @@ export class CreateTab extends Component {
         {...createTabProps}
       >
         <svg
-          fill={LIGHT_COLOR}
+          fill={lighten(foreground, .5) || LIGHT_COLOR}
           viewBox="0 0 24 24"
           style={{
             height: 16,
