@@ -51,8 +51,6 @@ let config = {
 if(process.env.NODE_ENV == 'production') {
 	config.plugins.push(new BabiliPlugin())
 } else {
-	config.externals['babel-core'] = 'commonjs babel-core'
-	config.externals['babylon']    = 'commonjs babylon'
 	config.devtool = 'inline-source-map'
 }
 
