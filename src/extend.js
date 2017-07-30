@@ -5,7 +5,7 @@ import Store          from './store'
 import { observable } from 'mobx'
 import { isArray }    from 'isarray'
 /**
- * Decorate Yat elements or even replace them
+ * Decorate VTerm elements or even replace them
  * by adding elements before/after or overwriting
  * existing ones
  *

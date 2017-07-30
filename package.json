@@ -1,5 +1,5 @@
 {
-  "name": "yat",
+  "name": "vterm",
   "version": "0.1.4",
   "description": "Yet Another Terminal, a `terminal emulator` written with the web languages of the future. Today.",
   "main": "main.js",
@@ -49,8 +49,8 @@
     "test": "echo 'No tests yet!'"
   },
   "build": {
-    "appId": "org.lucat.yat",
-    "productName": "yat",
+    "appId": "org.lucat.vterm",
+    "productName": "VTerm",
     "asar": true,
     "directories": {
       "output": "build"
@@ -59,7 +59,7 @@
       {
         "provider": "github",
         "owner": "LucaT1",
-        "repo": "yat"
+        "repo": "vterm"
       }
     ],
     "linux": {

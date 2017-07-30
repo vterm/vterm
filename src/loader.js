@@ -6,7 +6,7 @@ import * as Preact     from 'preact'
 import * as Mobx       from 'mobx'
 import MobxPreact      from 'mobx-preact'
 
-// YAT mdules
+// VTerm mdules
 import * as Notify     from '../actions/notify'
 import * as Tabs       from '../actions/tabs'
 import * as Window     from '../actions/window'
@@ -19,7 +19,7 @@ import Plugins         from '../plugins'
 
 export default new class Loader {
   // Cache storage, by default filled up with modules
-  // that YAT requires for himself and that are avaible
+  // that VTerm requires for himself and that are avaible
   // to the user.
   cached = {
     'preact': Preact,
@@ -38,17 +38,17 @@ export default new class Loader {
   // wants to use a fancy custom name, or simply avoid conflicts
   // with other npm's modules with the same name(without the prefix)
   customModules = {
-    'yat/loader': this,
-    'yat/actions': {
+    'vterm/loader': this,
+    'vterm/actions': {
       Tabs,
       Window,
       Notify
     },
-    'yat/store': Store,
-    'yat/colors': Colors,
-    'yat/config': Config,
-    'yat/plugins': Plugins,
-    'yat/extend': Extend
+    'vterm/store': Store,
+    'vterm/colors': Colors,
+    'vterm/config': Config,
+    'vterm/plugins': Plugins,
+    'vterm/extend': Extend
   }
 
   constructor() {
@@ -117,7 +117,7 @@ export default new class Loader {
   }
 
   // This is a promisified version of the commonjs
-  // `require` function, used in YAT and by external plugins
+  // `require` function, used in vterm and by external plugins
   load(module, { cache } = {}) {
     const {
       cached,

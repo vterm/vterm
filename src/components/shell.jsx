@@ -39,7 +39,7 @@ export class Shell extends Component {
     return this.shell
   }
 
-  // Render the shell of YAT; This contains:
+  // Render the shell of VTerm; This contains:
   // - An empty div just to link to this class
   //   and let the user be able to retrive
   //   the shell object.

@@ -2,7 +2,7 @@ import { join }         from 'path'
 
 // Imoprt utilities
 import Files, { _stat } from './utils/files'
-import Loader           from './utils/loader'
+import Loader           from './loader'
 import { isEmptyBlank } from './utils/strings'
 
 // Import the store and a path
@@ -27,13 +27,6 @@ export default new class Plugins {
 
     const stats     = await lstat(path)
     return stats.isDirectory()
-  }
-
-  // Check is a given name starts with `yat-`
-  // Wich is used to recognize YAT plugins
-  // from other dependencies
-  isYatPlugin(name) {
-    return name.substr(0, 4) == 'yat-'
   }
 
   getPlugins() {
