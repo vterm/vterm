@@ -38,6 +38,9 @@ export default new class Store {
     remote.getCurrentWindow().on('focus', () => this.isFocused = true )
     remote.getCurrentWindow().on('blur',  () => this.isFocused = false)
 
+    remote.getCurrentWindow().on('enter-full-screen', () => this.isMaximized = true )
+    remote.getCurrentWindow().on('leave-full-screen',  () => this.isMaximized = false)
+
 
     // Retrive from the Config class
     // if there was an error in the loading process
