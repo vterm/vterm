@@ -52,6 +52,7 @@
     "appId": "org.lucat.yat",
     "productName": "yat",
     "asar": true,
+    "extraResources": "./__yarn.js",
     "directories": {
       "output": "build"
     },
