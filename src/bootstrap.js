@@ -60,7 +60,7 @@ export const boot = async () => {
     //   show an <ErrorTerminal />
     // - Otherwise create a blank tab
     // TODO: Rewrite terminalError
-    createTab()
+    createTab({})
 
     // 6. Tell the renderer to show the main window
     ipcRenderer.send('ready')

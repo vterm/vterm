@@ -10,11 +10,11 @@ app.on('ready', () => {
   win = new BrowserWindow({
     width:800,
     height: 600,
+    show: false,
     transparent: platform() == 'darwin' ? true : false,
     titleBarStyle : 'hidden-inset'
   })
 
-  win.hide()
   win.setMenu(null)
   win.loadURL(`file://${__dirname}/dist/index.html`)
 

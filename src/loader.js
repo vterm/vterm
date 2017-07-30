@@ -7,15 +7,15 @@ import * as Mobx       from 'mobx'
 import MobxPreact      from 'mobx-preact'
 
 // VTerm mdules
-import * as Notify     from '../actions/notify'
-import * as Tabs       from '../actions/tabs'
-import * as Window     from '../actions/window'
-import * as Colors     from '../defaults/colors'
-import * as Extend     from '../extend'
+import * as Notify     from './actions/notify'
+import * as Tabs       from './actions/tabs'
+import * as Window     from './actions/window'
+import * as Colors     from './defaults/colors'
+import * as Extend     from './extend'
 
-import Store           from '../store'
-import Config          from '../config'
-import Plugins         from '../plugins'
+import Store           from './store'
+import Config          from './config'
+import Plugins         from './plugins'
 
 export default new class Loader {
   // Cache storage, by default filled up with modules
