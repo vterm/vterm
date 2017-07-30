@@ -54,8 +54,6 @@ export const getLatestTab = () => {
   const _tabs   = Store.tabs.filter(Boolean)
   const _length = _tabs.length - 1
 
-  console.log(_length);
-
   // If length == 0 means that
   // there is not latest tab
   return _length + 1
