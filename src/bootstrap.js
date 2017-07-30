@@ -6,7 +6,6 @@ import Store             from './store'
 import Plugins           from './plugins'
 
 import { App }           from './components/app'
-import { TerminalError } from './components/terminalError'
 import { createTab }     from './actions/tabs'
 
 /*
@@ -60,13 +59,8 @@ export const boot = async () => {
     // - If there is an error
     //   show an <ErrorTerminal />
     // - Otherwise create a blank tab
-    const args = Store.isError ? {
-      title: 'Error while loading configuration',
-      customProps: { error: Store.isError },
-      content: TerminalError
-    } : {}
-
-    createTab(args)
+    // TODO: Rewrite terminalError
+    createTab()
 
     // 6. Tell the renderer to show the main window
     ipcRenderer.send('ready')
