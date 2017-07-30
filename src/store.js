@@ -1,21 +1,23 @@
 import DEFAULT_SHELL   from 'default-shell'
-import { observable }  from 'mobx'
+import { observable, observe }  from 'mobx'
 import { remote }      from 'electron'
 
 import Config          from './config'
 import { Colors }      from './defaults/colorPalette'
 import { mergeArrays } from './utils/arrays'
 
+const _window = remote.getCurrentWindow()
+
 export default new class Store {
   // Empty or falsy values
   @observable tabs           = []
-  @observable selectedTab    = 0
+  @observable selectedTab    = -1
   @observable rows           = 0
   @observable cols           = 0
   @observable charWidth      = 0
   @observable charHeight     = 0
-  @observable isMaximized    = false
-  @observable isFocused      = false
+  @observable isMaximized    = _window.isFullScreen()
+  @observable isFocused      = _window.isFocused()
 
   // Config based values
   // DEFAULTS
@@ -30,16 +32,28 @@ export default new class Store {
   @observable shell          = DEFAULT_SHELL
 
   async init() {
-    // Setup window title based on selected tab
-    document.onload = () =>
-      window.title = this.tabs[this.selectedTab].title || ''
+    // Observe selected tab changes, and title of the
+    // selected tab changes, to manipualte the window's title
+    observe(this, 'selectedTab', () =>
+      observe(this.tabs[this.selectedTab], 'title', () =>
+
+        // Then on every change set the new title
+        document.title = this.tabs[this.selectedTab].title || ''
+      )
+    )
+
 
     // Setup event listeners
-    remote.getCurrentWindow().on('focus', () => this.isFocused = true )
-    remote.getCurrentWindow().on('blur',  () => this.isFocused = false)
+    _window.on('focus', () => this.isFocused = true )
+    _window.on('blur',  () => this.isFocused = false)
 
-    remote.getCurrentWindow().on('enter-full-screen', () => this.isMaximized = true )
-    remote.getCurrentWindow().on('leave-full-screen',  () => this.isMaximized = false)
+    // OSX Bindings for maximized view
+    _window.on('enter-full-screen',  () => this.isMaximized = true )
+    _window.on('leave-full-screen',  () => this.isMaximized = false)
+
+    // Other platforms Bindings
+    _window.on('maximize',    () => this.isMaximized = true )
+    _window.on('unmaximize',  () => this.isMaximized = false)
 
 
     // Retrive from the Config class
