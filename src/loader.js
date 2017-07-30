@@ -8,10 +8,22 @@ import MobxPreact      from 'mobx-preact'
 
 // VTerm mdules
 import * as Notify     from './actions/notify'
-import * as Tabs       from './actions/tabs'
+import * as _Tabs      from './actions/tabs'
 import * as Window     from './actions/window'
 import * as Colors     from './defaults/colors'
 import * as Extend     from './extend'
+
+// VTerm components
+import { App }            from './components/app'
+import { Terminals }      from './components/terminals'
+import { Terminal }       from './components/terminal'
+import { Shell }          from './components/shell'
+import { Tabs }           from './components/tabs'
+import { Tab }            from './components/tab'
+import { CreateTab }      from './components/createtab'
+import { Styles }         from './components/styles'
+import { TitleBar }       from './components/titlebar'
+import { WindowControls } from './components/windowControls'
 
 import Store           from './store'
 import Config          from './config'
@@ -22,10 +34,10 @@ export default new class Loader {
   // that VTerm requires for himself and that are avaible
   // to the user.
   cached = {
-    'preact': Preact,
-    'mobx': Mobx,
+    'preact':      Preact,
+    'mobx':        Mobx,
     'mobx-preact': MobxPreact,
-    'decko': Decko
+    'decko':       Decko
     // NEEDS TO BE COMPLETED
   }
 
@@ -38,17 +50,29 @@ export default new class Loader {
   // wants to use a fancy custom name, or simply avoid conflicts
   // with other npm's modules with the same name(without the prefix)
   customModules = {
-    'vterm/loader': this,
+    'vterm/loader':  this,
+    'vterm/store':   Store,
+    'vterm/colors':  Colors,
+    'vterm/config':  Config,
+    'vterm/plugins': Plugins,
+    'vterm/extend':  Extend,
     'vterm/actions': {
-      Tabs,
+      Tabs: _Tabs,
       Window,
       Notify
     },
-    'vterm/store': Store,
-    'vterm/colors': Colors,
-    'vterm/config': Config,
-    'vterm/plugins': Plugins,
-    'vterm/extend': Extend
+    'vterm/components': {
+      App,
+      Terminal,
+      Terminals,
+      Tab,
+      Tabs,
+      CreateTab,
+      Shell,
+      Styles,
+      TitleBar,
+      WindowControls
+    }
   }
 
   constructor() {
