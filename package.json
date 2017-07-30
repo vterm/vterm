@@ -58,7 +58,7 @@
     "publish": [
       {
         "provider": "github",
-        "owner": "LucaT1",
+        "owner": "vterm",
         "repo": "vterm"
       }
     ],
