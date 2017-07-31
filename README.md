@@ -28,3 +28,8 @@ Then install the packages with the command `yarn` and compile the app with `yarn
 MacOS:   `$ yarn run build:darwin`<br>
 Windows: `$ yarn run build:win32`<br>
 Linux:   `$ yarn run build:linux`<br>
+
+***
+
+## Credits
+@Sential - Icon of the app
