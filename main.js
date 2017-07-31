@@ -4,6 +4,7 @@ const {
   ipcMain
 } = require('electron')
 const { platform } = require('os')
+const { join }     = require('path')
 
 let win
 app.on('ready', () => {
@@ -12,7 +13,8 @@ app.on('ready', () => {
     height: 600,
     show: false,
     transparent: platform() == 'darwin' ? true : false,
-    titleBarStyle : 'hidden-inset'
+    titleBarStyle : 'hidden-inset',
+    icon: join(__dirname, 'parts', 'icon.png')
   })
 
   win.setMenu(null)

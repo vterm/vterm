@@ -53,7 +53,8 @@
     "productName": "VTerm",
     "asar": true,
     "directories": {
-      "output": "build"
+      "output": "build",
+      "buildResources": "parts"
     },
     "publish": [
       {
