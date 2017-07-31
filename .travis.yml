@@ -19,4 +19,5 @@ before_install:
 before_script: greenkeeper-lockfile-update
 after_script: greenkeeper-lockfile-upload
 script:
-  - yarn run publish-ci
+  - if [[ '$TRAVIS_OS_NAME' == 'osx'   ]] && [[ '$TRAVIS_BRANCH' == 'master' ]]; then yarn run build:darwin:p ;fi
+  - if [[ '$TRAVIS_OS_NAME' == 'linux' ]] && [[ '$TRAVIS_BRANCH' == 'master' ]]; then yarn run build:linux:p  ;fi
