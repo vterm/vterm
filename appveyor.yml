@@ -3,7 +3,7 @@ environment:
   GH_TOKEN:
     secure: lw/djYd8Dl9O9rbqhCQYzQwoh9QGhWvGO8aKihRcXIe6u9pOm2Sft6qbzZL3kS67
   matrix:
-    - nodejs_version: 8
+    - nodejs_version: '8'
 cache:
  - "%LOCALAPPDATA%\\Yarn"
 install:
