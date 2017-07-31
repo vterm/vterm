@@ -5,6 +5,9 @@ import Store          from './store'
 import { observable } from 'mobx'
 import { isArray }    from 'isarray'
 
+// This makes the decorate function
+// an actual class decorator.
+// See PR: https://github.com/vterm/vterm/pull/22
 export const decorate = (name, props = {}) =>
   (Target) => _decorate(name, Target, props)
 
