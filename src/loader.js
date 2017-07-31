@@ -103,14 +103,19 @@ export default new class Loader {
 
       // Checking if the module is
       // cached or is custom
-      if(_cached[path] || _custom[path])
+      if(_cached[path] || _custom[path]) {
         // Then return it's cached
         // or custom version!
         return _cached[path] || _custom[path]
 
-      else
-        // Return the default
-        return _load.apply(this, arguments)
+      } else {
+        // Call the default _load function, and if we
+        // recive an ES6 module we return the default value
+        const _return = _load.apply(this, arguments)
+
+        if(_return.__esModule) return _return.default
+        else                   return _return
+      }
     }
   }
 
