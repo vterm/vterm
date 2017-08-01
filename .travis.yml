@@ -14,6 +14,7 @@ addons:
       - linux-libc-dev:i386
       - linux-libc-dev
       - icnsutils
+      - graphicsmagick
 
 before_install:
   - yarn global add greenkeeper-lockfile@1
