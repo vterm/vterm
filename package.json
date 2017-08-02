@@ -1,6 +1,6 @@
 {
   "name": "vterm",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "An extensible terminal emulator written with the web languages of the future. Today.",
   "main": "main.js",
   "author": "LucaT <fromzeroluke1@gmail.com>",
