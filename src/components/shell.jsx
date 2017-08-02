@@ -1,9 +1,11 @@
 import { h, Component } from 'preact'
 import { spawn }        from 'node-pty'
 import { bind }         from 'decko'
+import Store            from '../store'
+
+// Import defaults
 import DEFAULT_SHELL    from 'default-shell'
 import { HOMEDIR }      from '../defaults/variables'
-import Store            from '../store'
 
 export class Shell extends Component {
   // This is where the shell object
@@ -30,6 +32,12 @@ export class Shell extends Component {
 
     this.shell = Store.tabs[id].shell =
       spawn(shell, args.peek(), options)
+  }
+  
+  // Kill the pty when the component gets unmounted
+  // = the tab gets closed
+  componentWillUnmount() {
+    this.shell.kill()
   }
 
   // Rreturns the shell located in the
