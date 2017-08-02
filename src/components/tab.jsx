@@ -176,7 +176,7 @@ export class Tab extends Component {
   //     - Close svg with styles differing
   //       when selected and when not
 
-  render({ id, uid, selected, title }) {
+  render({ id, selected, title }) {
     // Retrivecustom pre/after elements
     // and custom foreground color
     const { preTab, afterTab } = Store.elements
@@ -199,7 +199,6 @@ export class Tab extends Component {
 
     return(
       <div
-        uid={uid}
         id={id}
         style={styles}
         onClick={onFocus}

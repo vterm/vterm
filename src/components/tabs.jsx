@@ -86,7 +86,6 @@ export class Tabs extends Component {
           // Take values from the item
           const {
             id,
-            uid,
             title,
             props
           } = item
@@ -96,9 +95,9 @@ export class Tabs extends Component {
 
           return(
             <__Tab
-              selected={selected}
+              key={id}
               id={id}
-              uid={uid}
+              selected={selected}
               title={title}
               {...props}
             />
