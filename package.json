@@ -32,20 +32,20 @@
     "raw-loader": "0.5.1",
     "rimraf": "2.6.1",
     "webpack": "3.1.0",
-    "xterm": "2.6.0"
+    "xterm": "^2.8.1"
   },
   "scripts": {
-    "postinstall":    "electron-builder install-app-deps",
-    "start":          "cross-env NODE_ENV=development electron .",
-    "compile:watch":  "rimraf dist && webpack --watch --progress",
-    "compile:build":  "rimraf dist && cross-env NODE_ENV=production webpack --progress",
-    "build:win32":    "yarn run compile:build && electron-builder -w",
-    "build:darwin":   "yarn run compile:build && electron-builder -m",
-    "build:linux":    "yarn run compile:build && electron-builder -l",
-    "build:win32:p":  "yarn run compile:build && electron-builder -w -p onTagOrDraft",
+    "postinstall": "electron-builder install-app-deps",
+    "start": "cross-env NODE_ENV=development electron .",
+    "compile:watch": "rimraf dist && webpack --watch --progress",
+    "compile:build": "rimraf dist && cross-env NODE_ENV=production webpack --progress",
+    "build:win32": "yarn run compile:build && electron-builder -w",
+    "build:darwin": "yarn run compile:build && electron-builder -m",
+    "build:linux": "yarn run compile:build && electron-builder -l",
+    "build:win32:p": "yarn run compile:build && electron-builder -w -p onTagOrDraft",
     "build:darwin:p": "yarn run compile:build && electron-builder -m -p onTagOrDraft",
-    "build:linux:p":  "yarn run compile:build && electron-builder -l -p onTagOrDraft",
-    "test":           "echo 'No tests yet!'"
+    "build:linux:p": "yarn run compile:build && electron-builder -l -p onTagOrDraft",
+    "test": "echo 'No tests yet!'"
   },
   "build": {
     "appId": "org.vterm.vterm",
