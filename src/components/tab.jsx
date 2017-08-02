@@ -88,6 +88,7 @@ export class Tab extends Component {
       // Flexbox values
       flexBasis:  '100%',
       alignItems: 'center',
+      justifyContent: 'space-between',
 
       Title: {
         // relative positioning, maxWidth
@@ -118,7 +119,6 @@ export class Tab extends Component {
         // it float to the right
         justifyContent: 'center',
         alignItems: 'center',
-        float: 'right',
 
         // Disable window dragging
         // and add marginRight
