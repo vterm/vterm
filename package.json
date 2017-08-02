@@ -1,6 +1,6 @@
 {
   "name": "vterm",
-  "version": "0.1.4",
+  "version": "0.2.0",
   "description": "Yet Another Terminal, a `terminal emulator` written with the web languages of the future. Today.",
   "main": "main.js",
   "author": "LucaT <fromzeroluke1@gmail.com>",
@@ -76,6 +76,7 @@
           "arch": [
             "ia32",
             "x64"
+          ]
           ]
         }
       ]
