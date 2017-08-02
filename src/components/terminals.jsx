@@ -150,39 +150,42 @@ export class Terminals extends Component {
         {/* Tester element used to get charter width and height */}
         <_tester ref={({base}) => this.tester = base} />
 
-        {this.getTabs().map( item => {
-          // Take values from the item
-          const {
-            id, uid, props,
-            content: _content
-          } = item
+        <div className='terminals'>
+          {this.getTabs().map(item => {
+            // Take values from the item
+            const {
+              id,
+              props,
+              content: Content
+            } = item
 
-          // Declare if it is selected
-          const selected = id === Store.selectedTab
+            // Declare if it is selected
+            const selected = id === Store.selectedTab
 
-          return !_content
-            ? <__Terminal
-              charHeight={charHeight}
-              charWidth={charWidth}
-              cols={cols}
-              rows={rows}
-              selected={selected}
-              uid={uid}
-              id={id}
-              {...props}
-            />
+            return !Content
+              ? <__Terminal
+                key={id}
+                id={id}
+                charHeight={charHeight}
+                charWidth={charWidth}
+                cols={cols}
+                rows={rows}
+                selected={selected}
+                {...props}
+              />
 
-            : <_content
-              charHeight={charHeight}
-              charWidth={charWidth}
-              cols={cols}
-              rows={rows}
-              selected={selected}
-              uid={uid}
-              id={id}
-              {...props}
-            />
-        })}
+              : <Content
+                key={id}
+                id={id}
+                charHeight={charHeight}
+                charWidth={charWidth}
+                cols={cols}
+                rows={rows}
+                selected={selected}
+                {...props}
+              />
+          })}
+        </div>
         {afterTerminals}
       </div>
     )
