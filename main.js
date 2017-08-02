@@ -3,7 +3,6 @@ const {
   BrowserWindow,
   ipcMain
 } = require('electron')
-const { platform } = require('os')
 const { join }     = require('path')
 
 let win
@@ -13,7 +12,7 @@ app.on('ready', () => {
     height: 600,
     show: false,
     frame: false,
-    transparent: platform() == 'darwin' ? true : false,
+    transparent: true,
     titleBarStyle : 'hidden-inset',
     icon: join(__dirname, 'parts', 'icon.png')
   })
