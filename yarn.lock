@@ -3788,9 +3788,9 @@ xtend@~2.1.1:
   dependencies:
     object-keys "~0.4.0"
 
-xterm@2.8.1:
-  version "2.8.1"
-  resolved "https://registry.yarnpkg.com/xterm/-/xterm-2.8.1.tgz#3f6b939bcb8d015a1f247d66257102cb16a0b2e1"
+xterm@2.9.0:
+  version "2.9.0"
+  resolved "https://registry.yarnpkg.com/xterm/-/xterm-2.9.0.tgz#7b0c4ba00f3219ab8c8b8163686b5c66a7e5b36a"
 
 y18n@^3.2.1:
   version "3.2.1"
