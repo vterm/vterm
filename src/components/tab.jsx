@@ -7,12 +7,9 @@ import Store            from '../store'
 import {
   selectTab,
   removeTab }           from '../actions/tabs'
-import lighten          from '../utils/lighten'
 
 // Import defaults
-import {
-  FOREGROUND,
-  LIGHT_COLOR } from '../defaults/variables'
+import {FOREGROUND }    from '../defaults/variables'
 
 @observer
 export class Tab extends Component {
@@ -49,7 +46,7 @@ export class Tab extends Component {
   // - disable window dragging in the title
   // - color of the text(darker if non-selected)
   // - centred text
-  // - Color the text light is the tab is selected
+  // - Color the text light if the tab is selected
   //   otherwhise make it darker
   //
   // The <svg /> to close the tab
@@ -104,10 +101,9 @@ export class Tab extends Component {
         overflow: 'hidden',
         WebkitAppRegion: 'no-drag',
 
-        // Color of the text
-        color: selected
-          ? lighten(foreground, .5) || LIGHT_COLOR
-          : foreground              || FOREGROUND
+        // Color and opacity of the text
+        color: foreground || FOREGROUND,
+        opacity: selected ? 1 : .5
       },
 
       Close: {
@@ -226,10 +222,8 @@ export class Tab extends Component {
             style={{ width: 8, height: 8 }}
           >
             <polygon
-              fill={selected
-                ? lighten(foreground, .5) || LIGHT_COLOR
-                : foreground              || FOREGROUND
-              }
+              fill={foreground || FOREGROUND}
+              fill-opacity={selected ? 1 : .5}
               points='10.2,0.7 9.5,0 5.1,4.4 0.7,0 0,0.7 4.4,5.1 0,9.5 0.7,10.2 5.1,5.8 9.5,10.2 10.2,9.5 5.8,5.1 '
             />
           </svg>

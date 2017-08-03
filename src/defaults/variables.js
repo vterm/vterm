@@ -21,7 +21,6 @@ export const PADDING       = 8
 export const BACKGROUND    = grey[900]
 export const FOREGROUND    = grey[500]
 export const BORDER_COLOR  = grey[500]
-export const LIGHT_COLOR   = white
 
 // Directory constats:
 // - HOMEDIR = Home of the user

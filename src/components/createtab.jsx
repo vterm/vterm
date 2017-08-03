@@ -5,9 +5,6 @@ import Store             from '../store'
 import { createTab }     from '../actions/tabs'
 import lighten          from '../utils/lighten'
 
-// Import defaults
-import { LIGHT_COLOR } from '../defaults/variables'
-
 export class CreateTab extends Component {
 
   // Styles for our application
@@ -22,7 +19,7 @@ export class CreateTab extends Component {
   // - Disable user selection and user dragging
   // - Use pointer cursor
   // - Extra styles setted by the user and/ore the plugins.
-  
+
   getStyles() {
     const { platform } = this.props
 
@@ -83,7 +80,7 @@ export class CreateTab extends Component {
         {...createTabProps}
       >
         <svg
-          fill={lighten(foreground, .5) || LIGHT_COLOR}
+          fill={foreground || FOREGROUND}
           viewBox="0 0 24 24"
           style={{
             height: 16,
