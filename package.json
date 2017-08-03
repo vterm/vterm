@@ -22,7 +22,7 @@
     "decko": "1.2.0",
     "default-shell": "1.0.1",
     "electron": "1.6.11",
-    "electron-builder": "19.18.1",
+    "electron-builder": "19.19.1",
     "html-webpack-plugin": "2.30.1",
     "mobx": "3.2.2",
     "mobx-preact": "0.3.1",
