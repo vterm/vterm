@@ -11,6 +11,7 @@ import * as Notify     from './actions/notify'
 import * as _Tabs      from './actions/tabs'
 import * as Window     from './actions/window'
 import * as Colors     from './defaults/colors'
+import * as Variables  from './defaults/variables'
 import * as Extend     from './extend'
 
 // VTerm components
@@ -50,12 +51,13 @@ export default new class Loader {
   // wants to use a fancy custom name, or simply avoid conflicts
   // with other npm's modules with the same name(without the prefix)
   customModules = {
-    'vterm/loader':  this,
-    'vterm/store':   Store,
-    'vterm/colors':  Colors,
-    'vterm/config':  Config,
-    'vterm/plugins': Plugins,
-    'vterm/extend':  Extend,
+    'vterm/loader':    this,
+    'vterm/store':     Store,
+    'vterm/colors':    Colors,
+    'vterm/config':    Config,
+    'vterm/plugins':   Plugins,
+    'vterm/extend':    Extend,
+    'vterm/variables': Variables,
     'vterm/actions': {
       Tabs: _Tabs,
       Window,
