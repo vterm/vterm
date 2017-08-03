@@ -42,7 +42,8 @@ let config = {
 				removeComments: true
 			},
 			title: 'Yet Another Terminal',
-		})
+		}),
+		new webpack.optimize.ModuleConcatenationPlugin()
 	],
 
 	target: 'electron'
