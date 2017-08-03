@@ -21,7 +21,8 @@ export class CreateTab extends Component {
   // - All items to the center
   // - Disable user selection and user dragging
   // - Use pointer cursor
-
+  // - Extra styles setted by the user and/ore the plugins.
+  
   getStyles() {
     const { platform } = this.props
 
@@ -51,7 +52,11 @@ export class CreateTab extends Component {
       // Set the cursor to pointer
       userSelect: 'none',
       WebkitAppRegion: 'no-drag',
-      cursor: 'pointer'
+      cursor: 'pointer',
+
+      // User/plugin custom styles
+      ...(userStyles   || {}),
+      ...(pluginStyles || {})
     }
 
     return styles
