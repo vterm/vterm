@@ -19,7 +19,7 @@ export const PADDING       = 8
 
 // Colors constants:
 export const BACKGROUND    = grey[900]
-export const FOREGROUND    = grey[500]
+export const FOREGROUND    = white
 export const BORDER_COLOR  = grey[500]
 
 // Directory constats:
