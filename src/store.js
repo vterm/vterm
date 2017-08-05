@@ -1,19 +1,25 @@
 import {
   observable,
-  observe }            from 'mobx'
-import { remote }      from 'electron'
-import Config          from './config'
+  observe }              from 'mobx'
+import { enableLogging } from 'mobx-logger'
+import { remote }        from 'electron'
+import Config            from './config'
 
 // Import defaults
-import DEFAULT_SHELL   from 'default-shell'
-import { Colors }      from './defaults/colorPalette'
+import DEFAULT_SHELL     from 'default-shell'
+import { Colors }        from './defaults/colorPalette'
 
 // Import utils
-import { mergeArrays } from './utils/arrays'
-import { updateTitle } from './utils/title'
+import { mergeArrays }   from './utils/arrays'
+import { updateTitle }   from './utils/title'
 
 const _window = remote.getCurrentWindow()
 
+// Enables the mobx-logger module for
+// a better debugging experience with mobx
+// 
+// https://github.com/winterbe/mobx-logger
+enableLogging()
 export default new class Store {
   // Empty or falsy values
   @observable tabs           = []
