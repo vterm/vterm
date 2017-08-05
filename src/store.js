@@ -32,7 +32,7 @@ export default new class Store {
   @observable styles         = {}
   @observable props          = {}
   @observable plugins        = []
-  @observable shellArguments = []
+  @observable args           = []
   @observable customCss      = ''
   @observable terminalColors = Colors
   @observable shell          = DEFAULT_SHELL
@@ -82,10 +82,10 @@ export default new class Store {
         this.shell          = this.config.shell
 
       if(this.config.shellArguments)
-        this.shellArguments = this.config.shellArguments
+        this.args = this.config.shellArguments
 
       if(this.config.customCss)
-        this.shellArguments = this.config.css
+        this.customCss = this.config.css
 
       if(this.config.colors)
         this.terminalColors = mergeArrays(Colors, this.config.colors)
