@@ -33,7 +33,7 @@
     "raw-loader": "0.5.1",
     "rimraf": "2.6.1",
     "webpack": "3.4.1",
-    "xterm": "2.9.0"
+    "xterm": "2.9.1"
   },
   "scripts": {
     "postinstall": "electron-builder install-app-deps",
