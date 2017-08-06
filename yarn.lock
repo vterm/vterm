@@ -2562,10 +2562,6 @@ mkdirp@0.5.0:
   dependencies:
     minimist "0.0.8"
 
-mobx-logger@0.6.0:
-  version "0.6.0"
-  resolved "https://registry.yarnpkg.com/mobx-logger/-/mobx-logger-0.6.0.tgz#caa2d4a65257aa0a782d6f884e6207b834408122"
-
 mobx-preact@0.3.1:
   version "0.3.1"
   resolved "https://registry.yarnpkg.com/mobx-preact/-/mobx-preact-0.3.1.tgz#99eb9371bceb06d2c7c8f5a1b1abfb65f7da80a4"
