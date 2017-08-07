@@ -57,8 +57,6 @@ export class TitleBar extends Component {
 
   // Here we are rendering the titlebar
   // wich differs from OS to OS.
-  // NOTE: on Windows there are some bugs with the
-  //       tab's close button.
   // TODO: Fix windows titlebar bugs by separating
   //       tabs from titlebar or using electron-titlebar somehow
   //
@@ -68,8 +66,6 @@ export class TitleBar extends Component {
   // - Default <WindowControls /> or custom
   //   based on platform
   // - Default <CreateTab /> button
-  //   TODO: Give user or plugins the
-  //         ability to customize it!
   // - Default <Tabs /> list or custom
 
   render() {
