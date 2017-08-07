@@ -17,7 +17,7 @@
     "babel-preset-stage-0": "6.24.1",
     "babel-standalone": "6.25.0",
     "babili-webpack-plugin": "0.1.2",
-    "chalk": "2.0.1",
+    "chalk": "2.1.0",
     "cross-env": "5.0.3",
     "decko": "1.2.0",
     "default-shell": "1.0.1",
