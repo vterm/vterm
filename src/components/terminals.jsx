@@ -42,13 +42,13 @@ export class Terminals extends Component {
     //
     // We do also this onMount so that we have
     // a starting vlaue for cols and rows
-    window.addEventListener('resize', this.onResize)
+    window.addEventListener('resize', this.onResize, { passive: true })
     this.onResize()
   }
 
   componentWillUnmount() {
     // Removing the resize event listener
-    window.removeEventListener('resize', this.onResize)
+    window.removeEventListener('resize', this.onResize, { passive: true })
   }
 
   @bind
