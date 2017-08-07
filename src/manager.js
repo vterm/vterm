@@ -98,13 +98,9 @@ export default new class Manager {
       install
     } = this
 
-    console.log('Starting installation', new Date().getTime());
-
     // If there are some missing
     // plugins insttall them
     if(missingPlugins) await install(missingPlugins)
-
-    console.log('all plugins installed', new Date().getTime());
 
     // Then load them up!
     for (let i = 0; i < corePlugins.length; i++) {
