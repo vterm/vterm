@@ -7,7 +7,9 @@ export const YARN_EXECUTABLE = process.env.ENV == 'production'
 export const DEFAULT_ARGS = [
   '--no-emoji',
   '--json',
-  '--modules-folder plugins',
+  // Util we fix:
+  // https://github.com/vterm/vterm/issues/33
+  //'--modules-folder plugins',
   '--no-lockfile',
   '--check-files'
 ]

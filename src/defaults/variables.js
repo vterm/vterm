@@ -28,6 +28,11 @@ export const BORDER_COLOR  = grey[500]
 // - CONFIG  = Config file for vterm
 // - PLUGINS = Pluigns folder
 export const HOMEDIR = homedir()
-export const BASE    = join( HOMEDIR, '.vterm'     )
-export const CONFIG  = join( BASE,    'config.js')
-export const PLUGINS = join( BASE,    'plugins'  )
+export const BASE    = join( HOMEDIR, '.vterm'      )
+export const CONFIG  = join( BASE,    'config.js'   )
+export const PLUGINS = join( BASE,    'node_modules')
+
+// Export os-specific corePlugins List
+export const OSX_CORE_PLUGINS   = []
+export const WIN_CORE_PLUGINS   = [ 'vterm-controls-windows' ]
+export const LINUX_CORE_PLUGINS = []
