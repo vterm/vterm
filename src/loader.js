@@ -24,7 +24,6 @@ import { Tab }            from './components/tab'
 import { CreateTab }      from './components/createtab'
 import { Styles }         from './components/styles'
 import { TitleBar }       from './components/titlebar'
-import { WindowControls } from './components/windowControls'
 
 import Store           from './store'
 import Config          from './config'
@@ -72,8 +71,7 @@ export default new class Loader {
       CreateTab,
       Shell,
       Styles,
-      TitleBar,
-      WindowControls
+      TitleBar
     }
   }
 

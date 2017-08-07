@@ -5,7 +5,6 @@ import Store               from '../store'
 
 // Import the components for the UI/UX
 import { Tabs }           from './tabs'
-import { WindowControls } from './windowControls'
 import { CreateTab }      from './createtab'
 
 // Import defaults
@@ -88,10 +87,6 @@ export class TitleBar extends Component {
 
     // Determinate the components
     // we need to render
-    const __WindowControls = _WindowControls
-      ? <_WindowControls platform={this.platform} />
-      : <WindowControls  platform={this.platform} />
-
     const __Tabs = _Tabs
       ? <_Tabs />
       : <Tabs  />
@@ -107,7 +102,6 @@ export class TitleBar extends Component {
       >
         {preTitleBar}
 
-        {platform !== 'darwin' ? __WindowControls : ''}
         <CreateTab platform={this.platform} />
         {__Tabs}
 
