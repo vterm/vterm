@@ -42,7 +42,8 @@ let config = {
 				removeComments: true
 			},
 			title: 'Yet Another Terminal',
-		})
+		}),
+		new webpack.optimize.ModuleConcatenationPlugin()
 	],
 
 	target: 'electron'
@@ -50,6 +51,10 @@ let config = {
 
 if(process.env.NODE_ENV == 'production') {
 	config.plugins.push(new BabiliPlugin())
+
+	// Add source-map in production for easier
+	// error fixing in the future
+	config.devtool = 'source-map'
 } else {
 	config.devtool = 'inline-source-map'
 }

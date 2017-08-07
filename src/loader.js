@@ -6,26 +6,38 @@ import * as Preact     from 'preact'
 import * as Mobx       from 'mobx'
 import MobxPreact      from 'mobx-preact'
 
-// YAT mdules
-import * as Notify     from '../actions/notify'
-import * as Tabs       from '../actions/tabs'
-import * as Window     from '../actions/window'
-import * as Colors     from '../defaults/colors'
-import * as Extend     from '../extend'
+// VTerm mdules
+import * as Notify     from './actions/notify'
+import * as _Tabs      from './actions/tabs'
+import * as Window     from './actions/window'
+import * as Colors     from './defaults/colors'
+import * as Variables  from './defaults/variables'
+import * as Extend     from './extend'
 
-import Store           from '../store'
-import Config          from '../config'
-import Plugins         from '../plugins'
+// VTerm components
+import { App }            from './components/app'
+import { Terminals }      from './components/terminals'
+import { Terminal }       from './components/terminal'
+import { Shell }          from './components/shell'
+import { Tabs }           from './components/tabs'
+import { Tab }            from './components/tab'
+import { CreateTab }      from './components/createtab'
+import { Styles }         from './components/styles'
+import { TitleBar }       from './components/titlebar'
+
+import Store           from './store'
+import Config          from './config'
+import Plugins         from './plugins'
 
 export default new class Loader {
   // Cache storage, by default filled up with modules
-  // that YAT requires for himself and that are avaible
+  // that VTerm requires for himself and that are avaible
   // to the user.
   cached = {
-    'preact': Preact,
-    'mobx': Mobx,
+    'preact':      Preact,
+    'mobx':        Mobx,
     'mobx-preact': MobxPreact,
-    'decko': Decko
+    'decko':       Decko
     // NEEDS TO BE COMPLETED
   }
 
@@ -38,17 +50,29 @@ export default new class Loader {
   // wants to use a fancy custom name, or simply avoid conflicts
   // with other npm's modules with the same name(without the prefix)
   customModules = {
-    'yat/loader': this,
-    'yat/actions': {
-      Tabs,
+    'vterm/loader':    this,
+    'vterm/store':     Store,
+    'vterm/colors':    Colors,
+    'vterm/config':    Config,
+    'vterm/plugins':   Plugins,
+    'vterm/extend':    Extend,
+    'vterm/variables': Variables,
+    'vterm/actions': {
+      Tabs: _Tabs,
       Window,
       Notify
     },
-    'yat/store': Store,
-    'yat/colors': Colors,
-    'yat/config': Config,
-    'yat/plugins': Plugins,
-    'yat/extend': Extend
+    'vterm/components': {
+      App,
+      Terminal,
+      Terminals,
+      Tab,
+      Tabs,
+      CreateTab,
+      Shell,
+      Styles,
+      TitleBar
+    }
   }
 
   constructor() {
@@ -79,14 +103,19 @@ export default new class Loader {
 
       // Checking if the module is
       // cached or is custom
-      if(_cached[path] || _custom[path])
+      if(_cached[path] || _custom[path]) {
         // Then return it's cached
         // or custom version!
         return _cached[path] || _custom[path]
 
-      else
-        // Return the default
-        return _load.apply(this, arguments)
+      } else {
+        // Call the default _load function, and if we
+        // recive an ES6 module we return the default value
+        const _return = _load.apply(this, arguments)
+
+        if(_return.__esModule) return _return.default
+        else                   return _return
+      }
     }
   }
 
@@ -117,7 +146,7 @@ export default new class Loader {
   }
 
   // This is a promisified version of the commonjs
-  // `require` function, used in YAT and by external plugins
+  // `require` function, used in vterm and by external plugins
   load(module, { cache } = {}) {
     const {
       cached,

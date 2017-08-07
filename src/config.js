@@ -2,7 +2,7 @@ import { watchFile } from 'fs'
 
 import files, { _stat } from './utils/files'
 import defaultConfig    from './defaults/config'
-import Loader           from './utils/loader'
+import Loader           from './loader'
 import { CONFIG, BASE } from './defaults/variables'
 
 export default new class Configuration {

@@ -3,18 +3,20 @@ const {
   BrowserWindow,
   ipcMain
 } = require('electron')
-const { platform } = require('os')
+const { join }     = require('path')
 
 let win
 app.on('ready', () => {
   win = new BrowserWindow({
     width:800,
     height: 600,
-    transparent: platform() == 'darwin' ? true : false,
-    titleBarStyle : 'hidden-inset'
+    show: false,
+    frame: false,
+    transparent: true,
+    titleBarStyle : 'hidden-inset',
+    icon: join(__dirname, 'parts', 'icon.png')
   })
 
-  win.hide()
   win.setMenu(null)
   win.loadURL(`file://${__dirname}/dist/index.html`)
 

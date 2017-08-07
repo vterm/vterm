@@ -9,7 +9,7 @@ import { App }           from './components/app'
 import { createTab }     from './actions/tabs'
 
 /*
- * SEE: https://github.com/LucaT1/yat/pull/6
+ * SEE: https://github.com/vterm/vterm/pull/6
  *
  * Here we are bootstrapping the application programmatically
  * We are running preselected tasks asyncronously in order
@@ -60,7 +60,7 @@ export const boot = async () => {
     //   show an <ErrorTerminal />
     // - Otherwise create a blank tab
     // TODO: Rewrite terminalError
-    createTab()
+    createTab({})
 
     // 6. Tell the renderer to show the main window
     ipcRenderer.send('ready')

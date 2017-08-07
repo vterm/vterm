@@ -220,7 +220,7 @@ export class Terminal extends Component {
   // - Default <div /> used as xterm wrapper
   // - Custom <afterTerminal /> elements
 
-  render({ id, uid, selected, cols, rows }) {
+  render({ id, selected, cols, rows }) {
     // Retrive custom elements and
     // custom pre/after elements
     const { preTerminal, afterTerminal } = Store.elements

@@ -1,10 +1,16 @@
-import DEFAULT_SHELL   from 'default-shell'
-import { observable, observe }  from 'mobx'
-import { remote }      from 'electron'
+import {
+  observable,
+  observe }              from 'mobx'
+import { remote }        from 'electron'
+import Config            from './config'
 
-import Config          from './config'
-import { Colors }      from './defaults/colorPalette'
-import { mergeArrays } from './utils/arrays'
+// Import defaults
+import DEFAULT_SHELL     from 'default-shell'
+import { Colors }        from './defaults/colorPalette'
+
+// Import utils
+import { mergeArrays }   from './utils/arrays'
+import { updateTitle }   from './utils/title'
 
 const _window = remote.getCurrentWindow()
 
@@ -26,7 +32,7 @@ export default new class Store {
   @observable styles         = {}
   @observable props          = {}
   @observable plugins        = []
-  @observable shellArguments = []
+  @observable args           = []
   @observable customCss      = ''
   @observable terminalColors = Colors
   @observable shell          = DEFAULT_SHELL
@@ -34,14 +40,13 @@ export default new class Store {
   async init() {
     // Observe selected tab changes, and title of the
     // selected tab changes, to manipualte the window's title
-    observe(this, 'selectedTab', () =>
-      observe(this.tabs[this.selectedTab], 'title', () =>
+    observe(this, 'selectedTab', () => {
+      // Update the title when the selectedTab changes
+      updateTitle()
 
-        // Then on every change set the new title
-        document.title = this.tabs[this.selectedTab].title || ''
-      )
-    )
-
+      // Observe when the current tab changes title
+      observe(this.tabs[this.selectedTab], 'title', updateTitle)
+    })
 
     // Setup event listeners
     _window.on('focus', () => this.isFocused = true )
@@ -77,10 +82,10 @@ export default new class Store {
         this.shell          = this.config.shell
 
       if(this.config.shellArguments)
-        this.shellArguments = this.config.shellArguments
+        this.args = this.config.shellArguments
 
       if(this.config.customCss)
-        this.shellArguments = this.config.css
+        this.customCss = this.config.css
 
       if(this.config.colors)
         this.terminalColors = mergeArrays(Colors, this.config.colors)

@@ -13,10 +13,13 @@ addons:
       - g++-4.8-multilib
       - linux-libc-dev:i386
       - linux-libc-dev
+      - icnsutils
+      - graphicsmagick
 
 before_install:
   - yarn global add greenkeeper-lockfile@1
 before_script: greenkeeper-lockfile-update
 after_script: greenkeeper-lockfile-upload
 script:
-  - yarn run publish-ci
+  - if [[ "$TRAVIS_OS_NAME" == "osx"   ]] && [[ "$TRAVIS_BRANCH" == "master" ]]; then yarn run build:darwin:p ;fi
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]] && [[ "$TRAVIS_BRANCH" == "master" ]]; then yarn run build:linux:p  ;fi

@@ -66,7 +66,7 @@ export class App extends Component {
     return styles
   }
 
-  // Render the core of YAT; This contains:
+  // Render the core of VTerm; This contains:
   // - Custom <preApp /> elements
   // - Default <Titlebar /> or custom one
   // - Default <Terminals /> list or custom one

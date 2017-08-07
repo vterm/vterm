@@ -66,7 +66,7 @@ export class Styles extends Component {
     /*
      *  Default style for xterm.js
      */
-    ${xterm}
+    ${xterm()}
 
     // Scrollbars
     ${scrollbars}

@@ -1,20 +1,28 @@
-// Import the store object
+import { h }          from 'preact'
 import Store          from './store'
 
 // Import utilities
 import { observable } from 'mobx'
 import { isArray }    from 'isarray'
+
+// This makes the decorate function
+// an actual class decorator.
+// See PR: https://github.com/vterm/vterm/pull/22
+export const decorate = (name, props = {}) =>
+  (Target) => _decorate(name, Target, props)
+
 /**
- * Decorate Yat elements or even replace them
+ * Decorate VTerm elements or even replace them
  * by adding elements before/after or overwriting
  * existing ones
  *
  * @param  {string} Name of the area you're going to change,
  *                       for example `preApp`, `afterApp` or `Tab`
- * @param  {Preact element} class Preact component to decorate the UI
+ * @param  {JSX}    class Preact component to decorate the UI
  * @return {null}
  */
-export const decorate = (name, _class) => {
+export const _decorate = (name, _class, props) => {
+
   const { elements } = Store
 
   // If the element is going to precede or follow
@@ -30,8 +38,10 @@ export const decorate = (name, _class) => {
     if(!elements[name])
       Store.elements[name] = observable([])
 
-    Store.elements[name].push(_class)
+    Store.elements[name].push(<_class {...props} />)
+
   } else {
+
     // otherwhise if the element is replacing
     // one of our core ones, we simply set the
     // class to the value in the store, since our

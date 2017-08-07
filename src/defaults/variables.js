@@ -19,16 +19,15 @@ export const PADDING       = 8
 
 // Colors constants:
 export const BACKGROUND    = grey[900]
-export const FOREGROUND    = grey[500]
+export const FOREGROUND    = white
 export const BORDER_COLOR  = grey[500]
-export const LIGHT_COLOR   = white
 
 // Directory constats:
 // - HOMEDIR = Home of the user
-// - BASE    = Yat base folder
-// - CONFIG  = Config file for yat
+// - BASE    = VTerm base folder
+// - CONFIG  = Config file for vterm
 // - PLUGINS = Pluigns folder
 export const HOMEDIR = homedir()
-export const BASE    = join( HOMEDIR, '.yat'     )
+export const BASE    = join( HOMEDIR, '.vterm'     )
 export const CONFIG  = join( BASE,    'config.js')
 export const PLUGINS = join( BASE,    'plugins'  )
