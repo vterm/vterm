@@ -20,7 +20,7 @@
     "cross-env": "5.0.3",
     "decko": "1.2.0",
     "default-shell": "1.0.1",
-    "electron": "1.6.11",
+    "electron": "1.7.5",
     "electron-builder": "19.19.1",
     "fix-path": "2.1.0",
     "html-webpack-plugin": "2.30.1",
