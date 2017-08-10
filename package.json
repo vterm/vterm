@@ -31,7 +31,7 @@
     "preact": "8.2.1",
     "raw-loader": "0.5.1",
     "rimraf": "2.6.1",
-    "webpack": "3.5.2",
+    "webpack": "3.5.3",
     "xterm": "2.9.2"
   },
   "scripts": {
