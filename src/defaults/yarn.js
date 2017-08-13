@@ -1,8 +1,8 @@
 import { join } from 'path'
 
-export const YARN_EXECUTABLE = process.env.ENV == 'production'
-  ? join(process.execPath, '__yarn.js') // Production
-  : join(process.cwd(), '__yarn.js')    // Development
+export const YARN_EXECUTABLE = process.env.NODE_ENV == 'development'
+  ? join(process.cwd(),         '__yarn.js') // Development
+  : join(process.resourcesPath, '__yarn.js') // Production
 
 export const DEFAULT_ARGS = [
   '--no-emoji',
@@ -13,8 +13,3 @@ export const DEFAULT_ARGS = [
   '--no-lockfile',
   '--check-files'
 ]
-
-export const DEFAULT_ENV = {
-  ...process.env,
-  ELECTRON_RUN_AS_NODE: true
-}

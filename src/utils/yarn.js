@@ -1,12 +1,12 @@
-import { exec } from 'child_process'
-import { noop } from './noop'
+import { ipcRenderer } from 'electron'
+import { noop }        from './noop'
 
 // Import defaultss
+import { BASE } from '../defaults/variables'
 import {
-  DEFAULT_ARGS, DEFAULT_ENV,
+  DEFAULT_ARGS, 
   YARN_EXECUTABLE
 } from '../defaults/yarn'
-import { BASE } from '../defaults/variables'
 
 export default class Yarn {
   // Where an eventual error
@@ -24,7 +24,7 @@ export default class Yarn {
   stderr = noop
 
   // Default values for cmd and props
-  cmd    = ''
+  cmd    = []
   props  = {}
 
   // This functions executes yarn with a custom
@@ -47,26 +47,29 @@ export default class Yarn {
       // - Yarn default arguments like
       //   --json, --no-emoji, --modules-folder, etc
       this.cmd = [
-        YARN_EXECUTABLE,
         ...commands,
         ...DEFAULT_ARGS
-      ].join(' ')
+      ]
 
       // Setting props merging the cwd
       // for yarn to be executed in(.yat),
       // the default ENV and other custom props
-      this.props = { cwd: BASE, env: DEFAULT_ENV, ...props }
+      this.props = {
+        stdio: [ 'pipe', 'pipe', 'pipe', 'ipc' ],
+        cwd: BASE,
+        ...props
+      }
 
       // Execute the processand setup event listeners
-      this.proc = exec(this.cmd, this.props)
-      this.proc.stdout.on('data', stdout)
-      this.proc.stderr.on('data', stderr)
+      ipcRenderer.send('YARN_START', YARN_EXECUTABLE, this.cmd, this.props)
+
+      // Listen for logs
+      ipcRenderer.on('YARN_LOG', this.stdout)
+      ipcRenderer.on('YARN_ERR', this.stderr)
 
       // When the process closes, means
       // that the update has finished
-      this.proc.on('exit', resolve)
-
+      ipcRenderer.on('YARN_EXIT', resolve)
     })
-
   }
 }

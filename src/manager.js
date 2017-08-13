@@ -43,7 +43,10 @@ export default new class Manager {
   // we call this funtion to update the
   // current state with the brand new data
   @bind
-  onData(_data) {
+  onData(sender, _data) {
+    // Logging purpuses
+    console.log('Recived data:', _data)
+
     const spliced = _data.split('\n')
 
     for (let i = 0; i < spliced.length; i++) {
@@ -70,7 +73,7 @@ export default new class Manager {
   // Function called when the stderr
   // recives some data(bad sign :/)
   @bind
-  onError(data) {
+  onError(sender, data) {
     this.isError = true
     this.error   = data
   }
@@ -95,12 +98,12 @@ export default new class Manager {
     const {
       missingPlugins,
       corePlugins,
-      install
+      run
     } = this
 
     // If there are some missing
     // plugins insttall them
-    if(missingPlugins) await install(missingPlugins)
+    if(missingPlugins.length) await run('add', missingPlugins)
 
     // Then load them up!
     for (let i = 0; i < corePlugins.length; i++) {
@@ -109,32 +112,12 @@ export default new class Manager {
   }
 
   @bind
-  async install(packages) {
+  async run(action, packages) {
     const installer = new Yarn
 
     installer.stdout = this.onData
     installer.stderr = this.onError
 
-    await installer.run([ 'add', ...packages ])
-  }
-
-  @bind
-  async uninstall(packages) {
-    const installer = new Yarn
-
-    installer.stdout = this.onData
-    installer.stderr = this.onError
-
-    await installer.run([ 'remove', ...packages ])
-  }
-
-  @bind
-  async update() {
-    const installer = new Yarn
-
-    installer.stdout = this.onData
-    installer.stderr = this.onError
-
-    await installer.run([ 'update' ])
+    await installer.run([ action, ...packages ])
   }
 }
