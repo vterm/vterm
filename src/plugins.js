@@ -2,8 +2,9 @@ import { join }         from 'path'
 import { bind }         from 'decko'
 
 // Imoprt utilities
-import Files, { _stat } from './utils/files'
 import Loader           from './loader'
+import Manager          from './manager'
+import Files, { _stat } from './utils/files'
 import { isEmptyBlank } from './utils/strings'
 
 // Import the store and a path
@@ -71,7 +72,12 @@ export default new class Plugins {
   // let's keep the cache enabled
   @bind
   async load(name) {
-    const path   = join(PLUGINS, name)
+    // Install the plugin if it isn't already
+    if(!await this.exists(name))
+      await Manager.run('add', [name])
+
+    // Load it
+    const path = join(PLUGINS, name)
 
     try {
       const plugin = await Loader.load(path)
