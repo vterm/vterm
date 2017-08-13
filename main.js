@@ -22,7 +22,8 @@ app.on('ready', () => {
   win.loadURL(`file://${__dirname}/dist/index.html`)
 
   // Show devtools only if you're in development mode
-  win.webContents.openDevTools()
+  if(process.env.NODE_ENV == 'development')
+    win.webContents.openDevTools()
 
   // Create the Application's main menu
   const template = [
