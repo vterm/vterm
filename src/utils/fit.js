@@ -1,11 +1,10 @@
 import Store       from '../store'
 import { PADDING } from '../defaults/variables'
 
-export default (ele, tester) => {
+export default ({ height: __height, width: __width }, tester) => {
   const padding = Store.config.padding || PADDING
-  const style   = window.getComputedStyle(ele)
-  const _height = parseInt(style.getPropertyValue('height')) - padding * 2
-  const _width  = Math.max(0, parseInt(style.getPropertyValue('width')) - padding * 2)
+  const _height = __height - (padding * 2)
+  const _width  = __width  - (padding * 2)
 
   const { width }      = tester.getBoundingClientRect()
   tester.style.display = ''

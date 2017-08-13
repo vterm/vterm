@@ -2,6 +2,7 @@ import { h, Component } from 'preact'
 import { platform }     from 'os'
 import { observer }     from 'mobx-preact'
 import { bind }         from 'decko'
+import ResizeObserver   from 'resize-observer-polyfill'
 import Store            from '../store'
 
 // Utils
@@ -42,20 +43,18 @@ export class Terminals extends Component {
     //
     // We do also this onMount so that we have
     // a starting vlaue for cols and rows
-    window.addEventListener('resize', this.onResize, { passive: true })
-    this.onResize()
-  }
-
-  componentWillUnmount() {
-    // Removing the resize event listener
-    window.removeEventListener('resize', this.onResize, { passive: true })
+    let observer = new ResizeObserver( entries => {
+      this.onResize(entries[0].contentRect)
+    })
+    
+    observer.observe(this.container)
   }
 
   @bind
-  onResize() {
+  onResize(geometry) {
     // Calculate dimentions
     const { cols, rows, charWidth, charHeight } =
-      getDimentions(this.container, this.tester)
+      getDimentions(geometry, this.tester)
 
     Store.cols = cols
     Store.rows = rows

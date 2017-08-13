@@ -30,6 +30,7 @@
     "pify": "3.0.0",
     "preact": "8.2.1",
     "raw-loader": "0.5.1",
+    "resize-observer-polyfill": "1.4.2",
     "rimraf": "2.6.1",
     "webpack": "3.5.2",
     "xterm": "2.9.2"
