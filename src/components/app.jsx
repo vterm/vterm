@@ -49,7 +49,9 @@ export class App extends Component {
 
       // Using fontFamily and fontSize from user's config
       // otherwhise use default value
-      fontFamily: fontFamily || FONT_FAMILY,
+      fontFamily: fontFamily
+        ? fontFamily + ', ' + FONT_FAMILY
+        : FONT_FAMILY,
       fontSize:   fontSize   || FONT_SIZE,
 
       // Border radius, color and backgorund
