@@ -51,6 +51,7 @@
     "appId": "org.vterm.vterm",
     "productName": "VTerm",
     "asar": true,
+    "extraResources": "./__yarn.js",
     "directories": {
       "output": "build",
       "buildResources": "parts"

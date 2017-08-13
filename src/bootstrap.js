@@ -3,6 +3,7 @@ import { ipcRenderer }   from 'electron'
 
 import Config            from './config'
 import Store             from './store'
+import Manager           from './manager'
 import Plugins           from './plugins'
 
 import { App }           from './components/app'
@@ -43,26 +44,32 @@ export const boot = async () => {
     await Store.init()
 
     // 3. Load plugins and schedule events
+    //  - Checks for core plugins existance
+    //  - Installs them if they are missing
+    //  - Loads them
+    await Manager.loadCore()
+
+    // 4. Load plugins and schedule events
     //  - Fetch all plugins
     //  - Load all pluigns
     //  - Setup event listeners
-    await Plugins.load()
+    await Plugins.loadAll()
 
-    // 4. Render the UI
+    // 5. Render the UI
     //  - <App>
     //    - <Tabs />
     //    - <Terminals />
     //  - </App>
     render(<App />, document.body)
 
-    // 5. Open a new tab
+    // 6. Open a new tab
     // - If there is an error
     //   show an <ErrorTerminal />
     // - Otherwise create a blank tab
     // TODO: Rewrite terminalError
     createTab({})
 
-    // 6. Tell the renderer to show the main window
+    // 7. Tell the renderer to show the main window
     ipcRenderer.send('ready')
 
   } catch(err) {

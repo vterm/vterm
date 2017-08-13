@@ -1,4 +1,5 @@
 import { join }         from 'path'
+import { bind }         from 'decko'
 
 // Imoprt utilities
 import Files, { _stat } from './utils/files'
@@ -21,12 +22,15 @@ export default new class Plugins {
 
   // Check if a path inside of the
   // `plugins` folder is a directory
-  async isDir(_path) {
+  async exists(name) {
     const { lstat } = Files
-    const path      = join(PLUGINS, _path)
+    const path      = join(PLUGINS, name)
 
-    const stats     = await lstat(path)
-    return stats.isDirectory()
+    try {
+      return await lstat(path)
+    } catch (e) {
+      return false
+    }
   }
 
   getPlugins() {
@@ -37,7 +41,8 @@ export default new class Plugins {
 
   // Loops all folders inside of
   // the `plugins` path and loads them
-  async load() {
+  @bind
+  async loadAll() {
     // Extract values from the interested objects
     const { getPlugins }  = this
     const { readdir, mkdir } = Files
@@ -47,40 +52,45 @@ export default new class Plugins {
     const exists    = await _stat(PLUGINS)
     if(!exists)       await mkdir(PLUGINS)
 
-    // Add dirs inside of the `plugins` folder
+    // Get plugins list from the config
     const _plugins = getPlugins()
 
-    // For each dir inside of our plugins folder
     for (let i = 0; i < _plugins.length; i++) {
       // Generate require path
       const name   = _plugins[i]
-      const path   = join(PLUGINS, name)
 
-      // Require the module with the loader
-      //
-      // TODO: In the future creators will be able to
-      // specify arguments to give to the loader in
-      // their package.json file, but for now
-      // let's keep the cache enabled
-      try {
-        const plugin = await Loader.load(path)
+      await this.load(name)
+    }
+  }
 
-        // Push and execute the plugin
-        this.plugins.push(new plugin)
+  // Require the module with the loader
+  //
+  // TODO: In the future creators will be able to
+  // specify arguments to give to the loader in
+  // their package.json file, but for now
+  // let's keep the cache enabled
+  @bind
+  async load(name) {
+    const path   = join(PLUGINS, name)
 
-        // TODO:
-        // Schedule events
-      } catch (err) {
+    try {
+      const plugin = await Loader.load(path)
 
-        // Warn the error in the devTools
-        console.warn(
-          `Error while loading plugin ${name}, here is the trace: \n`,
-          err
-        )
-        // Otherwise push the plugin
-        // to the error array
-        this.errorPlugins.push({ name, path, err })
-      }
+      // Push and execute the plugin
+      this.plugins.push(new plugin)
+
+      // TODO:
+      // Schedule events
+    } catch (err) {
+
+      // Warn the error in the devTools
+      console.warn(
+        `Error while loading plugin ${name}, here is the trace: \n`,
+        err
+      )
+      // Otherwise push the plugin
+      // to the error array
+      this.errorPlugins.push({ name, path, err })
     }
   }
 }

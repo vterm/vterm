@@ -3,7 +3,6 @@ import Store             from '../store'
 
 // Import actions and utils
 import { createTab }     from '../actions/tabs'
-import lighten          from '../utils/lighten'
 
 export class CreateTab extends Component {
 

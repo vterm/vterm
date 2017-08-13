@@ -6,13 +6,19 @@ import * as Preact     from 'preact'
 import * as Mobx       from 'mobx'
 import MobxPreact      from 'mobx-preact'
 
+// YAT Core modules
+import Store              from './store'
+import Config             from './config'
+import Plugins            from './plugins'
+import Manager            from './manager'
+import * as Extend        from './extend'
+
 // VTerm mdules
 import * as Notify     from './actions/notify'
 import * as _Tabs      from './actions/tabs'
 import * as Window     from './actions/window'
 import * as Colors     from './defaults/colors'
 import * as Variables  from './defaults/variables'
-import * as Extend     from './extend'
 
 // VTerm components
 import { App }            from './components/app'
@@ -24,10 +30,6 @@ import { Tab }            from './components/tab'
 import { CreateTab }      from './components/createtab'
 import { Styles }         from './components/styles'
 import { TitleBar }       from './components/titlebar'
-
-import Store           from './store'
-import Config          from './config'
-import Plugins         from './plugins'
 
 export default new class Loader {
   // Cache storage, by default filled up with modules
@@ -55,6 +57,7 @@ export default new class Loader {
     'vterm/colors':    Colors,
     'vterm/config':    Config,
     'vterm/plugins':   Plugins,
+    'vterm/manager':   Manager,
     'vterm/extend':    Extend,
     'vterm/variables': Variables,
     'vterm/actions': {
