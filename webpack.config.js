@@ -3,14 +3,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const BabiliPlugin      = require("babili-webpack-plugin")
 const { join }          = require('path')
 
-let config = {
-	entry: join(__dirname, 'src', 'bootstrap'),
-
-	output: {
-		path: join(__dirname, 'dist'),
-		filename: 'bundle.js'
-	},
-
+let base = {
 	resolve: {
 		extensions: [ '.jsx', '.js', '.json', '.templ' ]
 	},
@@ -33,30 +26,50 @@ let config = {
 		'node-pty': 'commonjs node-pty'
 	},
 
-	plugins: [
-		new HtmlWebpackPlugin({
-			template: join(__dirname, 'src', 'index.html'),
-			inject: false,
-			minify: {
-				collapseWhitespace: true,
-				removeComments: true
-			},
-			title: 'Yet Another Terminal',
-		}),
-		new webpack.optimize.ModuleConcatenationPlugin()
-	],
+	plugins: []
+}
 
-	target: 'electron'
+const app = {
+  entry: join(__dirname, 'src', 'bootstrap'),
+  target: 'electron-renderer',
+
+  output: {
+    path: join(__dirname, 'dist'),
+    filename: 'bundle.js'
+  },
+
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: join(__dirname, 'src', 'index.html'),
+      inject: false,
+      minify: {
+        collapseWhitespace: true,
+        removeComments: true
+      },
+      title: 'Yet Another Terminal',
+    })
+  ],
+  devtool: 'source-map'
+}
+
+const main = {
+  entry: join(__dirname, 'main', 'index'),
+  target: 'electron-main',
+
+  output: {
+    path: join(__dirname, 'dist'),
+    filename: 'main.js'
+  }
 }
 
 if(process.env.NODE_ENV == 'production') {
-	config.plugins.push(new BabiliPlugin())
 
-	// Add source-map in production for easier
-	// error fixing in the future
-	config.devtool = 'source-map'
-} else {
-	config.devtool = 'inline-source-map'
+	base.plugins.push(new BabiliPlugin())
+  base.plugins.push(new webpack.optimize.ModuleConcatenationPlugin())
+
 }
 
-module.exports = config
+module.exports = [
+  Object.assign({}, base, app),
+  Object.assign({}, base, main)
+]
