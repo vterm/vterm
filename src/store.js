@@ -80,10 +80,7 @@ export default new class Store {
     } else {
       // If everything is Hunky Dory we can proceed
       // and fill in all config-based values
-      const config = await Config.get()
-      this.config = config
-
-      console.log(config);
+      this.config = await Config.get()
 
       // Set keys in the Store based on the config
       for (let key in this.config) {
