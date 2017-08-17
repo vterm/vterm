@@ -46,8 +46,18 @@ export class Terminals extends Component {
     let observer = new ResizeObserver( entries => {
       this.onResize(entries[0].contentRect)
     })
-    
+
     observer.observe(this.container)
+
+    // We firstly call the method with the default
+    // window height and width, assuming that the user
+    // hasn't resized it since it's invisible.
+    //
+    // Related to:
+    // https://github.com/vterm/vterm/issues/44
+    //
+    // NOTE: Temporary fix.
+    this.onResize({ width: 800, height: 600 })
   }
 
   @bind

@@ -10,7 +10,7 @@ const { join }  = require('path')
 let win
 app.on('ready', () => {
   win = new BrowserWindow({
-    width:800,
+    width: 800,
     height: 600,
     show: false,
     frame: false,
