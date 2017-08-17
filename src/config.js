@@ -1,5 +1,3 @@
-import { watchFile } from 'fs'
-
 import files, { _stat } from './utils/files'
 import defaultConfig    from './defaults/config'
 import Loader           from './loader'
@@ -8,7 +6,6 @@ import { CONFIG, BASE } from './defaults/variables'
 export default new class Configuration {
   CONFIG  = {}
   error   = null
-  watcher = null
 
   // Returns true when there's an error
   async isError() {
@@ -47,7 +44,14 @@ export default new class Configuration {
       // the store inside of the config, but at this point the storeù
       // hasn't been configured yet. So we'll need to specify
       // that inside of the config's documentation
-      const __config = await Loader.load(CONFIG, { cache: false })
+      const __config = await Loader.load(
+        CONFIG,
+        {
+          cache: false,
+          requireCache: false
+        }
+      )
+
       this.config = __config
 
     } catch (err) {
@@ -68,9 +72,5 @@ export default new class Configuration {
       // TODO: Notify the user that the
       //       config was corrupted
     }
-
-    // Setup event listener for config changes
-    if(!this.watcher)
-      this.watcher = watchFile(CONFIG, async () => await this.load())
   }
 }

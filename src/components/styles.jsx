@@ -50,7 +50,7 @@ export const getPalette = (Arr) => {
 export class Styles extends Component {
   render() {
     // Extrapolating values from store's config
-    const { customCss, terminalColors } = Store
+    const { css, colors } = Store
 
     /*
      * Here we're going to merge some default and some user-selected styles
@@ -82,13 +82,13 @@ export class Styles extends Component {
     * { transition: border .1s }
 
     // Custom color palette for the terminal
-    ${getPalette(terminalColors)}
+    ${getPalette(colors)}
 
     /*
      * User written custom css
      * This could be edited by some of your plugins
      */
-    ${customCss}
+    ${css}
     ` }} />
   }
 }

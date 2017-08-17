@@ -81,7 +81,7 @@ export default new class Loader {
   constructor() {
     // Backing up original `_load` function since we're going
     // to use this when the user requires a non-custom module
-    const _load       = Module._load
+    const _load = Module._load
 
     // Extract cache and cached from this
     const {
@@ -150,12 +150,21 @@ export default new class Loader {
 
   // This is a promisified version of the commonjs
   // `require` function, used in vterm and by external plugins
-  load(module, { cache } = {}) {
+  load(module, { cache, requireCache } = {}) {
     const {
       cached,
       isCustom,
       setUseCache
     } = this
+
+    // If the user disables the commonjs' cache
+    // we reove that module from the cache array
+    //
+    // NOTE: The interal cache is still enabled
+    if(!requireCache) {
+      const _path = window.require.resolve(module)
+      delete window.require.cache[_path]
+    }
 
     // `__cache` is the value of cache before changing
     // it for this particular request
@@ -167,6 +176,7 @@ export default new class Loader {
 
     return new Promise((resolve, reject) => {
       try {
+
         // Load the module with
         // the native require function
         const _module = window.require(module)
