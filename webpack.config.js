@@ -4,29 +4,29 @@ const BabiliPlugin      = require("babili-webpack-plugin")
 const { join }          = require('path')
 
 let base = {
-	resolve: {
-		extensions: [ '.jsx', '.js', '.json', '.templ' ]
-	},
+  resolve: {
+    extensions: [ '.jsx', '.js', '.json', '.templ' ]
+  },
 
-	module: {
-		loaders: [
-			{
-				test: /\.(js|jsx)?$/,
-				exclude: /node_modules/,
-				loader: 'babel-loader'
-			},
-			{
-				test: /\.templ/,
-				loader: 'raw-loader'
-			}
-		]
-	},
+  module: {
+    loaders: [
+      {
+        test: /\.(js|jsx)?$/,
+        exclude: /node_modules/,
+        loader: 'babel-loader'
+      },
+      {
+        test: /\.templ/,
+        loader: 'raw-loader'
+      }
+    ]
+  },
 
-	externals: {
-		'node-pty': 'commonjs node-pty'
-	},
+  externals: {
+    'node-pty': 'commonjs node-pty'
+  },
 
-	plugins: []
+  plugins: []
 }
 
 const app = {
@@ -64,7 +64,7 @@ const main = {
 
 if(process.env.NODE_ENV == 'production') {
 
-	base.plugins.push(new BabiliPlugin())
+  base.plugins.push(new BabiliPlugin())
   base.plugins.push(new webpack.optimize.ModuleConcatenationPlugin())
 
 }
