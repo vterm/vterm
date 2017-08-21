@@ -6,7 +6,7 @@
   "author": "LucaT <fromzeroluke1@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "node-pty": "0.6.10"
+    "node-pty": "0.7.0"
   },
   "devDependencies": {
     "babel-core": "6.26.0",
