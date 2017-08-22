@@ -66,15 +66,6 @@
     "linux": {
       "category": "Development",
       "target": [
-        // To be fixed:
-        // See: https://github.com/vterm/vterm/issues/59
-        // {
-        //   "target": "deb",
-        //   "arch": [
-        //     "ia32",
-        //     "x64"
-        //   ]
-        // },
         {
           "target": "AppImage",
           "arch": [
