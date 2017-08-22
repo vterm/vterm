@@ -64,6 +64,7 @@
       }
     ],
     "linux": {
+      "category": "Development",
       "target": [
         {
           "target": "deb",
