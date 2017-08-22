@@ -64,17 +64,19 @@
       }
     ],
     "linux": {
+      "category": "Development",
       "target": [
-        {
-          "target": "deb",
-          "arch": [
-            "ia32",
-            "x64"
-          ]
-        },
+        // To be fixed:
+        // See: https://github.com/vterm/vterm/issues/59
+        // {
+        //   "target": "deb",
+        //   "arch": [
+        //     "ia32",
+        //     "x64"
+        //   ]
+        // },
         {
           "target": "AppImage",
-          "category": "Development",
           "arch": [
             "ia32",
             "x64"
