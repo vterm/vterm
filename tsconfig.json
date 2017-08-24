@@ -1,0 +1,34 @@
+{
+	"compilerOptions": {
+		"target": "es6",
+    "module": "es6",
+    "moduleResolution": "node",
+		"allowJs": false,
+		"allowSyntheticDefaultImports": true,
+		"preserveConstEnums": true,
+		"sourceMap": true,
+		"noUnusedLocals": true,
+		"strictNullChecks": false,
+    "removeComments": false,
+    "experimentalDecorators": true,
+		"lib": [
+			"es6",
+			"es7",
+			"dom"
+		],
+		"types": [
+      "inferno",
+      "electron",
+      "node"
+		],
+		"jsx": "preserve"
+	},
+	"include": [
+    "src/**/*",
+    "main/**/*"
+  ],
+	"exclude": [
+		"node_modules"
+	],
+	"compileOnSave": false
+}

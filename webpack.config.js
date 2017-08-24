@@ -5,19 +5,15 @@ const { join }          = require('path')
 
 let base = {
   resolve: {
-    extensions: [ '.jsx', '.js', '.json', '.templ' ]
+    extensions: [ '.ts', '.tsx', '.js', '.json', '.templ' ]
   },
 
   module: {
     loaders: [
       {
-        test: /\.(js|jsx)?$/,
+        test: /\.(ts|tsx|js)?$/,
         exclude: /node_modules/,
-        loader: 'babel-loader'
-      },
-      {
-        test: /\.templ/,
-        loader: 'raw-loader'
+        loaders: [ 'babel-loader', 'awesome-typescript-loader' ]
       }
     ]
   },
@@ -26,7 +22,8 @@ let base = {
     'node-pty': 'commonjs node-pty'
   },
 
-  plugins: []
+  plugins: [],
+  devtool: 'source-map'
 }
 
 const app = {
@@ -48,8 +45,7 @@ const app = {
       },
       title: 'Yet Another Terminal',
     })
-  ],
-  devtool: 'source-map'
+  ]
 }
 
 const main = {
@@ -70,6 +66,6 @@ if(process.env.NODE_ENV == 'production') {
 }
 
 module.exports = [
-  Object.assign({}, base, app),
-  Object.assign({}, base, main)
+  Object.assign({}, base, main)//,
+  //Object.assign({}, base, app)
 ]
