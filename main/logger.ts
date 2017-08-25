@@ -120,10 +120,10 @@ export class Logger implements ILogger {
        * and re-map it to this function in order to add
        * the prefix to every line.
        */
-      return '\n' + message.stack
+      return message.stack
         .split('\n')
         .map(line => this.printMessage(DISPLAY_DATE, type, line))
-        .join('\n')
+        .join('')
         
 
     } else if(typeof message == 'object') {
@@ -133,7 +133,7 @@ export class Logger implements ILogger {
 
     }
 
-    return `[${DISPLAY_DATE}] [${type.toUpperCase()}] ${msg}`
+    return '\n' + `[${DISPLAY_DATE}] [${type.toUpperCase()}] ${msg}`
   }
 
   /**
