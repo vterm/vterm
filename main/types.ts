@@ -19,12 +19,3 @@ import { ILog } from './interfaces'
 export type ILogs = IObservableArray<ILog>
 export type ILogChange = IArrayChange<ILog>
 export type TMessage = string | Error | Object
-
-/**
- * The log object holding the interfaces types 
- */
-export interface ILog {
-  time: number
-  type: string
-  messages: TMessage[]
-}
