@@ -8,33 +8,13 @@
  */
 
 import { IObservableArray, IArrayChange } from 'mobx'
+import { ILog } from './interfaces'
 
-/**
- * 
- * Logger class, implementing ILogger inteface, holding
- * logs, handlers, responsible for catching logs changes,
- * sending them to the respecitve handlers and giving developers
- * the tools to log out strings and more complex values
- * 
- */
-export interface ILogger {
-  logs: IObservableArray<ILog>
-  handlers: Function[]
-
-  addListener: (handler: Function) => void
-  removeListener: (handler: Function) => void
-
-  log: (type: string, msg: TMessage[]) => number
-  trace: (msg: TMessage[]) => number
-  done: (msg: TMessage[]) => number
-  warn: (msg: TMessage[]) => number
-  error: (msg: TMessage[]) => number
-}
 
 /**
  * type of the Log object
  * type of the LogChange object
- * type of the Message value
+ * type of the Log.message property
  */
 export type ILogs = IObservableArray<ILog>
 export type ILogChange = IArrayChange<ILog>

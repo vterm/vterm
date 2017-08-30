@@ -9,10 +9,11 @@
 
 import { observable, observe } from 'mobx'
 import { bind } from 'decko'
-import { 
-  ILog, ILogger, 
-  ILogChange, TMessage 
-} from './types'
+import { ecludeCircular } from '../utils'
+
+/* Typings */
+import { ILog, ILogger } from './interfaces'
+import { TMessage, ILogChange } from './types'
 
 /**
  * 
@@ -129,7 +130,10 @@ export class Logger implements ILogger {
     } else if(typeof message == 'object') {
 
       // If it's an object/array we stringify the output
-      msg = JSON.stringify(message, null, 2)
+      return JSON.stringify(message, ecludeCircular, 2)
+        .split('\n')
+        .map(line => this.printMessage(DISPLAY_DATE, type, line))
+        .join('')
 
     }
 

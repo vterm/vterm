@@ -1,4 +1,4 @@
- /**
+/**
  * @license
  * This software is a part of VTerm, 
  * licensed under the MIT License. 
@@ -7,5 +7,11 @@
  * the repository under the LICENSE.md file 
  */
 
-import Logger from './logger'
-import Loader from './loader'
+ 
+/**
+ * Object containing a series of NodeModules 
+ * ordered by a string key value
+ */
+export interface IModulesObject {
+  [key: string]: any
+}
