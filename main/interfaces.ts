@@ -47,10 +47,6 @@ export interface ILog {
  * and most importantly the require method used to 
  */
 export interface ILoader {
-  options: ILoaderOptions
-  cached:  IModulesObject
-  custom:  IModulesObject
-
   load: (name: string, options?: ILoaderOptions) => NodeModule | any
   registerCustom: (name: string, value: NodeModule | any) => void
 }

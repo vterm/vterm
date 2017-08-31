@@ -18,7 +18,7 @@ class Loader implements ILoader {
    * Sets of options for the commonjs custom require
    * function that is defined by this class
    */
-  options: ILoaderOptions = {
+  private options: ILoaderOptions = {
     /**
      * Wheter use or not commonjs's require.cache
      */
@@ -48,13 +48,13 @@ class Loader implements ILoader {
    * By default it's filled with a list of all these modules
    * that our app uses and can be directly sent to the user
    */
-  cached: IModulesObject = DEFAULT_MODULES
+  private cached: IModulesObject = DEFAULT_MODULES
 
   /**
    * Object containing all the custom modules defined
    * with the appropriate method
    */
-  custom: IModulesObject = {}
+  private custom: IModulesObject = {}
 
 
   constructor() {
