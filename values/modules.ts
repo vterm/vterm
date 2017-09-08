@@ -6,7 +6,7 @@
  * You can find it in the root of 
  * the repository under the LICENSE.md file 
  */
-import { IModulesObject } from './types'
+import Defaults from '../main/defaults'
 
 import * as Inferno from 'inferno'
 import * as IMobx   from 'inferno-mobx'
@@ -14,12 +14,11 @@ import Component    from 'inferno-component'
 import * as Mobx    from 'mobx'
 import * as Decko   from 'decko'
 
-
-export const DEFAULT_MODULES: IModulesObject = {
+Defaults.set('DEFAULT_MODULES', {
   'inferno': Inferno,
   'inferno-component': Component,
   'inferno-mobx': IMobx,
 
   'mobx': Mobx,
   'decko': Decko
-}
+})

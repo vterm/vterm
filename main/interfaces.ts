@@ -68,3 +68,21 @@ export interface ILoaderOptions {
   putInRequireCache?: boolean
   putInLocalCache?: boolean
 }
+
+/**
+ * Interface for the sanitize module
+ */
+export interface ISanitizer {
+  exists: (path: string) => Promise<boolean>
+  isFile: (path: string) => boolean
+  isDir: (path: string) => boolean
+  sanitize: (paths: string[] ) => Promise<any>
+}
+
+/**
+ * Interfaces for the defaults class object
+ */
+export interface IDefaults {
+  get: (key: string) => any
+  set: (key: string, value: any) => void
+}

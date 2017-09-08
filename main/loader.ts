@@ -7,7 +7,11 @@
  * the repository under the LICENSE.md file 
  */
 import { Module } from 'module'
-import { DEFAULT_MODULES } from '../values/modules'
+
+// Import defaults
+import Defaults from './defaults'
+import '../values/modules'
+
 import { 
   ILoader, ILoaderOptions,
   IModulesObject
@@ -48,7 +52,7 @@ class Loader implements ILoader {
    * By default it's filled with a list of all these modules
    * that our app uses and can be directly sent to the user
    */
-  private cached: IModulesObject = DEFAULT_MODULES
+  private cached: IModulesObject = Defaults.get('DEFAULT_MODULES')
 
   /**
    * Object containing all the custom modules defined
