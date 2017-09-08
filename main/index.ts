@@ -25,11 +25,23 @@ class VTerm {
     // Make logs output to the terminal
     Logger.addListener(console.log)
     
+    /**
+     * Sanitize files and folders, recreate them 
+     * and populate with content:
+     * 
+     * - VTerm base folder(.vterm)
+     * - VTerm's config.js file
+     * - VTerm's keymap file
+     * - VTerm's plugins folder(node_modules)
+     */
     await Sanitizer.sanitize([
-      '/Users/luca/.vtermdasdsa',
       '/Users/luca/.vterm',
-      '/Users/luca/.vterm/config.js'
+      '/Users/luca/.vterm/node_modules',
+      '/Users/luca/.vterm/config.js',
+      '/Users/luca/.vterm/keymaps.js'
     ])
+
+    //
   }
 }
 
