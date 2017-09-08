@@ -7,11 +7,7 @@
  * the repository under the LICENSE.md file 
  */
 import { Module } from 'module'
-
-// Import defaults
 import Defaults from './defaults'
-import '../values/modules'
-
 import { 
   ILoader, ILoaderOptions,
   IModulesObject

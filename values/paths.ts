@@ -9,26 +9,28 @@
 import { homedir } from 'os'
 import { join } from 'path'
 
+import Defaults from '../main/defaults'
+
 /**
  * Static homedir directory
  */
-export const HOMEDIR: string = homedir()
+Defaults.set('HOMEDIR_PATH', homedir())
 
 /**
  * Root of vterm configuration, the .vterm folder
  * in the user's home path
  */
-export const BASE   : string = join(HOMEDIR, '.vterm')
+Defaults.set('BASE_PATH', join(homedir(), '.vterm'))
 
 /**
  * Config file path
  */
-export const CONFIG : string = join(BASE, 'config.js')
+Defaults.set('CONFIG_PATH', join(homedir(), '.vterm', 'config.js'))
 
 /**
  * Keymaps file path
  */
-export const KEYMAPS : string = join(BASE, 'config.js')
+Defaults.set('KEYMAPS_PATH', join(homedir(), '.vterm', 'keymaps.js'))
 
 /**
  * Folder containing plugins for vterm, will be called
@@ -36,4 +38,11 @@ export const KEYMAPS : string = join(BASE, 'config.js')
  * 
  * Tracking: https://github.com/vterm/vterm/issues/33
  */
-export const PLUGINS: string = join(BASE, 'node_modules')
+Defaults.set('PLUGINS_PATH', join(homedir(), '.vterm', 'node_modules'))
+
+Defaults.set('SANITIZE_PATHS', [
+  Defaults.get('BASE_PATH'),
+  Defaults.get('CONFIG_PATH'),
+  Defaults.get('KEYMAPS_PATH'),
+  Defaults.get('PLUGINS_PATH')
+])

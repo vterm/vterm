@@ -85,4 +85,5 @@ export interface ISanitizer {
 export interface IDefaults {
   get: (key: string) => any
   set: (key: string, value: any) => void
+  alias: (from: string, to: string) => void
 }

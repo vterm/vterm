@@ -32,4 +32,17 @@ export default new class Defaults implements IDefaults {
     
     this.store[key] = value
   }
+
+  /**
+   * Links a value from the store to another key(copy)
+   * 
+   * @param from Key of the value to aliased
+   * @param to   Key of the value to be linked to
+   */
+  public alias(from: string, to: string): void {
+    if(!this.store[from])
+      Logger.warn('The value you tried to alias doesn\'t exists. It will result in `undefined`.')
+    
+    this.store[to] = this.store[from]
+  }
 }

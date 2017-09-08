@@ -9,6 +9,10 @@
 import Logger from './logger'
 import Sanitizer from './sanitizer'
 
+// Handling defaults values
+import Defaults from './defaults'
+import '../values'
+
 /**
  * Startup:
  * 
@@ -34,12 +38,7 @@ class VTerm {
      * - VTerm's keymap file
      * - VTerm's plugins folder(node_modules)
      */
-    await Sanitizer.sanitize([
-      '/Users/luca/.vterm',
-      '/Users/luca/.vterm/node_modules',
-      '/Users/luca/.vterm/config.js',
-      '/Users/luca/.vterm/keymaps.js'
-    ])
+    await Sanitizer.sanitize(Defaults.get('SANITIZE_PATHS'))
 
     //
   }
