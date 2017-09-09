@@ -6,12 +6,13 @@
  * You can find it in the root of 
  * the repository under the LICENSE.md file 
  */
-import Logger from './logger'
-import Sanitizer from './sanitizer'
-
 // Handling defaults values
 import Defaults from './defaults'
 import '../values'
+
+import Logger from './logger'
+import Sanitizer from './sanitizer'
+import Config from './config'
 
 /**
  * Startup:
@@ -21,11 +22,10 @@ import '../values'
  */
 
 class VTerm {
-  constructor() {
-    this.bootstrap()
-  }
-
-  private async bootstrap(): Promise<any> {
+  /**
+   * Bootstraps the application
+   */
+  public async bootstrap(): Promise<any> {
     // Make logs output to the terminal
     Logger.addListener(console.log)
     
@@ -40,8 +40,8 @@ class VTerm {
      */
     await Sanitizer.sanitize(Defaults.get('SANITIZE_PATHS'))
 
-    //
+    await Config.load()
   }
 }
 
-new VTerm
+new VTerm().bootstrap()
