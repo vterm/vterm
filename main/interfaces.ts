@@ -9,6 +9,7 @@
 
 import { IObservableArray } from 'mobx'
 import { TMessage } from './types'
+import { ITheme } from 'xterm'
 
 /**
  * 
@@ -86,4 +87,54 @@ export interface IDefaults {
   get: (key: string) => any
   set: (key: string, value: any) => void
   alias: (from: string, to: string) => void
+}
+
+/**
+ * Interface for the config class object
+ * containing methods to load the config
+ * and the resulting values accessible trough
+ * the get method
+ */
+export interface IConfig {
+  config: IConfigOptions
+
+  // Getter functions
+  getConfig:  () => IConfigOptions
+  getKeymaps: () => IKeymapsOptions
+  get:  () => { 
+    config: IConfigOptions, 
+    keymaps: IKeymapsOptions 
+  }
+
+  load: () => Promise<any>
+}
+
+/**
+ * Interface listing all the configurations 
+ * options avaible to the user
+ */
+export interface IConfigOptions {
+  // Fonts options
+  fontSize?: number | string
+  fontFamily?: string
+  lineHeight?: number | string
+
+  // Border options
+  borderColor?: string
+  borderRadius?: number | string
+  borderWeight?: number | string
+
+  // Colors options
+  colors?: ITheme
+
+  /**
+   * TODO: Finish this listing
+   */
+}
+
+/**
+ * Interface for keymaps. TODO
+ */
+export interface IKeymapsOptions {
+  [key: string]: string
 }
