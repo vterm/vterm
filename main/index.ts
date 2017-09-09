@@ -40,6 +40,10 @@ class VTerm {
      */
     await Sanitizer.sanitize(Defaults.get('SANITIZE_PATHS'))
 
+    /**
+     * Loads both the config and the keymaps
+     * accessible trough the get methods.
+     */
     await Config.load()
   }
 }

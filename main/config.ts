@@ -12,7 +12,8 @@ import Loader from './loader'
 import { 
   IConfig, 
   IConfigOptions, 
-  IKeymapsOptions 
+  IKeymapsOptions,
+  ILoaderOptions
 } from './interfaces'
 
 interface ConfigStructure {
@@ -21,6 +22,13 @@ interface ConfigStructure {
 }
 
 export default new class Config implements IConfig {
+  private options: ILoaderOptions = {
+    useLocalCache: false,
+    useRequireCache: false,
+    putInLocalCache: false,
+    putInRequireCache: false
+  }
+
   /**
    * Configuration object
    */
@@ -61,10 +69,10 @@ export default new class Config implements IConfig {
    */
   public async load(): Promise<void> {
     // Load the config
-    const config = await Loader.load(Defaults.get('CONFIG_PATH'))
+    const config = await Loader.load(Defaults.get('CONFIG_PATH'), this.options)
 
     // Load the config
-    const keymaps = await Loader.load(Defaults.get('KEYMAPS_PATH'))    
+    const keymaps = await Loader.load(Defaults.get('KEYMAPS_PATH'), this.options)    
 
     // Update config
     this.config = {
