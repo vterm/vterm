@@ -37,7 +37,7 @@ class Loader implements ILoader {
     putInRequireCache: true,
 
     /**
-     * 
+     * Wheter to put the required module in the cache of the Loader
      */
     putInLocalCache: true
   }
@@ -118,13 +118,13 @@ class Loader implements ILoader {
    * @param name Name of the module you'd like to require
    * @param options Sets of ILoaderOptions that describes how the package should be resolved
    */
-  public load(name: string, options?: ILoaderOptions): NodeModule {
+  public async load(name: string, options?: ILoaderOptions): Promise<NodeModule | any> {
     // Back-up the curren options set
     const _options = this.options
 
     // Apply the new options and require the module
     this.setOptions(options || {})
-    const res = require(name)
+    const res = Module._load(name)
 
     // Cache the module
     if(this.options.putInLocalCache) {
