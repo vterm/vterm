@@ -7,7 +7,6 @@
  * the repository under the LICENSE.md file 
  */
 
-import { IObservableArray } from 'mobx'
 import { TMessage } from './types'
 import { ITheme } from 'xterm'
 
@@ -20,7 +19,7 @@ import { ITheme } from 'xterm'
  * 
  */
 export interface ILogger {
-  logs: IObservableArray<ILog>
+  logs: ILog[]
   handlers: Function[]
 
   addListener: (handler: Function) => void
@@ -137,4 +136,9 @@ export interface IConfigOptions {
  */
 export interface IKeymapsOptions {
   [key: string]: string
+}
+
+export interface IStore {
+  config: IConfigOptions
+  keymaps: IKeymapsOptions
 }

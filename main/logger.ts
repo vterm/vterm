@@ -6,14 +6,12 @@
  * You can find it in the root of 
  * the repository under the LICENSE.md file 
  */
-
-import { observable, observe } from 'mobx'
 import { bind } from 'decko'
 import { ecludeCircular } from '../utils'
 
 /* Typings */
 import { ILog, ILogger } from './interfaces'
-import { TMessage, ILogChange } from './types'
+import { TMessage } from './types'
 
 /**
  * 
@@ -24,15 +22,15 @@ import { TMessage, ILogChange } from './types'
  * 
  */
 export class Logger implements ILogger {
-  constructor() {
-    observe(this.logs, this.onChange)
-  }
+  /**
+   * Store containing all logs
+   */
+  readonly logs: ILog[] = []
 
-  // Logs' mobx store
-  readonly logs = observable([])
-
-  // Handlers array
-  readonly handlers = []
+  /**
+   * Array of listeners
+   */
+  readonly handlers: Function[] = []
 
   /**
    * 
@@ -72,7 +70,7 @@ export class Logger implements ILogger {
    * @param newValue New IArrayChange<ILog> object
    */
   @bind
-  private onChange(change: ILogChange): void {
+  private onChange(change: ILog): void {
     const parsed = this.parseLog(change)
 
     this.handlers
@@ -91,9 +89,7 @@ export class Logger implements ILogger {
    * @param index Index of the handler in the array
    */
   @bind
-  private parseLog({ object, index }: ILogChange): Array<string> {   
-    const { time, type, messages } = object[index]
-
+  private parseLog({ time, type, messages }: ILog): Array<string> {   
     /**
      * Generate the DATE; current format:
      * - Hours
@@ -153,7 +149,12 @@ export class Logger implements ILogger {
       messages: msg
     }
   
+    // Add the log
     this.logs.push(Log)
+
+    // Execute handlers
+    this.onChange(Log)
+
     return this.logs.length
   }
 

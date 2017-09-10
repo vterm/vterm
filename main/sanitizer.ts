@@ -92,7 +92,7 @@ export default new class Sanitizer implements ISanitizer {
       // If the dir/file exists we just ignore this entry
       if(exists && !isEmpty) return
 
-      Logger.trace(`${path} doesn't exists, creating...`)
+      Logger.trace(`${path} doesn't exists, creating`)
       
       // Recreate the file(with its default content) or the folder
       if(this.isFile(path)) {
